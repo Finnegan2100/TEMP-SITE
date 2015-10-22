@@ -13,11 +13,17 @@
 
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/umd/dropdown.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>   
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});
+</script>
     </head>
     <body>
         <div class="container-fluid">
-            <div class="page-header"><h1>WARM SEA ORCHARD.COM </h1>
+            <div class="page-header"><h1>WARM SEA ORCHARD.COM<small> Site of Ben Whitman Savage</small> </h1>
+          
             </div>
         <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -54,9 +60,10 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>    
-            
-        
+                    
             <div class="jumbotron"><h2>***SITE STILL IN PRODUCTION***</h2></div>
+
+       
             <img src="OrangeBen.jpg" class="img-thumbnail img-circle"/>
             <img src="github.png" class=/>
             <img src="twitter.png" class=/>
@@ -83,12 +90,22 @@
     
             </div> 
                  <p> My forte is working with the <code> &lt;canvas&gt; </code> element. I am a <b>JavaScript</b> fanatic and am up-to-date with all the neat <b> Ecmascript 6 </b> features. 
+                     
+        <div class="btn-group">
+    <h3>Languages</h3>       
+   <ul class="nav nav-pills">
+  <li class="active"><a href="#">Home</a></li>
+  <li class="active"><a href="#">Menu 1</a></li>
+  <li class="active"><a href="#">Menu 2</a></li>
+  <li class="active"><a href="#">Menu 3</a></li>
+</ul>
+</div>              
                 
                 
             </div> 
-            
+<!--                 
              <div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
+
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1">
@@ -99,8 +116,6 @@
     <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
-                 
-  <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
       <img src="http://placehold.it/1300x550">
@@ -119,7 +134,7 @@
     </div>
   </div>
 
-  <!-- Left and right controls -->
+
   <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
@@ -128,17 +143,20 @@
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>          
+</div>
+-->
 <div class="well">
     
-    <div class="well">
+
                 <div class="well inner">
                    
             <h3> GAMES </h3>
   
     
             </div> 
-            <p>I've written a number of HTML5 games spanning various genres.
+        
+
+        <p>I've written a number of HTML5 games spanning various genres. Hover over the image to expand it.</p>
                 <img src="prova.jpg" class="img-thumbnail"/>
                 <img src="ADC.png" class="img-thumbnail"/>
                 <img src="Cedarville.png" class="img-thumbnail"/>
@@ -146,9 +164,9 @@
                 <img src="Hair.png" class="img-thumbnail"/>
                 <img src="Lion.png" class="img-thumbnail"/>
                 <img src="AOF.png" class="img-thumbnail"/>
-                
-            </div> 
-            
+
+
+            </div>
         
             
         <div class="well">    
@@ -156,15 +174,13 @@
             <h3> GAME PLAYER </h3>
             </div>  
             <p> Play "Flappy Nerd" Now (Desktop Only)</p>
-            </div>    
-       <div class="well text-center container-fluid">          
+           
     <canvas id="theCanvas" width="550" height="500"> </canvas>
     <p> Flappy Nerd was created during the whole "Flappy Bird" phase.</p>        
-        </div>    
-			      
-            
-            
+        </div>   
         </div>
+            
+ 
             <div class="well">
                 <div class="well inner">
                    
@@ -178,7 +194,34 @@
                 This is the personal site of me, Ben Savage. I'm an HTML5 Game Developer.
                 This is the personal site of me, Ben Savage. I'm an HTML5 Game Developer.
             </p>
-            </div>     
+            </div>  
+        
+            
+                    <!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Contact Me</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">CONTACT INFORMATION</h4>
+      </div>
+      <div class="modal-body">
+        <p>Contact me through this system...</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div> 
+     
+            
         <script src="js/game.js"></script>  
     </body>
 </html>
