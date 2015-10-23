@@ -22,6 +22,25 @@
                 $(document).ready(function(){
                     $('[data-toggle="popover"]').popover(); 
                 });
+                
+            </script>
+            <script>
+            
+            $(function() {
+              $('a[href*=#]:not([href=#])').click(function() {
+                if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') &&
+                    location.hostname == this.hostname) {
+                  var target = $(this.hash);
+                  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                  if (target.length) {
+                    $('html,body').animate({
+                      scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                  }
+                }
+              });
+            });
             </script>
         </head>
         <body>
@@ -52,20 +71,21 @@
                 
                 <br>
                 
-                <a href="https://github.com/Finnegan2100"><img src="github.png" 
+                <a href="https://github.com/Finnegan2100"><img id="al" src="github.png" 
                     class="img-thumbnail img-responsive"/></a>
-                <a href="https://twitter.com/Benwhi"><img src="twitter.png" 
+                <a href="https://twitter.com/Benwhi"><img id="al" src="twitter.png" 
                     class="img-thumbnail img-responsive"/></a>
                 
-                <img src="facebook.png" class="img-thumbnail img-responsive"/>
-                <img src="skype.png" class="img-thumbnail img-responsive"/>
+                <img id="al" src="facebook.png" class="img-thumbnail img-responsive"/>
+                <img id="al" src="skype.png" class="img-thumbnail img-responsive"/>
                 
                 <a href="https://www.youtube.com/channel/UCuZN8F0u8eHf3dOYXbcPsfA"> 
-                    <img src="youtube.png" class="img-thumbnail img-responsive"/> </a>
+                    <img id="al" src="youtube.png" class="img-thumbnail img-responsive"/> </a>
                 <br>
+                   <a name="about"></a>  
                 <br>
                 
-                <a name="about"></a>  
+             
         <div class="well">
             <div class="well inner">
                   
@@ -86,7 +106,7 @@ I live in New York City and enjoy piano and running.
                         
                     </div> 
                     <p> My forte is working with the <code> &lt;canvas&gt; </code> element. I am a
-        <b>JavaScript</b> fanatic and am up-to-date with all the neat <b> Ecmascript 6</b> features. 
+        <b>JavaScript</b> fanatic and am up-to-date with all the neat <b> Ecmascript 6</b> features. Below is a list of the tools I work with.
                      
         <div class="btn-group">
             <h3>Languages</h3>       
@@ -146,7 +166,7 @@ I live in New York City and enjoy piano and running.
         
                 <a name="arcade"></a>  
        
-                <div class="well">    
+                <div class="well hidden-xs" >    
                     <div class="well inner">
                         
                         <h3> ARCADE </h3>
@@ -156,7 +176,7 @@ I live in New York City and enjoy piano and running.
                     <p> Play "Flappy Nerd" Now (Desktop Only)</p>
            
                     <canvas id="theCanvas" width="550" height="500"> </canvas>
-                    <p> Flappy Nerd was created during the whole "Flappy Bird" phase.</p>
+                    <p> Flappy Nerd is a game I created as an example piece for a talk on HTML5 game development.</p>
                     
                 </div>   
      
@@ -245,7 +265,8 @@ I live in New York City and enjoy piano and running.
                         </div>
                         <div class="modal-body">
                             <p>Benjamin Savage</p>
-                            <p>Finnegan2100@gmail.com</p>  
+                            <p>Finnegan2100@gmail.com</p>
+                            <p>Skype: benjamin.whitman.savage</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" 
