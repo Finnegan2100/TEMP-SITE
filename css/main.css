@@ -19,6 +19,9 @@ font-size: 20px;
 #al {
     display: inline-block;
 }
+#no {
+    cursor: default;
+}
 
 
 
