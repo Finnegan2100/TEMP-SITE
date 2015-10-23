@@ -1,0 +1,27 @@
+
+p {
+font-size: 20px;   
+}
+
+.container-fluid {
+    text-align: center;
+}
+.well .inner {
+    opacity: 0.9; /* opacity [0-1] */
+    -moz-opacity: 0.9; /* opacity [0-1] */
+    -webkit-opacity: 0.9; /* opacity [0-1] */
+    background: #c4c4c4; 
+}
+
+#ben {
+    background-color: #f00;
+}
+#al {
+    display: inline-block;
+}
+
+
+
+
+
+
