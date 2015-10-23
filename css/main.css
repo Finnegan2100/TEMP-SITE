@@ -22,7 +22,15 @@ font-size: 20px;
 #no {
     cursor: default;
 }
-
+.glyphicon {
+       color: #ddd; 
+       font-size: 28px;
+        -webkit-appearance: none;
+        outline: none;
+        border: 0;
+        background: transparent;
+        
+   }
 
 
 
