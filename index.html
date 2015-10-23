@@ -42,12 +42,12 @@ $(document).ready(function(){
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="btn-group">     
    <ul class="nav nav-tabs nav-justified">
-  <li class="active"><a href="#">ABOUT</a></li>
-  <li class="active"><a href="#">SKILLSET</a></li>
-  <li class="active"><a href="#">GAMES</a></li>
-  <li class="active"><a href="#">ARCADE</a></li>
- <li class="active"><a href="#">TUTORIALS</a></li> 
-<li class="active"><a href="#">BLOG</a></li>        
+  <li class="active"><a href="#about">ABOUT</a></li>
+  <li class="active"><a href="#skillset">SKILLSET</a></li>
+  <li class="active"><a href="#games">GAMES</a></li>
+  <li class="active"><a href="#arcade">ARCADE</a></li>
+ <li class="active"><a href="#tutorials">TUTORIALS</a></li> 
+<li class="active"><a href="#blog">BLOG</a></li>        
 </ul>
 </div> 
  
@@ -59,25 +59,31 @@ $(document).ready(function(){
        
             <img src="OrangeBen.jpg" class="img-thumbnail img-responsive"/>
         <br>
-            <img src="github.png" class="img-thumbnail img-responsive"/>
-            <img src="twitter.png" class="img-thumbnail img-responsive"/>
-            <img src="facebook.png" class="img-thumbnail img-responsive"/>
-            <img src="skype.png" class="img-thumbnail img-responsive"/>
-            <img src="youtube.png" class="img-thumbnail img-responsive"/>
-            <br>
-            <br>
             
+            <a href="https://github.com/Finnegan2100"><img src="github.png" class="img-thumbnail img-responsive"/></a>
+            <a href="https://twitter.com/Benwhi"><img src="twitter.png" class="img-thumbnail img-responsive"/></a>
+            <img src="facebook.png" class="img-thumbnail img-responsive"/>
+            
+            <img src="skype.png" class="img-thumbnail img-responsive"/>
+            
+            <a href="https://www.youtube.com/channel/UCuZN8F0u8eHf3dOYXbcPsfA"> <img src="youtube.png" class="img-thumbnail img-responsive"/> </a>
+            <br>
+            <br>
+            <a name="about"></a>  
             <div class="well">
                 <div class="well inner">
-                   
+                  
             <h3> ABOUT ME </h3>
-  
+           
     
             </div> 
-            <p>I am Ben Savage, an HTML5 game developer currently residing in New York City. I've been making games for 6-7 years now 
+                <p>Hi, I'm Ben. Before switching to HTML5 I worked on a number of games in Flash. I've given talks on HTML5 Game development at <b>Microsoft</b>, written tutorials for <b>Intel</b> and my latest position was HTML5 Game Developer and Technical Coordinator at <b>Sesame Street</b>. 
+                    
+I live in New York City and enjoy piano and running.                  
+                
             </p>
             </div> 
-            
+            <a name="skillset"></a>  
              <div class="well">
                 <div class="well inner">
                    
@@ -161,6 +167,7 @@ $(document).ready(function(){
   </a>
 </div>
 -->
+            <a name="games"></a>  
 <div class="well">
     
 
@@ -180,9 +187,11 @@ $(document).ready(function(){
                 <img src="Hair.png" class="img-thumbnail img-justified"/>
                 <img src="Lion.png" class="img-thumbnail img-justified"/>
                 <img src="AOF.png" class="img-thumbnail img-justified"/>
+               <img src="frank.png" class="img-thumbnail img-justified"/>
+               <img src="Mario.png" class="img-thumbnail img-justified"/>    
             </div>
         
-            
+            <a name="arcade"></a>  
         <div class="well">    
         <div class="well inner">
             <h3> ARCADE </h3>
@@ -194,7 +203,7 @@ $(document).ready(function(){
         </div>   
      
             
- 
+            <a name="tutorials"></a>  
             <div class="well">
                 <div class="well inner">
                    
@@ -241,10 +250,11 @@ $(document).ready(function(){
             
             <div class="well">
                 <div class="well inner">
-                   
+            <a name="blog"></a>         
             <h3> BLOG </h3>
-  
-    
+                </div>
+            <p>Currently there are no blog entries.</p>
+    <!--
             </div> 
             <div class="btn-group">
              <ul class="nav nav-pills">
@@ -254,15 +264,17 @@ $(document).ready(function(){
               <li class="active"><a href="#">Entry 4</a></li>
               <li class="active"><a href="#">Entry 5</a></li>
             </ul>  
+
          
-            </div>  
+            </div> 
+-->
             </div>   
           
            
             
                     <!-- Trigger the modal with a button -->
 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Contact Me</button>
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Back To Top</button>            
+<a href="#"><button type="button" class="btn btn-info btn-lg" >Back To Top</button> </a>           
 <br>
 <br>            
 
@@ -277,7 +289,8 @@ $(document).ready(function(){
         <h4 class="modal-title">CONTACT INFORMATION</h4>
       </div>
       <div class="modal-body">
-        <p>Contact me through this system...</p>
+        <p>Benjamin Savage</p>
+        <p>Finnegan2100@gmail.com</p>  
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
