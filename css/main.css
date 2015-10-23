@@ -29,8 +29,22 @@ font-size: 20px;
         outline: none;
         border: 0;
         background: transparent;
+    
         
-   }
+}
+.glyphicon:link {
+  text-decoration:none;
+  color: #ddd;
+}
+.glyphicon:visited {
+  text-decoration:none;
+  color: #ddd;
+}
+.glyphicon:hover {
+  text-decoration:none;
+  color: #bbb;
+}
+
 
 
 
