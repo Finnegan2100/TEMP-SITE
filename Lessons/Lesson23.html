@@ -1,0 +1,473 @@
+<!doctype html>
+<title>LESSON #23</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 23 - July 17, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation"> (Game Dev. Tools) LESSON # 23</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+<p>
+Today, as promised, I'm going to introduce something that will revolutionize how we work in Javascript. Don't fret though; we won't need to remove anything 
+from our memories or start from scratch. Nope. All we'll be doing is looking at an approach which can considerably trim down the number of lines we write.
+That's a good thing, right? But again, don't despair: all the knowledge we've obtained up until now can rest safely in your craniums.
+</p>
+<p>
+So what is this mysterious time-saver you may ask? Well, Javascript is an object-oriented language as you may well know. What's even cooler is that Javascript
+allows you to make custom objects which abide by your rules.
+</p>
+<p>
+Still in the dark about this? 
+</p>
+<p>
+What if we had a game where there are 50 enemies that fly off and on the screen that you needed to defeat before winning? Would it really be reasonable to write
+out variables for the x,y,width,height,rotation,gravity,friction,etc. for EACH enemy? Wouldn't it be great if we could reuse those again and again after defining them just once?
+Even better: wouldn't it be fantastic if we could create methods for each object as well, which perform certain tasks for us? Oh how much space we would save!
+</p>
+<p>
+But why not make a class? Isn't that what we're doing?
+</p>
+<p>
+Yeah, but unfortunately Javascript doesn't HAVE classes! So this is the next best thing. You'll find working with custom-made objects to be a relief and it'll all be 
+second nature after a while. To be honest, it's not even that hard to create objects!
+</p>
+<p>
+Here's how you go about doing it...
+</p>
+<p>
+You know that whole thing about functions being enclosed in curly braces? Well, objects are made in the same way, EXCEPT...
+</p>
+<p>
+...you need to add a semicolon after the closing brace. Weird, huh?
+</p>
+<p>
+Nothing to do about it, that's just the way it goes.
+</p>
+<p>
+Another weird quirk about making custom objects is that when we create variables we don't use equal signs, but COLONS! We also don't use semicolons after 
+each variable anymore, but use COMMAS! Just don't forget to omit the comma after the last variable. 
+</p>
+<p>
+I know it looks like sort of a trainwreck, but you'll get the hang of it very quickly. Let's make a few objects just to appease the object gods:
+</p>
+<div id="code">
+var myNewShinyObject = <br>
+{<br>
+x: 0, <br>
+y: 0, <br>
+width: 0,<br>
+height: 0<br>
+};
+</div>
+<p>
+This is our object which consists of 4 simple variables (actually called "properties" when inside an object). In itself it's nothing really special, but we can use it as an example to build our other objects from. You can create any sort of property you like: strings, booleans, numbers, whatever! So in that regard, there's nothing really new to be learned.
+</p>
+<p>
+Now let's say we wanted to define another object BASED on this object, but tweak it just a bit. How would we go about doing this?
+</p>
+<p>
+It's actually quite simple: we use our handy dandy Object.create() method to make modifiable copies of our objects. Here's how it works:
+</p>
+<p>
+First I create a variable in which to save my new object, then I perform the following operation:
+</p>
+<p>
+var myNewerShinyObject = Object.create(myNewShinyObject);
+</p>
+<p>
+This does nothing more than create a new and modifiable version of my beloved newShinyObject object. At this point I can now add properties or delete them.
+Of course I can change the values of the properties as well.
+</p>
+<p>
+Here's how you go about it:
+</p>
+<p>
+Let's say we wanted to change the x value of our newShinyObject. Simple - all we need to do is write the following:
+</p>
+<p>
+myNewShinyObject.x = 50;
+</p>
+<p>That's all there is to it! As you can see, the property of the object is expressed by placing a dot between it and the variable.
+Any guesses on how we'd change the width value?
+</p>
+<p>
+Yup.
+</p>
+<p>
+myNewShinyObject.width = 200;
+</p>
+<p>
+And the width value will be changed.
+</p>
+<p>
+In fact, you can even whip a value out of thin air and add it to your object! How cool is that???
+</p>
+<p>
+It's the same process too! All you need to do is type:
+</p>
+<p>
+myNewShinyObject.labotomized = false;
+</p>
+<p>
+And you have a new property for your object! It's added instantly! Nifty, right?
+</p>
+<p>
+Now properties are nice and all, but how about functions? Can we add a function to our Objects? Of course we can! Here's the way you write them:
+</p>
+<p>
+To make a function (or more correctly, method) inside our myNewShinyObject we'll need to add it to our list inside the curly braces.
+</p>
+<p>
+So far we have this:
+</p>
+<div id="code">
+var myNewShinyObject =<br>
+{<br>
+x: 0,<br>
+y: 0,<br>
+width: 0,<br>
+height: 0<br>
+};
+</div>
+<p>
+Now let's add a method. Don't forget that every element except the last needs to be followed by a comma! This means that if we want to add a method, we'll
+need to add a comma after our height property. So let's add it!
+</p>
+<p>
+The end result should look like this:
+</p>
+<div id="code">
+var myNewShinyObject =<br>
+{<br>
+x: 0,<br>
+y: 0,<br>
+width: 0,<br>
+height: 0,<br>
+doubleHeight: function()<br>
+{<br>
+console.log(this.height + 50);<br>
+}<br>
+};
+</div>
+<p>
+Now note a few things here. First, I named my method, added a colon, then went on to make a standard function. 
+Inside the function I refer to this.height. The keyword this is simply a replacement for myNewShinyObject. It tells us that
+the property height, which is inside the myNewShinyObject, is being referred to. If you put simply the word height, you'll generate an error
+(unless you have a variable called height somewhere else in the code, in that case, it'll draw from that one!) And you don't want that.
+So, be sure to use this and a dot when referring to internal variables. 
+</p>
+<p>
+Don't forget, of course, that you can add a new mehtod to your object at any time by declaring it followed by a point.
+</p>
+<p>
+Got it?
+</p>
+<p>
+We'll be using objects in most of our code from now on, including our next lesson on sprite sheets, but let's do an example to see it in action just to get warmed up.
+</p>
+<p>
+Here's the final code:
+</p>
+<div id="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Creating our own objects &lt;/title&gt;<br />
+&lt;canvas id=&quot;canvas&quot; width= &quot;550&quot; height= &quot;400&quot;&gt; Your browser sucks &lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectA =<br />
+{<br />
+x: 200,<br />
+y: 200,<br />
+width: 100,<br />
+height: 50,<br />
+fill: &quot;44ffaa&quot;<br />
+};<br />
+<br />
+context.fillStyle = rectA.fill;<br />
+context.fillRect(rectA.x,rectA.y,rectA.width,rectA.height);<br />
+<br />
+var rectB = Object.create(rectA);<br />
+rectB.x = 350;<br />
+rectB.fill = &quot;55bb77&quot;;<br />
+<br />
+context.fillStyle = rectB.fill;<br />
+context.fillRect(rectB.x,rectB.y,rectB.width,rectB.height);<br />
+<br />
+&lt;/script&gt;
+
+</div>
+<p>
+Don't you think that's a little more efficient? Don't objects make our code a lot more organized? Take a look at it - not a single hard-coded value!
+Anytime we want to write a third or fourth rectangle value all we need to do is duplicate it using Object.create(). No longer do we need to
+write out our variables one-by-one for every rectangle! As long as they have some sort of property in common, it makes sense to create a new object
+and just change the other ones around. 
+</p>
+<p>
+See, by using objects, we're both saving space and making the things we program more receptive to our commands. Every time we have a spaceship or an enemy,
+it can be made through an object. Think about the enemies in Super Mario Bros. for a second. Could you imagine writing an x,y,width,height variable for each koopa? You'd end up
+writing 5,000 lines of code just for the enemy variables! NOW all we need to do is take koopa A, specify the x and y values, run it through a loop and voila', we've got all the 
+koopas for the enitre game! Want to make some red koopas? No problem - just use Object.create(), make a koopa with a property called color, set it to red, then plug it 
+into the mix!
+</p>
+<p>
+Don't forget that methods are also amazingly useful! Think for a minute of all the possibilities! Now we can have all the operations included in the object itself. 
+For example, let's say we want each type of
+koopa to perform a different activity: jumping, floating and walking. We can now plug all the jumping,walking and floating operations into methods and have each type 
+of koopa perform that specific task. It's so easy. Heck, I'm excited now, so let me show you another example:
+</p>
+<div id="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Creating our own objects &lt;/title&gt;<br />
+&lt;canvas id=&quot;canvas&quot; width= &quot;550&quot; height= &quot;400&quot;&gt; Your browser sucks &lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var genericRect =<br />
+{<br />
+x: 50,<br />
+y: 200,<br />
+width: 100,<br />
+height: 50,<br />
+fill: &quot;44ffaa&quot;,<br />
+};<br />
+<br />
+var rectA = Object.create(genericRect);<br />
+rectA.moveUp = function()<br />
+{<br />
+this.y--;<br />
+}<br />
+<br />
+<br />
+var rectB = Object.create(genericRect);<br />
+rectB.x = 200;<br />
+rectB.fill = &quot;55bb77&quot;;<br />
+rectB.moveDown = function()<br />
+{<br />
+this.y++;<br />
+}<br />
+<br />
+var rectC = Object.create(genericRect);<br />
+rectC.x = 350;<br />
+rectC.fill = &quot;77ff33&quot;;<br />
+rectC.moveLeft = function()<br />
+{<br />
+this.x--;<br />
+}<br />
+<br />
+window.setInterval(playIt,33);<br />
+<br />
+function playIt()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+<br />
+context.fillStyle = rectA.fill;<br />
+context.fillRect(rectA.x,rectA.y,rectA.width,rectA.height);<br />
+<br />
+context.fillStyle = rectB.fill;<br />
+context.fillRect(rectB.x,rectB.y,rectB.width,rectB.height);<br />
+<br />
+context.fillStyle = rectC.fill;<br />
+context.fillRect(rectC.x,rectC.y,rectC.width,rectC.height);<br />
+<br />
+rectA.moveUp();<br />
+rectB.moveDown();<br />
+rectC.moveLeft();<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Hey, it's not exactly three koopas, but you get the idea! See what I did there?
+</p>
+<p>
+First off I created a generic rectangle object called genericRect. Inside this generic rectangle I placed my x,y,width and height values.
+I then went on to create a different rectangle types for each koopa activity (in our simplified example, just moving up,down and to the left).
+These were named rectA, rectB and rectC. Inside rectA, I added a method which made it move up. Inside rectB, I added a method which
+mad it move down and finally, in rectC, I added a method which made it move to the left. 
+</p>
+<p>
+After that, it was necessary to create a main loop, so using my trusty setInterval, I set it up so that every 33 ms. the function playIt() would fire.
+Inside playIt(), a clearRect() was added as we've seen many times. Also, the three rectangles were drawn using a drawRect for each. Finally, I called 
+the appropriate method for each rectangle at the bottom which caused the "koopas" to perform their pre-determined activites. 
+</p>
+<p>
+Now this is a simplified example, and we very well could have just substituted 
+</p>
+<div id="code">
+rectA.moveUp();<br>
+rectB.moveDown();<br>
+rectC.moveLeft();<br>
+</div>
+<p>
+with
+</p>
+<div id="code">
+rectA.y--;<br>
+rectB.y++;<br>
+rectC.x--;<br>
+</div>
+<p>
+but think of how sloppy the code would be if we needed to actually implement jumping or something even more complicated. Using objects is clearly the
+better approach because it packages our code into digestble bits and keeps the number of global variables to a minimum, which is preferable!
+</p>
+<p>
+One last thing to cover: getting rid of objects. 
+</p>
+<p>
+The process is very, very simple. Ready?
+</p>
+<div id="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Creating our own objects &lt;/title&gt;<br />
+&lt;canvas id=&quot;canvas&quot; width= &quot;550&quot; height= &quot;400&quot;&gt; Your browser sucks &lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectA =<br />
+{<br />
+x: 200,<br />
+y: 200,<br />
+width: 100,<br />
+height: 50,<br />
+fill: &quot;44ffaa&quot;<br />
+};<br />
+<br />
+delete rectA.x;<br />
+<br />
+console.log(rectA.x);<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+As you can see near the bottom, the only thing we need to do is type delete, then list the object followed by the property or method.
+</p>
+<p>
+And that, my friends, is all you'll really need to know about making your own objects. 
+</p>
+<p>
+We'll be using these in almost every lesson from now on - how revolutionary!
+</p>
+<p>
+Next time get ready - we're going to go back to our sprite sheets and look at more advanced techniques!
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime to me on Twitter: @benwhi.
+</p>
+<p>
+Until next time!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson24.txt">Onward to Lesson Twenty Four!</a>
+<br>
+<a href="Lesson22.html">Back to Lesson Twenty Two!</a>
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+

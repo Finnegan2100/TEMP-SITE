@@ -1,0 +1,540 @@
+<!doctype html>
+<title>LESSON #9</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 9 - April 12, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 9</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+SCALING
+</p>
+<p>
+Moving right along, let's get right into the topic of scaling in this second half of our lesson on transformations.
+</p>
+<p>
+First off, what does scaling mean? 
+In layman's terms it's the stretching around of our shape in reference to the X axis, the Y axis, or both. 
+</p>
+<p>
+Let's start by drawing a tiny 20 X 20 fill rectangle somewhere on the canvas. Plug in this code:
+</p>
+<div id="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; SCALING &lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(canvas.width / 2,canvas.height / 2,20,20);<br />
+<br />
+<br />
+&lt;/script&gt;
+
+</div>
+<p>
+
+Also note that for the x and y values I've specified canvas.width / 2 and canvas.height / 2. This is a useful
+little shortcut for centering whatever I'm drawing on the canvas by its upper left corner.
+</p>
+<p>
+Now as you've seen, to rotate something we used rotate(), to translate the coordinates we used translate(). 
+What do you suppose is the method we use for scaling?
+</p>
+<p>
+Scale() ? 
+</p>
+<p>
+Sorry you're wrong. It's actually:   changeTheCoordinatesAlongTheXOrYAxis() and it has 27 arguments.
+</p>
+<p>
+Nah, I'm kidding. Of course it's scale().
+</p>
+<p>
+And scale() has two simple little arguments which are the degree of scaling we want to apply to first the X axis, then the Y axis.
+Scale has a default of 1, so if we have something like scale(.5,.5) we'd shrink our rectangle by 50% on both axes. A value of
+scale(20,20), and I don't recommend you do this, would blow up our rectangle to a rectangle 20 times its size. If we plug in a value
+of scale(20,.5), our rectangle would scale 20 times on the X axis, but only half on the Y axis, making for a very wide and short rectangle.
+</p>
+<p>
+Simple, right?
+</p>
+<p>
+So let's go right ahead and add a scale value to our mini rectangle.
+</p>
+<p>
+Add this line right below the getContext line:
+</p>
+<div id = "code">
+
+context.scale(1.3,1.3);
+
+</div>
+<p>
+Hmmm... so the rectangle DID get bigger, but it's further down and to the right compared to my rectangle. And it's
+CERTAINLY not in the middle of the canvas where I set the smaller version! What gives?
+</p>
+<p>
+Well, folks, this is scaling the HTML5 way. Don't forget that all scaling is done in relation to the (0,0) point, so even though
+we specified that our rectangle belonged on the X and Y axes, the scaling pushed them outwards and down the canvas.
+If you try scaling down to scale(.5,.5) you'll see that they scale back inwards towards the (0,0) top-left origin point.
+</p>
+<p>
+Do we like this? Haeeeelll no!
+Are we gonna stand for this? Haeeeeel no!
+What are we gonna do? We're gonna tranlsate those points!
+</p>
+<p>
+So let's translate the origin point like we did when we rotated stuff. I'm not going to go review all that again, so please
+check yesterday's lesson if you're just sticking your head in my lecture hall without having come to all the other lessons.
+</p>
+<p>
+So let's get busy and start translating!
+</p>
+<p>
+Remember how we did this?
+</p>
+<p>
+Let's take it step by step one more time:
+</p>
+<p>
+1.We add context.translate() to our code in the &lt;script&gt; tag. 
+</p>
+<p>
+REMEMBER THAT TRANSLATE ALWAYS GOES BEFORE SCALE OR ROTATE.
+</p>
+<p>
+
+2. We determine the arguments to add to our context.translate() by using this simple formula:
+</p>
+<p>
+context.translate( x + .5 * width, y + .5 * height);
+</p>
+<p>
+So first off, let's multiply .5 by 20. Of course, we get 10.
+Then let's add canvas.width to 10 resulting in canvas.width + 10;
+</p>
+<p>
+Then we go to the other side and multiply .5 by 20 and get 10 again.
+We add canvas.height to 10 and get canvas.height + 10.
+</p>
+<p>
+And those are our two values, so plug 'em in!
+</p>
+<p>
+context.translate(canvas.width / 2 + 10, canvas.height / 2 + 10);
+</p>
+<p>
+Got it?
+</p>
+<p>
+3. We make sure we have a scale() method directly below our translate() method and it's set to
+</p>
+<p>
+
+scale(1.3,1.3);
+
+</p>
+<p>
+4. Now we go back and reposition our rectangle on the midpoint through the following formula:
+</p>
+<p>
+fillRect(-.5 * width, -.5 * height, width, height);
+</p>
+<p>
+making it:
+</p>
+<p>
+fillRect(-10, -10, width, height);
+</p>
+<p>
+This should our rectangle back where it was in the first place, but scaled to a width of 1.3, and a height of 1.3.
+</p>
+<p>
+5. Save it and run it. Did it work out?
+</p>
+<p>
+Here's the final code in the &lt;script&gt; tag.
+</p>
+<div id = "code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.translate(canvas.width / 2 + 10, canvas.height / 2 + 10);<br />
+context.scale(3,3);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(-10,-10,20,20);<br />
+<br />
+<br />
+&lt;/script&gt;
+
+</div>
+<p>
+Go ahead and mess with this little bugger a bt. A you might've noticed before, if you scaled it too much before translating the origin point,
+it would've extended too far off the edge of the canvas. Now with our new and improved version, you can set it to much larger numbers and
+still see it anchored right there in the middle of your screen. Cool, huh? Now we're going places!
+</p>
+<p>
+Now yesterday we talked about bounding boxes, but we only used rectangular stuff in our rotations, so let's take a look at how to rotate and
+scale a non-rectangular object. Sound like fun?
+</p>
+<p>
+Today we'll be working with this little triangle I conjured up. It's a beaut! I think I'll name him Herbert.
+</p>
+<div id = "code">
+<br />
+&lt;!doctype html&gt;<br />
+&lt;title&gt; ROTATING  AND SCALING HERBERT&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;1000&quot; height = &quot;700&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.fillStyle = &quot;#44ee00&quot;;<br />
+context.strokeStyle = &quot;#5500dd&quot;;<br />
+context.moveTo(200,200);<br />
+context.lineTo(300,200);<br />
+context.lineTo(150,300);<br />
+context.lineTo(200,200);<br />
+context.stroke();<br />
+context.fill();<br />
+<br />
+<br />
+&lt;/script&gt;
+
+</div>
+<p>
+First off, note that I engarged the canvas just so we can see our rotated and scaled triangle before setting it back into place.
+Once we translate it, you'll see that it goes much further out than the other examples.
+</p>
+<p>
+So, the good news about rotating and scaling Herbert is that we only need to translate and realign our triangle once, then
+we can scale and rotate as we please. No need to translate twice in other words.
+</p>
+<p>
+Our formula remains the same:
+</p>
+<p>
+context.translate(x +.5 * width, y + .5 * height);
+</p>
+<p>
+So all we need to do is plug in the formula for width and height. 
+</p>
+<p>
+Now with the rectangle and with images we really had it made because the info that we needed was already in the rectangle itself.
+</p>
+<p>
+Here, however, we need to fish for it a bit.
+</p>
+<p>
+Remember first of all that objects are pinned onto the canvas from their top-left corner, right?
+</p>
+<p>
+Well, to find the (0,0) for Herbert, we just need to look at our points and find the two that would constitute a leftmost x and y axis, then find the 
+top-left meeting point.
+</p>
+<p>
+So our leftmost point is: the 150 X value in the second lineTo. Perfect. This is the point that will define our Y axis. In a minute I'll
+draw our two reference lines so you can get a better idea.
+</p>
+<p>
+Now we need to find our X axis and we do that by finding the lowest Y value in our lines. And that is... 200. Gotcha!
+</p>
+<p>
+So how do we find our X and Y values? Well, easy! Take a look at these new lines I've added. They help us pinpoint our
+(0,0) value.
+</p>
+<p>
+Go ahead and add these 5 lines of code to the bottom of the &lt;script&gt; tag.
+</p>
+<div id="code">
+
+context.moveTo(0,200);<br />
+context.lineTo(550,200);<br />
+context.moveTo(150,0);<br />
+context.lineTo(150,400);<br />
+context.stroke();
+</div>
+<p>
+These will give you a visual representation of what we just talked about. So what are the x and y values for
+our rectangle? 
+</p>
+<p>
+150 X and 200 Y! Great! That's half of our formula. Now we need the width and height. This is super easy. To find this all we need
+is the largest X value and the largest Y value assigned to our lines and subtract them from the lowest X and Y values. In other
+words, we subtract the highest X value and the lowest X value. After that we subtract the highest Y value and the lowest Y value. 
+</p>
+<p>
+They are: 150 and 100. Understand where I got that from? Clear? Let's move on.
+</p>
+<p>
+Add these extra lines and you'll see. 
+</p>
+<div id="code">
+
+context.moveTo(300,0);<br />
+context.lineTo(300,400);<br />
+context.moveTo(0,300);<br />
+context.lineTo(550,300);<br />
+context.stroke();
+
+</div>
+<p>
+These two final lines complete, guess what.... our bounding box. It's the box around our triangle in the middle there. 
+Notice that it is, like we said, the SMALLEST POSSIBLE rectangle we can fit around our object. Even though it's more than half empty,
+this is still the smallest possible rectangle we can draw around this sucker! Just you try to make a smaller one without cutting
+off a part of it! 
+</p>
+<p>
+Wonderful. Now we have all four pieces of information necessary to rotate or scale our non-rectangular object! 
+</p>
+<p>
+Namely, 150,200,150,100
+</p>
+<p>
+Let's get to work!
+</p>
+<p>
+So, as we've seen a gazillion times, our translate mehtod is: context.translate( x + .5 * width, y + .5 * height);
+</p>
+<p>
+So if we plug in our values: context.translate (150 + .5 * 150, 200 + .5 * 100);
+</p>
+<p>
+We come up with:  context.translate(225,250);
+</p>
+<p>
+Great! We're getting there. Go ahead and add the translate method to your code.
+</p>
+<p>
+Oh, and go ahead and get rid of those extra lines. They were just to give you some visuals.
+</p>
+<p>
+Let's get super ambitious and try rotate AND scale to our friend Herbert the triangle.
+</p>
+<p>
+So UNDER our context.translate() let's add the following two lines:
+</p>
+<div id = "code">
+
+context.scale(1.3,1.3);<br />
+context.rotate(.02);<br />
+
+</div>
+<p>
+Save it, run it and check it out. Whoa! It's all the way down there! But it seems to work so far... 
+Try and fiddle around with some rotation values. Just the slightest bit, though, because you could send your triangle off the canvas
+and into the "Land Beyond the Canvas" that few objects rarely return from.
+</p>
+<p>
+When you're ready, we'll bring Herbert back up to where he was before.
+</p>
+<p>
+The formula for doing that once again is:
+</p>
+<p>
+(-.5 * width, -.5 * height, width, height);
+</p>
+<p>
+Now we don't have a recangle readily available to plug these values into, so we need to hunt them down a bit.
+</p>
+<p>
+What were our width and height again? 150 and 100. Now where do I add these values?? When we moved a rectangle back into
+place we substituted the X and Y values with a negative half-width and negative half-height, right? (-.5 * width, -.5 * height)
+</p>
+<p>
+So the point here is to change the x and y values and keep everything proportionate at the same time. 
+</p>
+<p>
+PROPORTIONATE is the key word here, and you'll see in a minute what I mean...
+</p>
+<p>
+When we plug in our width and height values into our second formula we get: (-75 and -50). Sooo....
+</p>
+<p>
+This means that our x values must be -75 and -50. So let's look use those as reference points and scale everything proportionately.
+So we said that our leftmost value was our X value, right? As we said at the beginning of this exercise, our X value was 150. How about
+our Y value? That's the upmost (or lowest in other words) Y value. As we said before, this was 200.
+</p>
+<p>
+NOW, we're going to get a magic number we can use to plug into this formula by subtracting  150 from -75 and by subtracting
+200 from -50.
+</p>
+<p>
+Our X magic number is -225.
+Our Y magic number is -250.
+</p>
+<p>
+Whaddya know! They're the same as our translate() values! Hate me for making you go the long way?
+</p>
+<p>
+We got these by subtracting our X value by the new translated X value from the second formula and by subtracting our Y value by the
+new translated Y value fro the second formula. 
+</p>
+<p>
+Now, we take these magic numbers and add them to all the other X and Y values in the formula.
+</p>
+<p>
+To save you the work, the resulting code is:
+</p>
+<div id ="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; ROTATING  AND SCALING HERBERT&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;1000&quot; height = &quot;700&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.translate(225,250);<br />
+context.scale(1.3,1.3);<br />
+context.rotate(.7);<br />
+<br />
+context.fillStyle = &quot;#44ee00&quot;;<br />
+context.strokeStyle = &quot;#5500dd&quot;;<br />
+context.moveTo(-25,-50);<br />
+context.lineTo(75,-50);<br />
+context.lineTo(-75,50);<br />
+context.lineTo(-25,-50);<br />
+context.stroke();<br />
+context.fill();<br />
+<br />
+&lt;/script&gt;
+</div>
+ <p>
+So as you can see, the method for rotating and scaling point-based shapes is quite a bit more labor-intensive than the other version,
+and maybe I've wasted your time by going over it since, as I mentioned, most of the scaling and rotating in games will be done with 
+rectangular shapes like imported images, BUT, you never know when this stuff could come in handy! If you're feeling ambitious,
+why not mess around and try to make scale or rotate more elaborate images. You might even find a shortcut! If you do, please let me know!
+</p>
+<p>
+And that does it for our two-part tutorial on transformations! I've got a little extra time today, so I'll do my best to make the other 
+tutorials a little nicer and maybe add screenshots or something. Tomorrow and the next day
+we talk about the last few things that the canvas can provide us with before moving on to bona fide GAME techniques.  
+</p>
+<p>
+So stay tuned! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson10.html">Onward to Lesson Ten!</a>
+<br>
+
+<a href="Lesson8.html">Back to Lesson Eight!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+

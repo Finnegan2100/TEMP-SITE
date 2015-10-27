@@ -1,0 +1,386 @@
+
+<!doctype html>
+<title>Basic Math</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+#code
+{
+font-size: 19px;
+font-family: Times New Roman;
+}
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+}
+li
+{
+font-size: 19px;
+font-family: Times New Roman;
+}
+a
+{
+font-size: 19px;
+font-family: Times New Roman;
+}
+
+</style>
+
+
+<h1> BASIC MATH IN JAVASCRIPT </h1>
+<p>
+Now in this second primer lesson we're going to go over the basic math operations in Javascript. As I mentioned last time, numbers play a very important part in programming and you'll
+be working with them quite a bit, especially the four basic arithmetic operations (addition,subtraction,multiplication and division). Take note of the following:
+</p>
+<p>
+-The result of math operations can be stored in variables, then reused at a later time. 
+</p>
+<p>
+-You can add/subtract/multiply/divide the value of a variable with a number. 
+</p>
+<p>
+-It's even possible to plug two or more variables into an operation and add/subtract/multiply/divide those variables with each other.
+</p>
+<p>
+Here are some visual illustrations of the above points if they weren't clear. Take a close look:
+ </p>
+<p>
+var sum = 2 + 2;
+</p>
+<p>
+This would store 4 in our variable called sum.
+</p>
+<p>
+var first = 2; <br>
+var second = first * 6;
+</p>
+<p>
+This would store 12 in our variable called second.
+</p>
+<p>
+var first = 48;<br>
+var second = 8;<br>
+var third = first / second;
+</p>
+<p>
+This would store 6 in our variable called third.
+</p>
+<p>
+Here are the symbols we use when performing these basic operations:
+</p>
+<p>
++   addition<br>
+-    subtraction<br>
+*   multiplication<br>
+/    division
+</p>
+<p>
+plus the oddball which is used from time to time...
+</p>
+<p>
+%  modulus operation
+</p>
+<p>
+Now modulus operator, instead of doing standard arithmetic operations, gives us the remainder as a final value. If the two numbers divide evenly, the result is 0.
+Check out this example of the modulus in action:
+</p>
+<p>
+var answer = 25 % 4;
+</p>
+<p>
+Here answer would be a value of 1 since 4 goes into 25 six times leaving us with a remainder of 1.
+</p>
+<p>
+Here's another example just so this sinks in.
+</p>
+<p>
+var answer = 15 % 6;
+</p>
+<p>
+In this case our variable named answer would have a value of 3.
+</p>
+<p>
+ 
+Now all these operations can be used an infinite number of times in a given statement. I could have, for example:
+</p>
+<p>
+var longOperation = 4 + 6 + 6 + 10 + 3 + 45 + 1 + 58;
+</p>
+<p>
+And longOperation probably equals 133, but I'm too lazy to go back and double check.
+</p>
+<p>
+For operations in which addition, multiplication, subtraction, division and modulus are mixed, you may find it necessary to use parenthesis to specify which operations
+should be performed first. Here are a couple examples:
+</p>
+<p>
+var result = 7 + 3 * 3;
+</p>
+<p>
+Here, the browser would give you the result of 16 since multiplication and division are performed before addition and subtraction. We could, however,
+change this around by putting parenthesis around the first two numbers making it:
+</p>
+<p>
+var result = (7+3) * 3;
+</p>
+<p>
+This gives us a result of 30.
+</p>
+<p>
+Here's another example:
+</p>
+<p>
+var answer = 56 - 4 / 8;
+</p>
+<p>
+This gives us 55.5, since the division is always performed first, but when we add parenthesis to the formula....
+</p>
+<p>
+var answer = (56 - 4) / 8;
+</p>
+<p>
+Answer gets a value of 6.5. Make sense? Remind you of math class? Let's move on.
+</p>
+<p>
+There are also shortcuts that can be used when we increase the value of our variables.
+</p>
+<p>
+Instead of writing THIS:
+</p>
+<p>
+ result = result + 5;
+</p>
+<p>
+We could write THIS and get the same result:
+</p>
+<p>
+ result += 5;
+</p>
+<p>
+Get it? In both cases we're adding 5 to the variable named result. The second is much more widely used.
+</p>
+<p>
+And this gives us the following shortcuts for all four arithmetic operations:
+</p>
+<p>
+result = result + 5                  <br>  is the same as:              <br>   result += 5;<br>
+<br> result = result - 5                    <br>  is the same as:          <br>      result -= 5;<br>
+<br> result = result * 5                  <br>   is the same as:             <br>     result *= 5;<br>
+<br> result = result / 5                   <br>  is the same as:             <br>   result /= 5;<br>
+<br>result = result % 5                 <br>  is the same as:             <br>    result %= 5;
+</p>
+<p>
+Another widely used shortcut is this:
+</p>
+<p>
+result = result + 1;
+</p>
+<p>
+This is often replaced with the easier to manage:
+</p>
+<p>
+result++;
+</p>
+<p>
+And the same thing exists in subtraction, by the way:
+</p>
+<p>
+result = result - 1;
+</p>
+<p>
+Is almost always replaced by:
+</p>
+<p>
+result--;
+</p>
+<p>
+
+So what happens when you add two strings together? Simple: they become globbed together into one string!
+</p>
+<p>
+Take this for example (don't forget that strings need to have quotation marks around them!):
+</p>
+<p>
+var string1 = "book";<br>
+var string2 = "mark";
+</p>
+<p>
+var string3 = string1 + string2;
+</p>
+<p>
+What is string 3's value? Why it's "bookmark" of course!
+</p>
+<p>
+Remember that empty spaces between the quotation marks count as well, so if we do this:
+</p>
+<p>
+var string1 = "book ";<br>
+var string2 = "mark";
+</p>
+<p>
+var string3 = string1 + string2;
+</p>
+<p>
+our result is "book mark", not "bookmark" like before.  Whitespaces can be pretty useful at times!
+</p>
+<p>
+Now what happens when you add a string to a number? Does gravity stop? 
+</p>
+<p>
+Nope! All that happens is this:
+</p>
+<p>
+var number = 60;<br>
+var string = "th";
+</p>
+<p>
+var answer = number + string;
+</p>
+<p>
+What's our result?
+</p>
+<p>
+It's a string and its value is "60th".
+</p>
+<p>Just remember that you can't perform mathematical operations on strings!
+</p>
+
+<h3> THE JAVASCRIPT CONSOLE </h3>
+<p>
+Now let's take a minute to test these out a bit. Sure, variables and numbers are great and all, but how do we actually get to see some output? Wouldn't it be
+great if we could see the results of our math pop up on the screen? Everything up until now has been sort of abstract - let's get our hands dirty!
+</p>
+<p>
+Before we can see what we output, we need two things:
+</p>
+<p>
+1. A text editor.<br>
+2. A browser.
+</p>
+<p>
+That's it. You can add a teaspoon of vanilla extract if you want, but you'd probably fry your motherboard.
+</p>
+<p>
+As for the text editor, you'll find a number of 'em for free on the web. I personally use Notepad++ because, well, that's what I've always used! Here's a list of free text editors 
+you can use:
+</p>
+<p>
+<a href = "http://sixrevisions.com/tools/12-excellent-free-text-editors-for-coders/">THIS </a>
+<p>
+As for the browser, I recommend Google Chrome for debugging your code.
+</p>
+<p>
+Now, although this is a javascript primer, we need to add a few lines of HTML to give our Javascript a place to work. Don't worry, though - it's only a few lines
+and they'll always be the same.
+</p>
+<p>
+Let's take this step by step, ok?
+</p>
+<p>
+STEP 1: Download text editor.<br>
+STEP 2: Copy the following code into your new text editor:
+</p>
+<div id="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; This is my experiment. &lt;/title&gt;<br />
+&lt;script&gt;<br />
+console.log(&quot;I'm a weirdo!!!&quot;);<br />
+&lt;/script&gt;
+</div>
+<p>
+STEP 3: Save your file with whatever name you please. Just do it on the desktop for now. Make sure you specify the .html extension.<br>
+STEP 4: Launch your file in your browser. In Notepad++ there's an option to do so under "run".
+</p>
+<p>
+Aaaaand nothing happens!
+</p>
+<p>
+That's because the console.log() stuff only appears in the debugging console of our browsers! 
+</p>
+<p>
+How do we get there? See step 5...
+</p>
+<p>
+STEP 5: Click on the three horizontal lines at the top-right of Chrome (if you're using Chrome).<br>
+STEP 6: Click on tools.<br>
+STEP 7: Click on Javascript Console at the very bottom.
+</p>
+<p>
+And THERE you'll find you console.log() output.
+</p>
+<p>
+Not all that complicated, right?
+</p>
+<p>
+Now that the two of you are acquainted, I can see that this is going to be the start of a beautiful relationship! The Javascript Console is not only great for making funny words
+pop up, but is also great for DEBUGGING our Javascript when we have errors in our code.
+</p>
+<p>
+We'll look at this whole debugging thing as we proceed, but for now let's use the Javascript Console to output the results of our math operations. This way we can at least see
+what we're doing.
+</p>
+<p>
+Oh, and VERY important: all the Javascript we'll be writing must go BETWEEN the &lt;script&gt; and &lt;/script&gt; tags in our html! Note that in the code we just wrote, this is the case.
+If you put your Javascript anywhere else (for now, at least), it WON'T work! So be careful!
+</p>
+<p>
+So that's basically it for today - let's let this stuff sink in. I STRONGLY
+ADVISE you to experiment with outputting some numbers, strings and booleans to your javascript console by using console.log(). Remember that you don't need to output
+just one variable, but can output a whole bunch of 'em by separating them by commas. You can also directly output a string by writing something like this:
+</p>
+<p>
+console.log("Hey, it's me!");
+</p>
+<p>
+Experiment for now and when you're ready, go ahead and try the next lesson!
+</p>
+<p>
+If you have any questions or comments, drop me a line on Twitter (@benwhi).
+</p>
+<a href="lesson0_3.html"> Conditional Statements</a><br>
+<a href="Lessons.html"> Back to index </a>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

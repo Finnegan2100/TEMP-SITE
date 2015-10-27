@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+    <head>
+<title>LESSON #1</title>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    <link rel="stylesheet" href="lessonStyle.css">
+</head>
+<body>
+
+
+
+<h3>LESSON 1 - April 4, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 1</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+
+
+<p>
+Ok, let's get started here.
+</p>
+<p>
+First off, I work out of Notepad++ and I run my code in Chrome. For debugging I use the Javascript Console located in the top-right corner
+of your browser window. In Chrome, just click on the three horizontal lines, go to "tools", then go down to the bottom where it says "Javascript console".
+</p>
+<p>
+Voila' - a window will appear at the bottom with a bunch of cool tools to help you with your Javascript coding experience. We'll mostly be interested in the little 
+red circle with an "X" that will (but hopefully won't) appear at the bottom right and indicate which line you messed your code up on. 
+That's going to be a heck of a life-saver, especially as we get into the heavy-duty stuff.<p>
+</p>
+<p>
+Another savior here - assuming you don't know ANY Javascript and will be following along (brave soul!) is the console.log() method. Hoo boy, does that
+help out when you're stuck in the thick of things. Console.log() is the Javascript cousin of our dear friend trace() if you come from an Actionscript background.
+But enough about all this stuff. We'll have more than enough time to discuss them later.
+</p>
+<p>
+Here we have a skeleton html file. Write or copy the following into your text editor of choice:
+</p>
+<p>
+
+
+
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Ben is a super cool dude. &lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+&lt;/script&gt;<br />
+</div>
+
+</p>
+<p>
+Ok, so you don't need to add the part about me being amazingly cool. Add whatever you like there.
+</p>
+<p>
+For those of you who don't know ANYTHING about HTML, this is the basic setup for your files. ACTUALLY, this is more ideal for
+the experiments we'll be looking at today since I've omitted the &lt;head&gt; and &lt;body&gt; tags in order to focus our attention on the &lt;canvas&gt; tag
+and what it can do. But here you have it - a skeleton file all ready to be filled with good old Javascript.
+</p>
+<p>
+Say, Ben, what is Canvas anyway?
+</p>
+<p>
+Well, it's an element used for displaying all kinds of neat stuff that was never before possible to display with previous versions of HTML.
+To have your mind blown, check this out: 
+</p>
+<p>
+<a href= "http://craftymind.com/factory/html5video/CanvasVideo.html">Canvas Explosion! </a>
+</p>
+<p>
+Pretty neat, huh? This stuff can be done in HTML5 thanks to the good old Canvas element. Can't do THAT in Flash!
+Bet you're itchin' to start making this stuff yourself! 
+Speaking of Flash, if you come from a Flash background, you'll notice that the graphics API has a lot of things in common with what I'm going to
+be showing you over the next couple lessons. But it's also a heck of a lot different...frustratingly so at times! Arghh!
+</p>
+<p>
+But before we dive in, I just want to clear the roads for any of you who don't know anything about working in a text editor/how to run your javascript
+in the browser.
+</p>
+<p>
+Let's do this step by step:
+</p>
+<ol>
+<li> Download Notepad++ for free from the Notepad++ website or whatever. </li>
+<li> Install Notepad++.</li>
+<li> Open Notepad++ and start a new file.</li>
+<li> Copy the code highlighted in light grey I wrote earlier onto Notepad++.</li>
+<li> Save the file as an HTML file.</li>
+<li> At the top, under "run" click "Launch in Chrome".</li>
+</ol>
+</p>
+<p>
+And there you have it! You should see NOTHING except the text written in the title tag. But you'll start seeing stuff soon enough. 
+</p>
+<p>
+So now that you're all caught up, let's dive in and start messing with the canvas.
+</p>
+<p>
+First off, let's return to our skeleton HTML file from before:
+</p>
+<p>
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Ben is a super cool dude. &lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+&lt;/script&gt;
+</div>
+
+</p>
+<p>
+What does this contain? Well, the thing that may stick out the most for you HTML heads is canvas. Note that I've attributed an id of "canvas" to it. This
+will be important a bit later when we connect our HTML and Javascript by means of the canvas.
+Also note that I've given the canvas a width and height of 550 X 400. These are the dimensions I've always 
+used for my Flash games, and they work just fine here too. Feel free to change them around as we proceed. Just don't get carried away just yet.
+</p>
+<p>
+So wait a second...why don't we see the canvas when we run this little bit of code? Well, that's because the default color of the canvas is white. To change that, why
+don't we add some CSS to the code like this:
+</p>
+<p>
+
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Ben is a super cool dude. &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+&lt;/script&gt;
+</div>
+</p>
+<p>
+...and you'll see a nice dark grey background in the 550 X 400 space occupied by the &lt;canvas&gt;. Try any color you like. Just don't
+get too carried away, wiseguy! 
+</p>
+<p>
+So now we're going to learn two VEEERY important lines of code:
+</p>
+
+<div id = "code">
+document.getElementById("theCanvas");<br>
+theCanvas.getContext("2d");
+</div>
+
+<p>
+These will be useful for a LOT of stuff, so get your memorizing hats on for this one! 
+Now these two lines should be placed between the two &lt;script&gt; tags as they are Javascript code.
+</p>
+<p>
+Like this:
+</p>
+<p>
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Ben is a super cool dude. &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;); // &lt;----------------Put 'em right here!<br />
+var context = theCanvas.getContext(&quot;2d&quot;);                <br />
+&lt;/script&gt;<br />
+
+</div>
+</p>
+<p>
+Now with the first of these beautiful lines of code, you're accessing the &lt;canvas&gt; HTML tag which we ID'd as "canvas".
+With the second, we're determining the context which our canvas will use. In our case we'll be using "2d". 
+The other option is "webgl", but don't use it since this is for 3d stuff and isn't fully supported as of yet. That is, unless
+you're reading this in the future! Deeeep!
+</p>
+<p>
+Remember that whatever you name the variable on the second line, you will write OVER and OVER again, especially when
+drawing lines and stuff, so don't go crazy can call it something like "theContextOfMyHTMLFileHeyWhatABeautifulDayItIsToday" because
+it's going to slow ya down. And in this fast-paced life, we can't afford to be slowed down!
+</p>
+<p>
+So these two lines set up your canvas for you. Now let's try to add something to it just for fun!
+</p>
+<p>
+Directly underneath the two lines you just wrote, add the following:
+</p>
+<p>
+<div id="code">
+context.fillStyle = "#ff0000";<br>
+context.fillRect(200,200,50,50);
+</div>
+</p>
+<p>
+...then run it and tweet me what you see at @benwhi 
+</p>
+<p>
+So that's it for part one - I hope you'll follow along as we dig into the basic functions of the canvas API
+with shapes, lines, arcs and other neat stuff.
+</p>
+<p>
+Thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben
+<br>
+@benwhi
+<br>
+<br>
+<a href="Lessons.html"> Back to The Lessons Index </a>
+<br>
+<a href="Lesson2.html"> Onward to Lesson Two!</a>
+</p>
+</body>
+</html>

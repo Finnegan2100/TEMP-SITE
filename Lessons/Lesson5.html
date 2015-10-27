@@ -1,0 +1,554 @@
+<!doctype html>
+<title>LESSON #5</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 5 - April 8, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 5</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+
+<p>
+Now that we've covered animation a bit (though there's LOTS of stuff left to cover), 
+and have moved a couple things across the canvas, etc., let's take a look at some of the other stuff
+you can do with the canvas element without animation.
+</p>
+<p>
+But first let's get up to date with the code:
+ </p>
+<div id ="code"
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Adding drop shadows &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);                <br />
+<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,50);<br />
+context.lineTo(250,150);<br />
+context.lineTo(350,150);<br />
+context.lineTo(250,200);<br />
+context.lineTo(300,300);<br />
+context.lineTo(200,225);<br />
+context.lineTo(100,300);<br />
+context.lineTo(150,200);<br />
+context.lineTo(50,150);<br />
+context.lineTo(150,150);<br />
+context.lineTo(200,50);<br />
+context.stroke();<br />
+<br />
+&lt;/script&gt;
+
+</div>
+
+<p>
+This is our standard setup thus far, so if you're just popping your head in at this point of the game, remember that all the goodies
+we'll be adding today go inside the &lt;script&gt; tag. If you save and run this, you'll see the old, familiar star we made a couple lessons ago. 
+</p>
+<p>
+First off, let's look at the guts of our code: 
+</p>
+<div id ="code">
+<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,50);<br />
+context.lineTo(250,150);<br />
+context.lineTo(350,150);<br />
+context.lineTo(250,200);<br />
+context.lineTo(300,300);<br />
+context.lineTo(200,225);<br />
+context.lineTo(100,300);<br />
+context.lineTo(150,200);<br />
+context.lineTo(50,150);<br />
+context.lineTo(150,150);<br />
+context.lineTo(200,50);<br />
+context.stroke();
+
+</div>
+<p>
+See this code? We're going to FILL it now.
+To fill the lines we draw, we need to call another method called... fill(). Let's get rid of the stroke() method
+and add good old fill() in its place.  Let's also add the following line just above where we specified the strokeStyle:
+</p>
+<div id="code">
+
+context.fillStyle = "#3300ff";
+
+</div>
+<p>
+This is important, because if we don't specify what the fill color is, it defaults to black.
+</p>
+<p>
+Our new code therefore becomes:
+</p>
+<div id = "code">
+
+
+context.fillStyle = &quot;#3300ff&quot;;<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,50);<br />
+context.lineTo(250,150);<br />
+context.lineTo(350,150);<br />
+context.lineTo(250,200);<br />
+context.lineTo(300,300);<br />
+context.lineTo(200,225);<br />
+context.lineTo(100,300);<br />
+context.lineTo(150,200);<br />
+context.lineTo(50,150);<br />
+context.lineTo(150,150);<br />
+context.lineTo(200,50);<br />
+context.fill();
+
+</div>
+<p>
+And now we have a blue star! Of course you can set any hex value you like to the fillStyle.
+Now, let's get funky and give it a shadow!
+</p>
+<p>
+To add a drop shadow to a filled shape (or even a stroke, too), we need to specify a few things:
+</p>
+<ol>
+<li> The shadow color </li>
+<li> The distance that the shadow extends from the shape </li>
+<li> The amount of blurring we want to apply to the shadow  </li>
+<p>
+</ol>
+<p>
+So first things first:
+</p>
+<p>
+To attribute a color to the shadow, we use a value called, you guessed it... shadowColor!
+It's assigned in the same way we assign a strokeStyle and fillStyle.
+Let's give it a color value of white.
+</p>
+<div id="code">
+
+context.shadowColor = "#ffffff";
+</div>
+<p>
+Of course if you run it nothing happens yet, because we need to specity the distance that it extends from the shape.
+Which leads us to our second set of values:
+</p>
+<p>
+context.shadowOffsetX (distance the shadow extends along the x axis) 
+</p>
+<p>
+and 
+</p>
+<p>
+context.shadowOffsetY (distance the shadow extends along the y axis) 
+</p>
+<p>
+So, without further ado, let's add these two lines to our code right underneath the shadow color line:
+</p>
+<div id="code">
+
+context.shadowOffsetX = 5;
+<br>
+context.shadowOffsetY = 5;
+</div>
+
+<p>
+Save it, run it, and there we have a white drop shadow that extends 5 pixels to the right and 5 pixels downward.
+Interesting! Let's go on...
+</p>
+<p>
+Go ahead and add this one right under our shadow offsets:
+</p>
+<div id = "code">
+
+context.shadowBlur = 10;
+</div>
+
+<p>
+And now we have a blurry, god-awful star with a god-awful blurry drop shadow! Cheesy!
+Excuse me if I don't think these are the most INCREDIBLE visual effects, but they're primitive
+compared to those you can make with super graphics designing programs. Then again, these are FREE!
+</p>
+<p>
+Like I said a couple tutorials ago, you most likely won't be using these for your games, and your assets will 
+most likely be imported to the canvas through sprite sheets and drawn in some
+other program, but we need to get through these cheesy effects for completion's sake. 
+And hey, more tools is ALWAYS better and these dinky little shapes are always useful for
+simple animations like these. And SOMETIMES, though not very often, you can get these
+to look somewhat attractive. A drop shadow attached to some text is often attractive, for example.
+</p>
+<p>
+So do we have a handle on drop shadows?? Are we ready to try some gradients?
+</p>
+<p>
+A gradient, if you're unfamiliar with them, is a blending together of two or more colors. The next time you see
+a sunset, quit smooching with your significant other a second and look up into the sky.
+If your partner says you're distracted and walks away pouting, don't worry about it -
+explain that you're learning HTML5 games and need to study this stuff!
+</p>
+<p>
+HTML5 > any human relationship ever, right?? I mean, who needs a date when you've got cheesy white
+drop shadows, am I right or WHAT??
+</p>
+<p>
+But I digress...
+</p>
+<p>
+But seriously, check out a sunset... do you see the smoothness with which the colors blend into each other?
+You can do the same darn thing in HTML5! 
+</p>
+<p>
+But enough theory, though...let's move on to drawing these suckers!
+</p>
+<p>
+Now there are two types of gradients: those made in a circular way (radial gradients) and those made in a linear way (linear gradient).
+If that doesn't make sense, change your code to the following and give it a run:
+</p>
+<div id="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Linear Gradients &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;); <br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var gradient = context.createLinearGradient(0,0,canvas.width,canvas.height);<br />
+<br />
+gradient.addColorStop(.3,&quot;#ff0000&quot;);<br />
+gradient.addColorStop(1,&quot;#00ff00&quot;);<br />
+<br />
+context.fillStyle = gradient;<br />
+<br />
+context.fillRect(100,100,400,200);<br />
+&lt;/script&gt;
+</div>
+<p>
+Hey, that's not so complicated after all!
+</p>
+<p>
+It isn't, in fact, but it takes a little intuition to figure out how it works the first time you try it out.
+</p>
+<p>
+Notice first of all that we added a variable named gradient under our context line.
+I just named it that way, but you can call it "thebestpartofwakingupisfolgersinyourcup"
+if you so desire. The name matters not.
+</p>
+<p>
+The values DO matter, though!
+</p>
+<p>
+So what's going on here? What are we defining with these 4 values? 
+First off, if you remember my tip in lesson 1 (I think), you'll recall that if you have 4 
+values (hear a song coming on?) , most likely  they're: x value, y value, width value and height value. 
+And indeed they are here as well!
+</p>
+<p>
+So what do you mean, x,y,width,height? x,y,width and height of WHAT?
+</p>
+<p>
+Well, with this variable we're creating the dimensions of the gradient itself. In this case, it's gonna be
+a huge one and stretch all across our screen. As you can see, the width ranges all the way across the
+canvas and so does the height. We set this by adding (canvas.width and canvas.height) to our formula.
+</p>
+<p>
+Everything else we add on top of this giant rectangle created with these 4 values will be "gradientized". 
+</p>
+<p>
+The big question is: how much? How much of what color and how much of another?
+</p>
+<p>
+This is why we define the addColorStop of the gradient.
+</p>
+<p>
+First off, the second value, as you can see from a mile away, is the hex color value we
+saw eariler. The first value is crucial to "grading" our gradient: it indicates where a color starts. These values range from
+0 to 1 so they could be .4, .6, .8, .6213, .99999999 or .05555, for example.
+</p>
+<p>
+Notice that in our addColorStops we have the first color stop (which is red) starting at .3  = 30% across the 
+giant graident rectangle we drew. The second addColorStop (which is green), covers the rest and goes
+all the way to the end of our giant gradient. Make sense? Don't worry if it's sort of blurry in your mind. We're going to
+go over some examples in a second.
+</p>
+<p>
+Lastly, we need to add a shape to the canvas to see the results of our beautiful gadient, right?
+Because, you see, our gradient will be forever invisible unless we put something on TOP of it.
+If you've worked in photoshop and have worked with masks and layers, it's the same sort of concept.
+In our case, the gradient occupies the entire screen, so ANY SHAPE that we draw on top of
+the giant invisible gradient will become "gradientized". Sorry if I use that word so much, but it's  
+kinda neat!
+</p>
+<p>
+So at the end of our code, we added a rectangle which starts at 100x and 100y and is 400 X 200.
+</p>
+<p>
+Every shape that we draw after the color stops is like a layer on TOP of the gradient we drew. It's
+like the fillRect is acting as a sort of window that looks out upon the giant gradient below it.
+Get it now?
+</p>
+<p>
+The best way to understand this is plug in some different values to our two add color stop values.
+</p>
+<p>
+So first off, change the fillRect values to these:
+</p>
+<div id = "code">
+context.fillRect(0,0,canvas.width,canvas.height);
+</div>
+<p>
+This will make our window over the gradient the same as the gradient itself, so the entire gradient
+will pop up in the rectangle too!
+</p>
+<p>
+Then change the addColorStop values to these:
+</p>
+<div id = "code">
+gradient.addColorStop(.5,"#ff0000");
+gradient.addColorStop(.5,"#00ff00");
+</div>
+
+<p>
+Save, then run. And what do we see?
+</p>
+<p>
+Not much of a gradient at all! Just two colors meeting halfway across the gradient. 
+</p>
+<p>
+Let's change the first values of the addColorStop around now.
+</p>
+<p>
+Next set the first value of each to: .2
+</p>
+<p>
+What changes?
+</p>
+<p>
+The red value stops at 20% and the green value starts at 20%. Not too graident-y either!
+</p>
+<p>
+Let's try setting the first value to 0 (0%) and the second value to 1 (100%). What now?
+</p>
+<p>
+Now THAT'S a nice graident!! In fact, it's a perfect 50/50 smoothing!
+</p>
+<p>
+Let's try giving the first value 0 and the second value .5
+</p>
+<p>
+With that, the green takes up a lot more of the space than the red.
+</p>
+<p>
+Is this sinking in now?
+</p>
+<p>
+I could go on and try to explain this in terms of redness and greenness, but you'd have a much easier time
+understanding it if you doodle around with it by yourself and try different values. Now you know how to set up a
+variable for the gradient, you know how to change the degree of color in it and you know, most importantly,
+how it shows up on the screen through shapes. Let's keep this information in mind as we switch to a radial
+gradient:
+</p>
+<p>
+Now instead of having straight gradients, we can also have gradients that use lines that are curved in nature. 
+The only difference in terms of code is the definition of the gradient itself:
+</p>
+<p>
+Run this code and let me know what you see!
+</p>
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Radial Gradients &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;); <br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var gradient = context.createRadialGradient(100,50,30,100,50,200);<br />
+<br />
+gradient.addColorStop(0,&quot;#ff0000&quot;);<br />
+gradient.addColorStop(1,&quot;#00ff00&quot;);<br />
+<br />
+context.fillStyle = gradient;<br />
+<br />
+context.fillRect(0,0,canvas.width,canvas.height);<br />
+<br />
+&lt;/script&gt;
+</div>
+
+<p>
+Say, that looks sort of like a sun!
+</p>
+<p>
+So, as you can see, the whole process of setting the raidal gradient isn't much different. We just have a
+couple extra arguments to work with.
+</p>
+<p>
+The trick to these is understanding the values we put into the method.
+</p>
+<p>
+The first two are the x and y coordinates of the center point of the first circle. The third is the radius of said circle.
+The fourth and fifth are the x values of the second circle and the last one is the radius of the second circle.
+</p>
+<p>
+Easy, right?
+</p>
+<p>
+Ergo:
+</p>
+<p>
+context.createRadialGradient( circle 1 x,circle 1 y, circle 1 radius,circle 2 x,circle 2 y,circle 2 radius);
+</p>
+<p>
+Got it?
+</p>
+<p>
+I'd say that you can take it from here at this point. I could show you an extra couple examples, but it wouldn't be
+very useful to you since I'd be describing an abstract concept. Save, run and try a bunch of different examples of 
+gradients of both types. You'll see that they're not very difficult to implement at all once you've made a few.
+</p>
+<p>
+Whew! That was a long lesson! Hope you got something out of it and hope you can now start adding grotesque 
+little effects to your canvas art through drop shadows and graidents! Again, I don't care much for them and 
+GREATLY prefer making art in other programs, then importing them into my games through the drawImage() method,
+but that doesn't mean it should stop you from learning them! Hey, maybe you're working on a retro game that replicates
+graphics from the 80s/90s! You can also make simple games like breakout with 100% canvas graphics.
+But let's set the bar a little higher, shall we?
+</p>
+<p>
+Tomorrow we get back to the cool stuff and get into how to import images as well as some text onto the canvas. We'll
+also have them move around the screen a litte bit too.
+</p>
+<p>
+So stay tuned! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben
+<br>  
+@benwhi
+ </p>
+<a href="Lesson6.html">Onward to Lesson Six!</a>
+<br>
+<a href="Lesson4.html">Back to Lesson Four</a>
+<br>
+<a href="Lessons.html">Back to Index </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+

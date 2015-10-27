@@ -1,0 +1,339 @@
+<!doctype html>
+<title>LESSON #22</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 22 - July 10, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation"> (Game Dev. Tools) LESSON # 22</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+<p>
+Today we'll be substituting those wretched little rectangles we've been working with until now and turning them in to things that MOVE! No, not move around the screen - we'll be turning them into 
+characters and animating them like real video game characters should be animated. How do we approach this? Do we draw each frame out using arc(), lineTo, etc.? Well, we COULD, but
+that wouldn't be a whole lot of fun. No, that wouldn't be a whole lot of fun at all... let's start off by using some ready-made sprite sheets, prepared by yours truly, then later on when we talk about advanced sprite sheet techniques, I'll give you some info about where you can make your own.
+</p>
+<p>
+So we'll start REALLY simple and go with a 2-frame sheet. Just download it directly from this page (right click / CTRL click), then save it in the same folder you're going to put your HTML file in.
+Here it is in all its glory:
+</p>
+
+<img src="bomb.png"alt="bomb sprite sheet"/> 
+<p>
+(Note that the dimensions are 150 X 100.) 
+</p>
+<p>
+Now, we saw in a different lesson that there are three ways of drawing an image to the canvas. Remember? Well, we only covered two because I figured that the third method
+would be more appropriate to discuss in conjunction with a discussion on sprite sheets, so here we are! The day has arrived!
+</p>
+<p>
+<b>drawImage(imageName, sourceX,sourceY,sourceWidth,sourceHeight,destX,destY,destWidth,destHeight);</b>
+<p>
+As you can see, this particular drawImage method has 9 arguments, but they're pretty easy to remember:
+</p>
+<p>
+First we have the name that we attributed to the image when we created a new Image object.
+</p>
+<p>
+The second through fifth arguments are the x,y,width and height value of our source image. In other words, which PART of the image do we want to get our 
+image info from? You see, we're creating a hypthetical rectangle on top of our image. Whatever is inside that rectangle willl be used in our output. Clear? 
+</p>
+<p>
+The remaining four arguments are the x,y,width and height of the selection you just made, but placed onto the canvas. By changing these width and height values
+we can scale the selection to our liking. Still cliear?
+</p>
+<p>
+Just to show you what I mean, why don't we punch this code into our text editor, save it, make sure the bomb.png file is in the same directory, then give it a run.
+What do you see?
+</p>
+<div id="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Simple Sprite Sheet Stuff &lt;/title&gt;<br />
+&lt;canvas id=&quot;canvas&quot; width= &quot;550&quot; height= &quot;400&quot;&gt; Your browser sucks &lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+var bombImage = new Image();<br />
+bombImage.src =&quot;bomb.png&quot;;<br />
+context.drawImage(bombImage,0,0,75,100,200,200,75,100);<br />
+&lt;/script&gt;
+</div>
+<p>
+Now no sleight of hand here! I didn't just cut my original bomb image in half with a saw! All I did was specify in the second to fifth arguments that I needed a selection from my 
+original image that started at 0,0 (x,y), had a width of 75 (which is one half of the width of my image), and a height of 100 (the height of my image). Once this
+was done, I could take my half image and stick it anywhere I pleased by using the sixth to ninth arguments. Actually, if I wanted to, I could tweak the eighth and ninth 
+arguments to stretch my image out. Let's give that a shot for the fun of it.
+</p>
+<p>
+Punch this line into your code instead:
+</p>
+
+<div id="code">
+context.drawImage(bombImage,0,0,75,100,200,200,200,20);
+</div>
+
+<p>
+That's not a bomb anymore, that's for sure!
+</p>
+<p>
+Let's set it back to normal so we don't get ourselves confused. 
+</p>
+
+<div id ="code">
+context.drawImage(bombImage,0,0,75,100,200,200,75,100);
+</div>
+<p>
+So that said and done, how do we go about making an animation ot of this? Well, it's actually VERY simple! 
+</p>
+<p>
+To make the explosion happen on its own we'll need a timer. In this case setTimeout works fine. Now watch what I do...
+</p>
+<div id="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Simple Sprite Sheet Stuff &lt;/title&gt;<br />
+&lt;canvas id=&quot;canvas&quot; width= &quot;550&quot; height= &quot;400&quot;&gt; Your browser sucks &lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var bombImage = new Image();<br />
+bombImage.src =&quot;bomb.png&quot;;<br />
+<br />
+context.drawImage(bombImage,0,0,75,100,200,200,75,100);<br />
+window.setTimeout(explode,2000);<br />
+<br />
+function explode()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.drawImage(bombImage,75,0,75,100,200,200,75,100);<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Note that the first version of the image is added once the screen loads. This is the bomb image.
+A setTimeout is then applied which goes off two seconds (2000 ms) after it is called. 
+Inside out timeout function we added a clearRect which we've seen resets the stage, then a second
+drawImage which will be drawn above this clearRect.
+</p>
+<p>
+The second drawImage, however, is different. Instead of starting at 0,0 for our source rectangle, it starts
+from 75, which is half the width of our bomb.png image. This means that our image is being clipped not 
+from the left-hand side, but 75 pixels in to the right which happens to be the starting X point for the second
+image in our little sprite sheet.
+</p>
+<p>
+Making sense?
+</p>
+<p>
+If we wanted to make a sprite sheet that was set into motion by some kind of event WE initiate, all we'd have to 
+do is set it to an mouse click or keyboard "keydown" event or something of the sort. We'll see plenty of these in the lessons
+that follow. 
+</p>
+<p>
+Now two stupid frames are fine and dandy, but what if we wanted more than one?
+</p>
+<p>
+Here it may seem more complicated, but it really isn't. All that's necessary is to use a couple of lines of code and and if statement.
+When we look at advanced sprite sheets, we'll have a handy little formula so we can skip through HUGE sprite sheets with
+multiple rows effortlessly.
+</p>
+<p>
+First let's do a Jr. sprite sheet which has 5 frames on the same row. Take a look at the next (gorgeously drawn) image to see what I mean.
+</p>
+
+
+<image src="glass.png" alt="glass"/>
+<p>
+(Note here that the dimensions are 375 X 100. This means that we have 5 frames which are 75 pixels each.)
+</p>
+<p>
+Hey, a glass emptying - how existential! 
+</p>
+<p>
+What we'll be doing in this simple exercise is allowing our browser to skip through these frames one at a time in order to 
+give the effect of animation. We'll create a global variable called increment and assign it an intial value of 0. 
+</p>
+<p>
+We'll also be changing the setTimeout to a setInterval and assign it an interval of 300ms.
+</p>
+<p>
+On every iteration of increment, we'll be adding 75 (the width of each frame in the sheet) to our increment value.
+This will be the activity necessary for switching the frames.
+</p>
+<p>
+Finally, at the end of the code we'll have an if statement that blocks increment from moving beyond the last frame (i.e. a value of 300).
+</p>
+<p>
+Sound simple enough? It is!
+</p>
+<p>
+Here's the code:
+</p>
+
+<div id="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Simple Sprite Sheet Stuff &lt;/title&gt;<br />
+&lt;canvas id=&quot;canvas&quot; width= &quot;550&quot; height= &quot;400&quot;&gt; Your browser sucks &lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var bombImage = new Image();<br />
+bombImage.src =&quot;glass.png&quot;;<br />
+<br />
+var increment = 0;<br />
+<br />
+context.drawImage(bombImage,0,0,75,100,200,200,75,100);<br />
+window.setInterval(drink,300);<br />
+<br />
+function drink()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.drawImage(bombImage,increment,0,75,100,200,200,75,100);<br />
+increment += 75;<br />
+<br />
+if (increment &gt; 300)<br />
+{<br />
+increment = 300;<br />
+}<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+It's almost the same setup as the example with the last one, right?
+</p>
+<p>
+Give it a run and enjoy the glass of orange juice (or beer if that's your thing) slowly be consumed. If you want something a little faster, all you have to do is 
+change the interval value to something a bit lower.  
+</p>
+<p>
+There you have it - all you need to know to get a simple sprite sheet working. Now I'm going to keep this lesson short because I want to do cover something 
+that will make your life a WHOLE lot easier, not just for sprite sheets, but for almost anything you do in Javascript, namely OBJECTS.
+</p>
+<p>
+After we've covered objects, we'll go back and look at sprite sheets from a different angle, because custom-made objects will revolutionize how we work with variables
+in javascript.
+</p>
+<p>
+So enjoy this little intro to sprite sheets and be prepared for something even more exciting next time!
+</p>
+ 
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime to me on Twitter: @benwhi.
+</p>
+<p>
+Until next time!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson23.html">Onward to Lesson Twenty Three!</a>
+<br>
+<a href="Lesson21.html">Back to Lesson Twenty One!</a>
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+

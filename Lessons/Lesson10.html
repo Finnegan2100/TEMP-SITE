@@ -1,0 +1,514 @@
+<!doctype html>
+<title>LESSON #10</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 10 - April 13, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 10</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+Hey there, everyone. It's raining! 
+</p>
+<p>
+Today we're going to go into the nooks and crannies of some other features of the canvas. There's not much left to cover
+here, so I'm assuming we'll only need two or so more lessons before we can move on to the more "gamey" stuff. 
+Gotta say we've covered a lot of stuff in these lessons! Somewhere I think I mentioned wanting to talk about event listeners sometime soon, 
+but first we'll canvas stuff first for completion's sake. Like I said, we're almost there. 
+And now that we've finished rotation and scaling, the hard part is now behind us.
+</p>
+<p>
+So what are we going to talk about today? Let's start off today by looking at something called compositing. Now compositing
+is a technique for dealing with overlapping stuff. It's like a mini version of those newfangled Photoshop blend tools (or whatever kids call them today)
+like subtract, difference, multiply, etc. that you can use to combine colors sitting top of each other in different ways.
+</p>
+<p>
+Once again, a visual representation is much easier, so let's jump right into our coding and try a few.
+</p>
+<div id = "code">
+<br />
+&lt;!doctype html&gt;<br />
+&lt;title&gt;RECTANGLE BLENDING&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(200,150,60,60);<br />
+context.fillStyle = &quot;#00ff00&quot;;<br />
+context.fillRect(170,130,60,60);<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Here are our two rectangles. One is red and one is green.
+</p>
+<p>
+An important thing to note here before we get blendin', since we haven't dealt with it in the past, is the ORDER in which you place objects onto
+the canvas. The order in which they are specified in your code will be the order in which they are drawn onto the canvas. Notice that the
+first rectangle we drew was red, followed by the second green rectangle. This places the red rectangle underneath the green one.
+</p>
+<p>
+If we take a second and switch the four lines as you can see here:
+</p>
+<div id = "code">
+<br />
+context.fillStyle = &quot;#00ff00&quot;;<br />
+context.fillRect(170,130,60,60);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(200,150,60,60);
+</div>
+<p>
+...the green rectangle is placed magically below the red one. If we were to draw a third, say, blue rectangle,
+it would be placed BELOW the lowest one, in this case our green one.
+</p>
+<p>
+But before we get all mixed up with the stuff we're about to try, I want to be sure we're on the same page here, so
+SWITCH YOUR CODE BACK to the first, longer code example above. We want the red rectangle BELOW the green 
+one for this exercise. Catch my drift? Switch it back right now. Or you an use a time machine and smack yourself on the head
+before you did the last exercise. Either way.
+</p>
+<p>
+So, here we are again back with our red rectangle on the bottom. 
+</p>
+<p>
+The code for compositing is simply this:
+</p>
+<p>
+context.globalCompositeOperation = "whatever type of compositing operation you prefer goes here";
+</p>
+<p>
+There are eleven compositing operations total and we'll start picking them apart in a minute.
+</p>
+<p>
+But first. it's very important to know that there are two fundamental concepts inherent to compositing: the destination and the source.
+The SOURCE goes to the DESTINATION. Got it?
+</p>
+<p>
+Again, I feel the need to sing in my best operatic voice....
+</p>
+<p>
+"THE SOOOUUUUURRCCCEEE GOOOOESSS TOOOO THEE DEEESSTTTINNNATTTTIOOOOOOONNNNNNNN......"
+</p>
+<p>
+Had a kind of Mozartian feel to it, don't you think? 
+</p>
+<p>
+So wait, where does the SOURCE go?
+</p>
+<p>
+Aha! It goes to the DESTINATION! Sing it to yourself a couple times around the house. It helps those of us without a memory cap 
+to keep things stored in our brains.
+</p>
+<p>
+Remember folks, that you need to put the context.globalCompositeOperation BETWEEN the source and destination. 
+</p>
+<p>
+Now, just so we can see what's going on, let's add an example of compositing to our code right now:
+
+</p>
+<div id ="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;RECTANGLE BLENDING&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(200,150,60,60);<br />
+<br />
+context.globalCompositeOperation = &quot;source-atop&quot;;<br />
+<br />
+context.fillStyle = &quot;#00ff00&quot;;<br />
+context.fillRect(170,130,60,60);<br />
+<br />
+&lt;/script&gt;<br />
+</div>
+<p>
+Now that's intreresting! What happened there?
+</p>
+<p>
+Well, our compositing operation is called "source-atop" and that cuts away 
+all the source that ISN'T overlapping with the destination and leaves you
+with the portion that was overlapping it.
+</p>
+<p>
+Now switch the compositing operation to "source-over". What was THAT supposed to do?
+Nothing! It's the default for compositing! Obviously, this means that the source
+is placed over the destination. Something we know already from our song.
+</p>
+<p>
+Now give your compositing operation a value of "source-out". This cut away 
+all the destination and all the source that was touching it, leaving us only the outer
+source.
+</p>
+<p>
+Try "source-in" now. This gives you only that bit of source that was overlapping
+with the destination. The opposite of "source-out", in other words.
+</p>
+<p>
+So, as you can see, there are four different values for source:
+</p>
+<p>
+ATOP,OVER,IN,OUT
+</p>
+<p>
+In other words: "source-atop","source-over","source-in","source-out".
+</p>
+<p>
+Let's take a look at the destination values, then!
+</p>
+<p>
+Change your context.globalCompositeOperation value over to "destination-atop".
+What do you see? This gives you only the destination that touched the source
+and put it on top.
+</p>
+<p>
+"destination-over"? This simply switches the order of the two rectangles on the canvas.
+</p>
+<p>
+By the way... where does the source go??  
+</p>
+<p>
+"THE SOOOUUUUURRCCCEEE GOOOOESSS TOOOO THEE DEEESSTTTINNNATTTTIOOOOOOONNNNNNNN......"
+</p>
+<p>
+That's right!
+</p>
+<p>
+Now for the last two:
+</p>
+<p>
+Plug in "destination-out", then "destination-in". Pretty much what you expected, right? Cool.
+This is the same thing as source-out and source-in, but with the destination as our protagonist.
+</p>
+<p>
+Now there are three more oddball values to deal with that don't start with source or destination.
+</p>
+<p>
+They are:
+</p>
+<p>
+COPY, LIGHTER and XOR.
+</p>
+<p>
+No, XOR doesn't make your rectangles grow green antennae and fly off to another planet. Despite the wierd name, all it does is...
+put a big hole where the overlap was. You'll see that in a second.
+</p>
+<p>
+First let's look at COPY.
+</p>
+<p>
+Go ahead and assign "copy" to your composite operation line. 
+</p>
+<p>
+This one's sorta boring. All it does is copy the source to the canvas without changing it and gets rid of the destination.
+</p>
+<p>
+Try "lighter" now. Hmm, we get a yellow rectangle in the overlapping section of the source and destination.
+Lighter adds the two image values together and gives you a corresponding color.
+</p>
+<p>
+How about that oddball "xor"? As you can see it cuts out all the interlapping space between the two rectangles.
+</p>
+<p>
+Take some time to check these out. They're sort of fun, actually! Try them with lineTo-based filled shapes as well.
+</p>
+<p>
+Here's a complete list of all the compositing values in case you fell asleep:
+</p>
+<p>
+source-out
+sorce-in
+source-over
+source-atop
+</br>
+destination-out
+destination-in
+destination-over
+destination-atop
+</br>
+copy
+lighter
+xor
+</p>
+<p>
+Now the next topic I want to introduce deals with something called clipping. Clipping is actually your third option if you don't want to
+use stroke() or fill(). Bascially what it does is this:
+</p>
+<p>
+When you assign a certain area as a clipping region, anything that you draw outside of the region will not be seen. In this next
+bit of code, you'll see a "floral" for lack of a better word) sort of clipping region made with curves.
+</p>
+<div id = "code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.strokeStyle = &quot;#000000&quot;;<br />
+context.moveTo(200,100);<br />
+context.quadraticCurveTo(250,50,300,100);<br />
+context.quadraticCurveTo(400,150,300,200);<br />
+context.quadraticCurveTo(250,250,200,200);<br />
+context.quadraticCurveTo(100,150,200,100);<br />
+context.stroke();<br />
+context.clip();<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Notice that when you save and run this code, you'll see no change whatsoever. The real fun comes when we try to add some
+rectangles to ths canvas. Check it out:
+</p>
+<p>
+Add this code underneath your clipping region.
+</p>
+<div id = "code">
+
+context.fillStyle = &quot;#00ff00&quot;;<br />
+context.fillRect(200,100,150,150);
+</div>
+<p>
+TRAPPED! As you can see, anything you draw outside your clipping region will be removed. The rectangle, of course, was drawn normally, but you've set the "floral" shape 
+as your clipping region and that makes everything outside it invisible. This blocks your inner child that wants to color outside 
+the lines. It's a mask, in other words.
+ </p>
+<p>
+I don't think it's necessary to show you any other examples of this. It's pretty self-explanatory, right? I think you're
+proficient enough at this point to be able to stand on your own two feet with this one.
+</p>
+<p>
+A last thing I need to go over with you is how paths work in the canvas. I've skipped over this until now because I didn't want to 
+confuse you, but now, as we're covering the last few topics related to the canvas, I'd say this requres our attention.
+It can allow you to get a lot more creative with your lines and arcs.
+</p>
+<p>
+Now, as you've noticed if you've experimented around with drawing long sequences of lines and arcs: once you set a strokeStyle
+to a line, it seems like you're stuck with that for eternity! What if we want to draw different colored lines? Let's try something and see if it works for us.
+</p>
+<p>
+In this example, I've tried closing off the line with a stroke() method, then assigning a new strokeStyle to our line and starting again.
+Let's see if it works:
+</p>
+<div id = "code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.strokeStyle = &quot;#000000&quot;;<br />
+context.moveTo(200,200);<br />
+context.lineTo(300,250);<br />
+context.lineTo(200,300);<br />
+context.lineTo(100,300);<br />
+context.lineTo(200,300);<br />
+context.stroke();<br />
+<br />
+context.strokeStyle = &quot;#ff0000&quot;;<br />
+context.moveTo(200,300);<br />
+context.lineTo(100,200);<br />
+context.stroke();<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+If you save and run, you'll see that it does NOT work and the lines turn out red, which is the last strokeStyle we've attributed to our lines.
+That's strange, right? 
+</p>
+<p>
+Well, it turns out we need to discuss beginPath() which is really just a simple, self-explanatory little method. 
+It takes no arguments and you place it in your code every time you want to start a line, arc, or whatever from the starting point.
+Don't forget for lines, however, that you NEED to specify a moveTo() before any of your lines will show up on the canvas. Canvas needs to know
+where you're starting from each time!
+</p>
+<p>
+So the same thing applies when we call beginPath(). Don't forget that it's like starting over - after you call beginPath, the computer thinks this is 
+the very first line you've drawn on your canvas, even though you might have already drawn 5,000 of them. So don't forget to call moveTo()
+before you start drawing. Otherwise, nothing'll show up!
+</p>
+<p>
+To demonstrate the capabilities of beginPath(), here's the same shape ("floral", I guess!) you drew in the clipping region section
+redrawn in different colors:
+</p>
+<div id="code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.beginPath();<br />
+context.lineWidth = 10;<br />
+context.moveTo(200,100);<br />
+context.strokeStyle = &quot;#ff0000&quot;;<br />
+context.quadraticCurveTo(250,50,300,100);<br />
+context.stroke();<br />
+<br />
+context.beginPath();<br />
+context.lineWidth = 10;<br />
+context.moveTo(300,100);<br />
+context.strokeStyle = &quot;#440000&quot;;<br />
+context.quadraticCurveTo(400,150,300,200);<br />
+context.stroke();<br />
+<br />
+context.beginPath();<br />
+context.lineWidth = 10;<br />
+context.moveTo(300,200);<br />
+context.strokeStyle = &quot;#006600&quot;;<br />
+context.quadraticCurveTo(250,250,200,200);<br />
+context.stroke();<br />
+<br />
+context.beginPath();<br />
+context.lineWidth = 10;<br />
+context.moveTo(200,200);<br />
+context.strokeStyle = &quot;#0000dd&quot;;<br />
+context.quadraticCurveTo(100,150,200,100);<br />
+context.stroke();<br />
+<br />
+&lt;/script&gt;
+
+</div>
+<p>
+How charming!
+</p>
+<p>
+Note a few things: 
+</p>
+<p>
+First off, I've given each of the line segments a width of 10 because if was a little difficult to see the different 
+colors on such skinny little line segments. 
+</p>
+<p>
+Secondly, I've assigned EACH path not only a specific width, but also needed to specify where to initially move to
+with a moveTo() method, since every time I call a beginPath(), the computer has no idea where I should start from.
+This, as you've seen in our other tutorials, is no problem if we're not dividing our lines into paths.
+</p>
+<p>
+Thirdly, we need to call a stroke() mehod at the end of each segment so each one shows up on the screen. This
+was also unecessary when we were drawing one, long path; we only needed to call one at the end.
+</p>
+<p>
+So is it clear now? This will expand your field of possibilities in terms of the types of point-based drawings you can make.
+</p>
+<p>
+Aaaaaaand that's everything I'd like to touch on for this lesson. Tomorrow we'll get into the last few points we need to deal with
+before having learned everything you've ever wanted to learn about the canvas. After that we'll be able to change our focus
+from the canvas to working on techniques that you'll need for making games.
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson11.html">Onward to Lesson Eleven!</a>
+<br>
+
+<a href="Lesson9.html">Back to Lesson Nine!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>

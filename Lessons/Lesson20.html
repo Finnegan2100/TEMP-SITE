@@ -1,0 +1,481 @@
+<!doctype html>
+<title>LESSON #20</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 20 - June 2, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation"> (Game Dev. Tools) LESSON # 20</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+So as promised (with a bit of delay) here's lesson #20! Last time we got our feet wet with Math.sin and Math.cos. Now it's time to move things forward a bit and see what other cool
+things we can do with them. The world of trigonometry in the world of games, however, is vast and sometimes frightening and to cover it all would take a gazillion tutorials! But we'll
+take everything slowly, piece by piece until we get there. 
+</p>
+<p>
+Now in lesson 19 we saw how to move our objects around the screen at a specific angle using raidans. That's pretty neat to look at, and certainly useful, but what else can we
+do with these mathy built-in functions?
+</p>
+<p>
+Well....
+</p>
+<p>
+How about moving things in a circular pattern? I guess you're probably sick of moving things in straight lines, right? Remember that you can apply velocity,
+friction, acceleration and the like to ANY sort of movement. You're certainly not limited to circular stuff! So let's see our circle in action...
+</p>
+<h3>
+MOVING IN A CIRCLE
+</h3>
+
+<p>
+Now before I show you the code, I think it's useful to consider what we'll need first. 
+</p>
+<p>
+Pretend, for example, that you want to move your phone around in a circular pattern on your desk. Also pretend that I'm trying to recreate this effect, but have no way of seeing what
+it is you're doing. I'd therefore need to ask you some questions to get a precise mental picture in my mind, namely:
+</p>
+<p>
+How fast is it moving? <br>
+What's the radius/diameter of this circular pattern? <br>
+What is the exact location of the center point of this circle on the desk? <br>
+</p>
+<p>
+These are important questions and require that we make variables to specify them in our circle!
+</p>
+<p>
+Therefore we're going to be adding these values:
+</p>
+<p>
+centerPointX  <--- The x value of the center point of our circle. <br>
+centerPointY <---- The y value of the center point of our circle. <br>
+radius    <-----The radius of the circle we're going to be generating. <br>
+speed  <-------How fast our circle will be moving. <br>
+</p>
+<p>
+also 
+</p>
+<p>
+angle  <-------our angle (in radians) which will be increased by a specific amount with each iteration of the drawRectangle function.
+</p>
+<p>
+
+So before I show you the code, just keep this simple idea in mind:
+</p>
+<p>
+ALL moving in a circle means is constantly increasing the angle value.
+</p>
+<p>
+Think it over: I've told you twice already that radians are nothing more than the subdivisions of 6.28 (2 PI/360 degrees). All we'll be doing is spinning our
+object around and around like hands on a clock moving around a fixed center point. It will start off at 0 radians (3 o'clock), then move around the circumference 
+until it reaches 6.28 radians, at which point it will start over again at 0 radians. That's all there is to moving in a circle!
+</p>
+<p>
+No let's take a peek at the code. Copy this and run it. Note that I've added a second little rectangle to illustrate where the center point is.
+Also note that the first fillRect is a little cluttered. We've had to add quite a few things in there, but this is only phase 1. Just wait until we get into
+objects and how they can help you in you gamedev pursuits! 
+</p>
+<p>
+So here it is:
+</p>
+<div id ="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;CIRCULAR MOTION&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var angle = 0;<br />
+var centerPointX = canvas.width / 2;<br />
+var centerPointY = canvas.height / 2;<br />
+var radius = 50;<br />
+var speed = .3;<br />
+<br />
+<br />
+window.setInterval(drawRectangle,30);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(centerPointX - rectWidth / 2 + Math.cos(angle) * radius,centerPointY - rectHeight / 2 + Math.sin(angle) * radius,rectWidth,rectHeight);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(centerPointX, centerPointY, 3,3);<br />
+angle += speed;<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+
+<p>
+Our rectangle is now spinning nicely around its two center points located at the exact center of our canvas.
+</p>
+<p>
+If we analyze this we see the following:
+</p>
+<p>
+Here are our variables. Pretty straightforward, just everything we described earlier. 
+</p>
+<div id = "code">
+
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var angle = 0;<br />
+var centerPointX = canvas.width / 2;<br />
+var centerPointY = canvas.height / 2;<br />
+var radius = 50;<br />
+var speed = .3;
+
+</div>
+<p>
+Then in our fillRect() function we have this bad guy:
+</p>
+<div id = "code">
+
+context.fillRect(centerPointX - rectWidth / 2 + Math.cos(angle) * radius,centerPointY - rectHeight / 2 + Math.sin(angle) * radius,rectWidth,rectHeight);
+
+</div>
+<p>
+Lengthy, yes, but not all that complicated. All we're doing is defining the four standard elements of any old fillRect.
+</p>
+<p>
+The first is our X value: If we chop up the first part we have:
+</p>
+<div id = "code">
+
+centerPointX - rectWidth / 2 + Math.cos(angle) * radius
+</div>
+
+<p>
+Which chopped up again gives us:
+</p>
+<p>
+The x value of the center point of our rectangle MINUS the half the width of our rectangle PLUS the cosine value of our angle TIMES the radius of our circle.
+</p>
+<p>
+A real mouthful, huh? 
+</p>
+<p>
+The second section is almost the same, except it deals with the Y value of our center point:
+</p>
+<div id = "code">
+
+centerPointY - rectHeight / 2 + Math.sin(angle) * radius
+</div>
+<p>
+Hence:
+</p>
+<p>
+The y value of the center point of our rectangle MINUS half the height of our rectangle PLUS the sine value of our angle TIMES the raidus of our circle.
+</p>
+<p>
+Got it?
+</p>
+<p>
+And the last two values are just the run-of-the-mill width and height of our rectangle.
+</p>
+<p>
+So why is the speed value so SMALL? We've usually used values like 3 or so for our VX and VY values. Why the small value here?
+</p>
+<p>
+Well, that's because, as I explained above, we're increasing the angle for each iteration. Since we start off with an inital angle value of 0, then
+continuously add .3 to it every iteration, we'll eventually end up at a value of 6.28, which is essentially the same thing as 0, right? From there we continue
+on our way until we reach 0 again, then again and again and again creating the circular effect. 
+</p>
+<p>
+And that's all there is to say about circular motion! Next on our list: making oval-shaped patterns (ellipses) with our rectangle!
+</p>
+<h3>
+OVAL PATTERNS
+</h3>
+<p>
+The only real important point to consider when making ellipses is that you don't have a single radius anymore, but you need to consider how tall or how wide
+your ellpise will be. A circle, of course, doesn't need to bother with that stuff!
+</p>
+<p>
+So instead of a radius variable, we'll add the following instead:
+</p>
+<div id = "code">
+
+var ellipseWidth  = 300; 
+var ellipseHeight = 100;
+
+</div>
+
+<p>
+And we'll replace the value of radius with these two guys once again, making our first fillRect():
+</p>
+<div id = "code">
+
+context.fillRect(centerPointX - rectWidth / 2 + Math.cos(angle) * ellipseWidth,centerPointY - rectHeight / 2 + Math.sin(angle) * ellipseHeight,rectWidth,rectHeight);
+</div>
+<p>
+Again, it's a mouthful, I know. But be patient until we get to objects, which are basically prefabricated things which have these values already inherent to them. It'll
+make your game dev. life a LOT easier, but I've held off on them for now because we have to first understand the principles behind these guys!
+Can't run until ya walk! 
+</p>
+<p>
+So here's the complete code:
+</p>
+<div id="code">
+<br />
+&lt;!doctype html&gt;<br />
+&lt;title&gt;ELLIPTICAL MOTION&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var angle = 0;<br />
+var centerPointX = canvas.width / 2;<br />
+var centerPointY = canvas.height / 2;<br />
+var ellipseWidth = 300;<br />
+var ellipseHeight = 100;<br />
+var speed = .3;<br />
+<br />
+<br />
+window.setInterval(drawRectangle,30);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(centerPointX - rectWidth / 2 + Math.cos(angle) * ellipseWidth,centerPointY - rectHeight / 2 + Math.sin(angle) * ellipseHeight,rectWidth,rectHeight);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(centerPointX, centerPointY, 3,3);<br />
+angle += speed;<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+
+<p>
+And we now have or rectangle moving in a short/far elliptical pattern. Want tall/thin? Change your ellipseWidth and ellipseHeight to 100 and 300 respectively.
+And now we've covered two very important trigonomical concepts. These can be used ALL OVER THE PLACE! Ever played a game in which you have something 
+hovering around your character like a force field or a weapon? That's trig! Ever seen games where you shoot stuff that flies off in a circular pattern? That's trig!
+Get the hang of this stuff, it's really quite useful!
+</p>
+<p>
+To reinforce this, and to make a sort of mini review (next lesson is the big kahuna in which we'll make some mini games), let's add some bounce to the walls of our canvas, 
+create a spinning object, and have it bounce all over the screen! Sound fun?
+</p>
+<p>
+So here's the code. Take a gander, then we'll pick it apart like a buzzard!
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BOUNCING A SPINNING OBJECT&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 3;<br />
+var VY = 3;<br />
+<br />
+var angle = 0;<br />
+var centerPointX = canvas.width / 2;<br />
+var centerPointY = canvas.height / 2;<br />
+var ellipseWidth = 60;<br />
+var ellipseHeight = 50;<br />
+var speed = .3;<br />
+<br />
+<br />
+window.setInterval(drawRectangle,30);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(centerPointX - rectWidth / 2 + Math.cos(angle) * ellipseWidth,centerPointY - rectHeight / 2 + Math.sin(angle) * ellipseHeight,rectWidth,rectHeight);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(centerPointX, centerPointY, 3,3);<br />
+angle += speed;<br />
+<br />
+centerPointX += VX;<br />
+centerPointY += VY;<br />
+<br />
+if (centerPointX &gt; canvas.width)<br />
+{<br />
+VX *= -1;<br />
+}<br />
+else if (centerPointX &lt; 0 - rectWidth)<br />
+{<br />
+VX *= -1;<br />
+}<br />
+<br />
+if (centerPointY &lt; 0)<br />
+{<br />
+VY *= -1;<br />
+}<br />
+else if (centerPointY &gt; canvas.height)<br />
+{<br />
+VY *= -1;<br />
+}<br />
+<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Now to be honest, there's NOT MUCH that was manipulated in these lines. The most significant verbage I made was to add the 4 if statements.
+What's at the heart of this, however, is the fact that we've used VX an VY in association NOT with rectX and rectY like we usually do, but
+with the centerPointX and centerPointY values. As you can see, under the line angle += speed, I've added these lines:
+</p>
+<div id ="code">
+
+centerPointX += VX;<br>
+centerPointY += VY;
+</div>
+<p>
+Finished! Piece of cake! 
+</p>
+<p>
+You can mess around with these values all you want and in fact, I recommend you DO! Try changing the speed to lightning fast or turtle slow!
+Make some really crazy elliptical shapes! Heck, what happens if you have THREE ellipse values - maybe two centerPointX values or something. What
+would happen then? Why not throw in another fillRect(), start it off at 3.14 radians and see what happens?
+</p>
+<p>
+You've learned some really great tools today, so pat yourself on the back. Next week we'll make a couple cool mini games with the stuff we've covered since 
+lesson 15. Gonna be a blast! Don't miss it! As always, you'll find me on Twitter @benwhi.
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until next time!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson21.html">Onward to Lesson Twenty One!</a>
+<br>
+<a href="Lesson19.html">Back to Lesson Nineteen!</a>
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+ 

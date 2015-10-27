@@ -1,0 +1,537 @@
+<!doctype html>
+<title>LESSON #3</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+a 
+{
+text-decoration: none;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 3 - April 6, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 3</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+
+<p>
+So how's the weather in your neck of the woods? Here in New York it's FREEZING! 
+<br>
+UPDATE: (This sentence was written on Thursday. Lo and behold it's a beautiful, sunny day today).
+</p>
+<p>
+Today we're going to talk about lines and arcs and stuff. As you may know, a line is created by marking a starting point
+and an end point. When you draw a pretty picture on a piece of paper, you also have a start point and an end point for every 
+stroke that you draw. When you write me that HUGE check for $10,000, you have a start point when your pen touches the check and
+an end point when you lift the pen from the check. 
+</p>
+<p>
+Same thing in canvas! You need to specify where the line begins and where the line ends in order for the computer to know 
+where to put your line. And let's not forget that in HTML5 a line means a STRAIGHT line, not a curved one. We'll see curves in a bit.
+</p>
+<p>
+So, since we've already learned how to specify the stroke style (see code in lesson 2), we just need to draw the line. Easy, huh?
+</p>
+<p>
+Hell yeah it is!
+</p>
+<p>
+But first...and don't forget this, you need to add a moveTo() method to specify your starting point. moveTo(), in fact, is like moving your 
+hand while holding a pen, but not drawing anything. You basically move the pen from one spot to another. So, don't forget to move to your 
+starting point before drawing any lines. After that, you can use the lineTo() method to draw lines anywhere you wish on the canvas! Both moveTo()
+and lineTo() take the 2 values: x and y.
+</p>
+<p>
+So give it a try, wont'cha? Punch in this code, save it, run it, and tell me what pops up! Don't forget to write context a gazillion times!
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Drawing a mystery shape &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);                <br />
+<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,50);<br />
+context.lineTo(250,150);<br />
+context.lineTo(350,150);<br />
+context.lineTo(250,200);<br />
+context.lineTo(300,300);<br />
+context.lineTo(200,225);<br />
+context.lineTo(100,300);<br />
+context.lineTo(150,200);<br />
+context.lineTo(50,150);<br />
+context.lineTo(150,150);<br />
+context.lineTo(200,50);<br />
+<br />
+<br />
+&lt;/script&gt;
+</div>
+
+
+</p>
+<p> 
+Wait just a second! Hey, nothing hapened!
+</p>
+<p>
+That's right, because I TRICKED you! Muahahah! Every time you draw a line, you need to end it with THIS:
+</p>
+<p>
+
+context.stroke();
+</p>
+<p>
+
+This tells the computer: "Ok, I'm finished drawing this line. Now it's your turn to do something with this information."
+And the computer, obediently, will draw the lines you plotted out.
+</p>
+<p>
+So go ahead and add that to your code. This will be your new and improved code:
+</p>
+<div id = "code">
+
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Drawing a mystery shape&lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);                <br />
+<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,50);<br />
+context.lineTo(250,150);<br />
+context.lineTo(350,150);<br />
+context.lineTo(250,200);<br />
+context.lineTo(300,300);<br />
+context.lineTo(200,225);<br />
+context.lineTo(100,300);<br />
+context.lineTo(150,200);<br />
+context.lineTo(50,150);<br />
+context.lineTo(150,150);<br />
+context.lineTo(200,50);<br />
+context.stroke();<br />
+<br />
+&lt;/script&gt;<br />
+
+</div>
+
+<p> 
+Hey, it's a star! That's right, Mario would be proud! You've made your very first drawing in HTML5! 
+Now take some time to mess around with these commands and see what you come up with.
+If you make something cool, go ahead an tweet it over to me @benwhi I'd love to take a look!
+Just don't forget to add the context.stroke() at the end!
+</p>
+<p>
+Also, don't forget that you can change the color of the line by just changing the strokeStyle value to a different hexadecimal 
+value. 
+</p>
+<p>
+Now, let's take a look at a couple more line features before we move on to curves.
+</p>
+<p>
+You've probably noticed something about your lines after having drawn 200 of them...they're all the same width!
+How do resolve this predicament? With lineWidth, of course!
+</p>
+<p>
+Just plug this line of code under the strokeStyle and you'll find yourself with a line 15 pixels thick!
+</p>
+<div id = "code">
+
+lineWidth = 15;
+
+</div>
+<p>
+Now what about the ending of the line? What if I want it to be rounded? (Don't forget to put the value between quotation marks).
+</p>
+<div id = "code">
+
+lineCap = "round";
+</div>
+<p>
+Amazing! The tip of the line just became rounded! What other options do I have?
+</p>
+<p>
+There are 3 options for lineCap and they are: "round", "butt" and "square". "Butt" is the default. "Square" adds a small rectangle
+ which is half the width of your line to the end of your line.
+</p>
+<p>
+Now what if I want the connecting parts of the line a different way? (Again, don't forget the quotes).
+</p>
+<div id = "code">
+
+lineJoin = "round";
+</div>
+<p>
+
+Whoopie! What options do I have for this?
+</p>
+<p>
+Again, you have three options for the joint created at the junction of line segments: "miter", "bevel" and "round". "Miter" is the default and it makes the lines come to a nice point. "Bevel"
+draws a diagonal edge to your line joints. "Round" is what happens when to the end of a pencil when you write with it for too long.
+</p>
+<p>
+I'm rushing through these, because they're something that you'll learn better if you just experiment with them yourself. Sometimes, like
+in this case, theory isn't too helpful! Just have fun with 'em!
+</p>
+<p>
+There are a couple of things I've skipped by, but we'll get to everything sooner or later. But I know all of ya are craving ACTION. 
+And ACTION is what I'm gonna give ya.... tomorrow! First we've got to finish talking about curves, though! Patience, Jedi!
+</p>
+<p>
+There are four types of curved lines in canvas. They are:
+</p>
+<ol>
+<li>arc()</li>
+<li>arcTo()</li>
+<li>bezierCurveTo()</li>
+<li> quadraticCurveTo()</li>
+</ol>
+</p>
+<p>
+As for arcTo(), you can just chuck that one! We don't need it because everything that arcTo() can do can be done with good old simple arc().
+Simplicity, people! 
+</p>
+<p>
+So, what are the remaining three and how do they work?
+</p>
+<p>
+arc() has six values and they are: arc(x,y,radius,startAngle,endAngle,counter-clockwise)
+</p>
+<p>
+The x and y values obviously correspond to the point where the arc is drawn. The radius is the radius of the imaginary circle we're going to
+wrap the arc around. 
+The start and end angles are little tricky at first, but not too tricky:
+</p>
+<p>
+You're going to find, if you haven't come across these before, that Javascript doesn't use degrees a whole heck of a lot! In fact,
+the preferred choice for Javascript is radians! Huh? What in the Sam Hill is a radian?? I could get into the mathematical reasoning behind
+a radian, but I won't because it's not essential to know the mechanics behind it for developing your games in HTML5. If you're interested
+in learning a lot of GREAT information about this stuff (and a lot of other stuff that we'll be covering in these tutorials), go check out 
+the excellent resource by Keith Peters and Billy Lamberta: "Foundation HTML5 Animation with Javascript: Making Things Move!". 
+When I make my Flash games, I still reference it often. Make the HTML5 version your holy book. Can't praise it enough!
+</p>
+<a href= "http://www.amazon.com/Foundation-HTML5-Animation-JavaScript-Lamberta/dp/1430236655">You can buy it right here. Cheap too! Note the votes, by the way: I'm not making this stuff up! </a>
+<p>
+Anyway, to make a long story short, the start angle and end angle values are in radians! Now you could approximate and make an
+educated guess keeping in mind that a full circle (360 degrees) is 6.28 radians, which is double PI (3.14 - remember that from high school math?) 
+OR you could use this little formula in your code... ready? Here's another occasion to don that memory hat of yours:
+</p>
+<p>
+YE OLDE DEGREES TO RADIANS FORMULA:
+</p>
+<p>
+Radians = degrees * Math.PI / 180
+</p>
+<p>
+Got it? I feel a song coming on, don't you? Let's take a radian value and plug it in there just to check. We said that a full, 360 degree loop
+around the circle is 6.28/(PI times 2) radians. So let's try to plug 180 degrees into our formula and see what that comes out to in radians:
+</p>
+<p>
+ So radians =  180 * 3.14 / 180.
+</p>
+<p>
+Hmmm... 180 * 3.14 = 565.2  < ---- I used a calculator, of course! 
+</p>
+<p>
+      And 565.2 / 180 = 3.14 radians! 
+</p>
+<p>  
+  Hey, it worked! But that was an easy one....let's try something a little less obvious say, 30 degrees....
+</p>
+<p>
+ So 30 * 3.14 / 180.
+</p>
+<p>
+Hmmm... 30 * 3.14 = 94.2  < ---- Yup, used one here too!
+</p>
+<p>
+   And 94.2 / 180 = 0.523333333333 radians!
+</p>
+<p>
+But let's play it safe and round off to .523, ok?
+</p>
+<p>
+Got it? Not that difficult, huh? We'll be seeing radians again, so don't worry if it all didn't sink in. For now use a shortcut and
+think that 6.28 radians = a full trip around the circumference of the circle = 360 degrees, a half trip is 3.14 radians = 180 degrees,
+a quarter trip is 1.57 radians = 90 degrees, etc. etc.
+</p>
+<p>
+So all that roundabout was to explain that the fourth and fifth values in arc() are the starting point in the circle you draw 
+and the end point in the circle you're going to draw. Keep in mind that when you draw your circle, you will always start from the 3 o'clock position.
+</p>
+<p>
+The last value is pretty straightforward - it's called "counterclockwise" and if you set it to false, it draws your circle in clockwise manner.
+So to sum up this final value of our arc() method: false = clockwise and true = counterclockwise.
+</p>
+<p>
+So now that we know how to set values for arc(), let's begin drawing some arcs! 
+</p>
+<p>
+Here's the formula once again for reference:
+</p>
+<div id="code">
+arc(x,y,radius,startAngle,endAngle,counterclockwise)
+</div>
+<p>
+Now let's return to our code and add the following lines to our code:
+</p>
+<dv id="code">
+
+context.strokeStyle = "#00ff00";
+<br>
+context.arc(200,200,50,0,3.14,false);
+</div>
+<p>
+making it:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Arcs are rad. &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);                <br />
+<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.arc(200,200,50,0,3.14,false);<br />
+<br />
+&lt;/script&gt;<br />
+
+</div>
+
+<p>
+Ok? Are you sure you want to run it? D'OH!!!! What did you forget???
+</p>
+<p>
+
+context.stroke(); <---- DON'T FORGET ME, DAMMIT!
+</p>
+<p>
+
+So our FINAL code is:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Yay, I didn't forget stroke! &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);                <br />
+<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.arc(200,200,50,0,3.14,false);<br />
+context.stroke();<br />
+<br />
+&lt;/script&gt;<br />
+<br />
+
+</div>
+
+
+<p>
+And that will draw a lovely green semicircle starting at three o'clock and ending at nine o'clock.
+Draw a couple of these until you're used to them. I'll be right here when you get back. 
+Try different widths and colors too.
+</p>
+<p>
+Now, the last two curve methods we mentioned were:
+</p>
+<p>
+quadraticCurveTo()
+</br>
+</p>
+<p>
+bezierCurveTo()
+</p>
+<p>
+
+Which are basically the same deal, except you have two control points to mess around with in the bezier curve
+variant. Our formulas are:
+</p>
+<div id = "code">
+quadraticCurveTo(control point1 X,control point1 Y, X, Y);
+<br>
+bezierCurveTo(control point1 X,control point1 Y, control point2 X,control point2 Y,X, Y);
+</div>
+<p>
+A control point is a point which the curve wraps around on its way to both end points. Maybe this is a vague
+example, but you know that game "Plinko" on The Price is Right? You know how the plinko chip bounces off all those
+pointy triangles as it falls? Imagine dropping a long piece of string instead of a Plinko chip. The string would rest on certain triangles and 
+the resulting curves it has will be shaped by where it lands on the triangles, right? 
+Well, the triangular points in Plinko would be the control points for our curves! 
+The curve wraps around these points just like the string would wrap around the triangles in the game of Plinko.
+I'm sure there's a better, less obscure example out there, but my simple mind can't conjure one up right now.
+</p>
+<p>
+So if that example totally sucked for you, let's draw a couple curves and try to see it visually.
+Again, remember, the best way to learn these things is to practice them! It's all very abstract and visual, so
+your computer and your eyes would do a much better job of explaining a quadratic curve than I could!
+</p>
+<p>
+So erase the code between the <script></script> tags and add this instead:
+</p>
+<div id = "code">
+context.strokeStyle = "#44ee00";
+<br>
+context.moveTo(200,200);
+<br>
+context.quadraticCurveTo(100,300,50,50);
+<br>
+context.stroke();
+</div>
+
+
+<p>
+Now let's observe this curve a bit:
+</p>
+<p>
+-We told the computer to move to the point 200 x and 200 y.
+<br>
+-We specified that our control point is at 100 x  and 300 y.
+<br>
+-We set our destination point to 50 x and 50 y.
+</p>
+<p>
+So as you see, the curve "wraps around" the 100 x 300 y point before curving upward and ending at 50 x and 50 y.
+Not too difficult, right? I'd say with a bit of experimentation, you'll figure these out if they're still a little vague.
+</p>
+<p>
+Now, for completion's sake, let's do an example of a bezier curve. What's the difference? It has two control
+points and is "curvier" than a quadratic curve. So if you're into curves, these are right up your alley!
+</p>
+<p>
+Erase all the stuff between the &lt;script&gt;&lt;/script&gt; tags once again and add this bad boy:
+<div id = "code">
+
+context.strokeStyle = "#44ee00";
+<br>
+context.moveTo(200,200);
+<br>
+context.bezierCurveTo(100,300,200,30,50,50);
+<br>
+context.stroke();
+</div>
+<p>
+And it should be pretty much what you expect it to be. Piece of cake, right? Experiment around with a couple more examples
+and I'll see ya tomorrow bright + early! 
+</p>
+<p>
+Tomorrow we'll start animating stuff, so don't miss that one!
+</p>
+<p>
+Thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+ </p>
+<p>
+<a href="Lesson4.html">Onward to Lesson Four!</a>
+<br>
+<a href="Lesson2.html">Back to Lesson Two</a>
+<br>
+<a href="Lessons.html">Back to Index </a>
+ </p>

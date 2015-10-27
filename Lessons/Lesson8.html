@@ -1,0 +1,628 @@
+<!doctype html>
+<title>LESSON #8</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 8 - April 11, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 8</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+And here we are fresh and eager to jump into our second week of HTML5 game dev.! 
+</p>
+<p>
+Ok so last yesterday I mentioned that we were either going to be talking about event listeners (in more detail) or
+we were going to discuss transformations. Well, I think from this point it's a good idea to talk about transformations,
+though it's a bit of a complex subject, so I'll be dividing it into two parts.
+</p>
+<p>
+By doing so I'll give you a chance to open the doors even wider on your gaming techniques and bring us one step 
+closer to making an actual game. We're really almost to that point, by the way! We just need to tackle a couple 
+more issues. Today will be a VERY important step ahead because we're going to be learning some very powerful stuff!
+</p>
+<p>
+So let's get going!
+</p>
+<p>
+Ahhh, transformations! First of all what do I mean by transformations? Well, they're techniques for moving, scaling, rotating
+and setting the alpha to the objects that we put onto our canvas. Alpha? What the heck's that? Well, alpha is the amount of
+transparency an object can have. If the alpha of something is high, then it's opaque. If it's low, then it's extremely transparent.
+</p>
+<p>
+APPLYING ALPHA
+</p>
+<p>
+Well, this one is so simple that I've already given you most of the information necessary to plug it into your code.
+</p>
+<p>
+Alpha values are set to your stuff by a property called globalAlpha. The values range from 0 (completely transparent) to
+1 (completely opaque). You must assign your global alpha BEFORE drawing the shapes/text/image whatever you want to 
+make transparent. Of course, if you don't want to apply any transparency to an object, you don't even need to bother writing
+globalAlpha. The default is 100% opacity.
+</p>
+<p>
+Here's an example:
+</p>
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; TRANSPARENT TOOTH&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.shadowColor = &quot;#000000&quot;;<br />
+context.shadowOffsetX = 2;<br />
+context.shadowOffsetY = 2;<br />
+context.globalAlpha = .2;<br />
+context.strokeStyle = &quot;#0000ff&quot;;<br />
+context.fillStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,100);<br />
+context.lineTo(250,150);<br />
+context.lineTo(200,200);<br />
+context.lineTo(200,300);<br />
+context.quadraticCurveTo(175,125,150,300);<br />
+context.lineTo(150,200);<br />
+context.lineTo(100,150);<br />
+context.lineTo(150,100);<br />
+context.quadraticCurveTo(175,125,200,100);<br />
+context.fill();<br />
+<br />
+&lt;/script&gt;
+</div>
+
+<p>
+As you can see, we've set the background to a light grey and have given our
+old pal, the tooth, a fillStyle of green and an alpha assignment of .2 (nearly completely
+transparent). Note again that the alpha is assigned BEFORE you draw the lines, otherwise
+it won't work. Also note that for now, that once you assign globalAlpha to an object, ALL
+the objects you code in after that will have the alpha effect applied to them. Go ahead and
+draw a second tooth to the right of this one (you should be fine doing this on your own) and see for yourself. 
+We'll be discussing ways to counteract your alpha leaking all over the place 
+sometime this week, so hold tight for now and try to understand the version of alpha we have right now.
+</p>
+<p>
+And that's bascially IT for apha for the time being! You can now make your artwork
+transparent! Give it a shot, then let's after you're ready, let's move on to the second sub-category:
+</p>
+<p>
+BOUNDING BOXES AND ORIGIN POINTS
+</p>
+<p>
+Now:
+</p>
+<ul>
+
+<li>You need to understand something called the "origin point" to REALLY understand how the canvas takes care of scaling, moving and 
+rotations. </li>
+
+<li>And before you can understand the origin point, it's a good idea to understand bounding boxes. So let's start there:</li>
+
+</ul>
+<p>
+A bounding box is an invisible rectangle around ALL of your objects, whether they're circles, trapezoids or whatever. You could try to
+imagine the most non-rectangular shape out there and there will ALWAYS be a rectangular bounding box outside your object. Never
+will it be a strange 88-sided polygon but ALWAYS a rectangle.  
+</p>
+<p>
+If you've worked with Photoshop, Illustrator or other similar graphics programs, it's the border that's automatically generated around
+the objects you select. Every object you make on the canvas has an invisible bounding box around it. Keep this in mind.
+</p>
+<p>
+The bounding box rectangle works like this:
+</p>
+<p>
+If you have a square, the box is nothing more than the sides of the square itself. Why? Because a bounding box is the SMALLEST
+possible rectangluar container you can fit around an object. 
+</p>
+<p>
+A bounding box for a circle is a box that touches the the circle on all of its four sides. 
+Just imagine a circle that fits perfectly inside a square. Again, that's the smallest possible rectangle you can fit around a circle.
+</p>
+<p>
+Now take a star. Where's the bounding box? It fits perfectly around the star and only touches the points that extend the furthesr outwards
+in all 4 directions.
+</p>
+<p>
+In other words, a bounding box asks itself this: What are the outermost top,down,left,and right values of this object? 
+Then it asks: how can I make a rectangle fit around this thing with a minimum of wasted space inside it? Bounding boxes are super efficient, you see!
+</p>
+<p>
+And that, my friends, is a bounding box.
+</p>
+<p>
+Got it?
+</p>
+<p>
+Soooo, if you understand the bounding box concept, you can understand the coordinate system at how it works for rotating objects!
+</p>
+<p>
+Now, here's the CRUCIAL part of this. I'll need your complete, undivided attention for this one.
+</p>
+<p>
+If you get these next few concepts, the rest of translation will be a breeze: 
+
+</p>
+<p>
+ROTATION AND TRANSLATION
+</p>
+<p>
+<strong>Canvas elements are, by default, rotated in relation to the top-left (0,0) value of the canvas.</strong>
+</p>
+<p>
+Got it?
+</p>
+<p>
+Let me repeat that again so it sinks in:
+</p>
+<p>
+<strong>Canvas elements are, by default, rotated in relation to the top-left (0,0) value of the canvas.</strong>
+</p>
+<p>
+Just as the planets revolve around the Sun, all our rotations must rotate around the (0,0) coordinates. We can't change the fact that everything
+revolves around 0,0... BUT we CAN MOVE (through translation, that is) THE LOCATION OF THESE (0,0) COORDINATES 
+TO THE CENTER OF THE OBJECT WE WANT TO ROTATE!
+</p>
+<p>
+What I just said should be CRYSTAL CLEAR before you proceed.
+</p>
+<p>
+Let's see this in action and try to rotate a rectangle. You might not get it the frist couple times, but keep trying until you do.
+Also keep in mind that the value for the rotate() method is in RADIANS, not DEGREES. For a refresher on raidans, go back and look 
+at my first few tutorials. Either way, I won't ask for a lot of complicated math here.
+</p>
+<p>
+This is everything in our script tag BEFORE rotation:
+</p>
+
+<div id="code">
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(150,150,100,100);<br />
+<br />
+<br />
+&lt;/script&gt;
+</div>
+
+<p>
+See how the rectangle is nice and straight? Now, let's try rotating it .3 radians (clockwise, the default value)
+</p>
+<p>
+Go ahead and add the context.rotate(.3) line you see below.
+</p>
+<div id="code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.rotate(.3);<br />
+<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(150,150,100,100);<br />
+<br />
+<br />
+&lt;/script&gt;
+</div>
+
+<p>
+See what I mean? If you go back and forth between these two pieces of code, you'll notice that the rectangle appears
+as if it's pinned to a board by the upper-left (0,0) corner of the canvas. All the rotation is happening in relation to that point.
+Try a slightly larger or smaller rotation value and you might not see the rectangle at all. That's because the recatangle has been rotated 
+off of the canvas. Now, at a rotation of .3 radians, for example, our rectangle is situated at about 5 o'clock. 
+If we add a higher rotation value, the rectangle may end up at 8 or 9 o'clock or even at 12 or 1 o'clock.
+</p>
+<p>
+This, of course, is problematic because that means that only a quarter of the rotations we do according to this point
+will be visible on the canvas! 
+</p>
+<p>
+Definitely not a good way to go about rotating things, am I right?
+</p>
+<p>
+In Flash it was so much easier.... SIGH.. but there IS an HTML5 remedy!
+ </p>
+<p>
+Wouldn't it be nice if we could rotate our objects from their center instead of the upper left point of the canvas? 
+I mean, that's what comes to mind when you think rotation, right? When you watch the tires of a car spin around, you don't
+think of them rotating around any other point but the axle and certainly not the rearview mirror or something wacky like that!
+</p>
+<p>
+Well, you're in luck - there's a method for doing this! But, as with most things in life, there's good news and there's bad news.
+</p>
+<p>
+The good news is: for rectangles and images it's pretty simple.
+The bad news is: for our dear tooth and everything else made with plotted points, it's sort of a pain in the a...
+</p>
+<p>
+Here's how it works:
+</p>
+<p>
+There's a little method called translate(), see?
+</p>
+<p>
+Now the formula you're about to see is a little weird, but we'll explain it step by step:
+</p>
+<div id = "code">
+context.translate(x value + .5 * width, y value + .5 * height);
+</div>
+<p>
+This little sucker requires only two variables which are, if you've been following along, 
+the new point where we're going to place our (0,0) axis.
+</p>
+<p>
+Now the formula may be an odd one, but not as perilous as it seems. All we need are the X,Y,WIDTH and HEIGHT values of our object.
+</p>
+<p>
+So if we look at the code for our rectangle again:
+</p>
+
+<div id = "code">
+&lt;script&gt;
+
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(150,150,100,100);<br />
+<br />
+<br />
+&lt;/script&gt;
+
+</div>
+
+<p>
+What are our X,Y,WIDTH and HEIGHT values?
+</p>
+<p>
+Well, this is simple because we plugged all 4 of them into our rectangle!
+</p>
+<p>
+Our 4 values are: 150,150,100,and 100!
+</p>
+<p>
+Now what was that translate thing again??
+</p>
+<div id ="code">
+context.translate(x value + .5 * box width, y value + .5 * box height);
+</div>
+<p>
+By plugging our values into the formula we get:
+</p>
+<div id ="code">
+context.translate(150 + .5 * 100, 150 + .5 * 100);
+</div>
+<p>
+Now, as you'll recall from math class, we do multiplication first, then addition. So go ahead and multiply
+these two things:
+</p>
+
+<li>.5 * 100</li>
+<li>.5 * 100</li>
+<p?
+...and you'll come up with:
+</p>
+
+<li>50</li>
+<li>50</li>
+<p>
+Now our formula becomes:
+</p>
+<div id="code">
+
+context.translate(150 + 50, 150 + 50);
+</div>
+<p>
+Which, in turn, becomes:
+</p>
+<div id = "code">
+context.translate(200,200);
+</div>
+<p>
+And those coordinates are where our new (0,0) goes! Now comes the frustrating part. 
+</p>
+<p>
+Translating the origin point itself isn't gonna cut it. Why not?? Because we still need to bring the rectangle
+back to what would be its original X and Y points on the stage before we translated the (0,0). As you'll notice, the
+rectangle is quite a bit further down and to the right compared to where it was before. So let's bring it back up to where it was, but the
+rotation being around its center point.
+</p>
+<p>
+So let's change the code again by adding the following features:
+</p>
+<div id = "code">
+
+context.fillRect(-.5 * 100,-.5 * 100,100,100);
+</div>
+<p>
+Which turns out to be: -50,-50,100,100.
+So change your new fillRect values to those.
+</p>
+<div id ="code">
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.translate(200,200);<br />
+context.rotate(1.3);<br />
+<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(-50,-50,100,100);<br />
+<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+As you can see here in the last line, we've taken the width and heght values, then projected them BACK
+by half the width and height to put our rectangle exactly where it was before we translated anything. Satisfying?
+Note that for a series of points plotted on the canvas this could get PRETTY difficult! Fortunately, in the games
+we'll be making, rotation will often be applied directly to an image which, fortunately, has all four values we need
+for rotation. WHEW!
+</p>
+<p>
+One more important thing you need to burn into your memory:
+</p>
+<p>
+ALWAYS apply the translation BEFORE to rotation! This took me a while to get at first. 
+And I thought I was going insane trying to figure out why it didn't work.
+Learn from this silly man's mistakes - TRANSLATE BEFORE ROTATE.
+</p>
+<p>
+So, as a last exercise, let's add an image to the canvas, then rotate it. Sound good?
+I know this is tough, but once you get it, it's not so bad. Here's our image, just to show you
+how easy it really can be. I'll break it down into bite-size steps:
+</p>
+<p>
+1. Set up your canvas skeleton like so:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; ROTATING AN IMAGE&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+&lt;/script&gt;
+</div>
+
+
+<p>
+2. Assign the new image a name and make it a new instance of the Image() class.
+</p>
+<div id = "code">
+
+  var myImage = new Image();
+
+</div>
+<p>
+3. Tell the computer where to look for your image and specify its exact name + extension. Have it saved in the SAME directory as this HTML file.
+</p>
+<div id = "code">
+
+ myImage.src= "Hipster.png";   <--- in my case, it's a file called Hipster.png
+</div>
+<p>
+4. Declare drawImage and assign some X,Y,WIDTH and HEIGHT values to it.
+</p>
+<div id = "code">
+
+context.drawImage(myImage,200,200,100,100);
+</div>
+
+<p>
+At this point you should see a scaled-down version of your image if it was larger than the dimensions 100X100 .
+Now to translate the (0,0) coordinates!
+</p>
+<p>
+5. Calculate the translation values using the formula (x value + .5 * width, y value + .5 * height) 
+</p>
+<p>
+In this case we have:
+(200 + 50, 200 + 250)
+</p>
+<p>
+which becomes
+(250,250);
+</p>
+<p>
+6. Assign the new translation.
+</p>
+<div id = "code">
+context.translate(250,250);
+</div>
+
+<p>
+7. write the following line just BELOW the translate line:
+</p>
+<div id = "code">
+
+context.rotate(.3);
+</div>
+<p>
+8. Finally, change the variables in the drawImage to return it to its starting point on the canvas.
+</p>
+
+<div id ="code">
+The formula for this is: 
+
+(-.5 * width, -.5 * height, width, height)
+</div>
+<p>
+So...
+context.drawImage(myImage,-.5 * 100,-.5 * 100,100,100);
+</p>
+<p>
+Then finally....
+<div id="code">
+
+context.drawImage(myImage, -50,-50,100,100);
+</div>
+
+<p>
+9. Run it and adjust your rotation accordingly!
+</p>
+<p>
+I know it seems like hard work, and it IS, but unfortunately, this is how it's done in the canvas.
+On the up side, this is one of the most difficult things to grasp. A lot of the other new stuff
+we'll be dealing with will seem like a breeze after you've mastered this.
+</p>
+<p>
+As usual, I advise you to test this stuff out and try many, many examples. This technique will come in very
+useful in your games. Don't skip over it and deprive yourself of a powerful tool! Just think of how easy it 
+would be to use rotate to set up a windmill that turns around and around, a clock or the wheels on an enemy vehicle! Just
+throw some timers into the code and go crazy!
+</p>
+<p>
+Also, luckily for you, after all this hard work, you've got your foot in the door for tomorrow's lesson on scaling.
+</p>
+<p>
+So stay tuned! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson9.html">Onward to Lesson Nine!</a>
+<br>
+
+<a href="Lesson7.html">Back to Lesson Seven</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+<p> 
+P.S. I've had several requests in the forums to put my tutorials in a better format - and you're absolutely right!
+Problem is, I've got to have the time to do my money-earning work too! 
+These tutorials ain't paying the bills! Once I DO get some free time, you have my word I'll reformat 
+them. Please bear with the ugly .txt for the time being! 
+</p>
+<p>
+Also, thanks so much for your very kind words about these turorials! Very encouraging!!!
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+

@@ -1,0 +1,435 @@
+<!doctype html>
+<title>LESSON #7</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 7 - April 10, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 7</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+So one week of HTML5 has passed! How does it feel so far? You've learned a lot in six days and probably need a chance to 
+work a bit with what you have before we move on to the new stuff. Therefore, today I'll be doing three
+little mini-exercises using elements from what we've already learned.
+</p>
+<p>
+Now we're not talking Legend of Zelda here, just a simple drawing or animation exercise aimed at letting you get a little practice 
+with all those commands!
+</p>
+<p>
+Let's dive into it right away and make what will become THIS:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;DAY SEVEN EXPERIMENT &lt;/title&gt;<br />
+&lt;style&gt;<br />
+<br />
+canvas<br />
+{<br />
+background-color: #00cc00;<br />
+}<br />
+<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width=&quot;410&quot; height=&quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;990000&quot;;<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.fillText(&quot;Don't eat candy - it'll rot your teeth!&quot;, 10,50);<br />
+<br />
+context.shadowColor = &quot;#000000&quot;;<br />
+context.shadowOffsetX = 2;<br />
+context.shadowOffsetY = 2;<br />
+<br />
+context.strokeStyle = &quot;#0000ff&quot;;<br />
+context.fillStyle = &quot;#ffffff&quot;;<br />
+context.moveTo(200,100);<br />
+context.lineTo(250,150);<br />
+context.lineTo(200,200);<br />
+context.lineTo(200,300);<br />
+context.quadraticCurveTo(175,125,150,300);<br />
+context.lineTo(150,200);<br />
+context.lineTo(100,150);<br />
+context.lineTo(150,100);<br />
+context.quadraticCurveTo(175,125,200,100);<br />
+context.fill();<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Now this may be the longest bit of code you've written so far, but you should by no means get freaked out about it:
+everything you see here is a tool you've worked with before. Let's take a minute to
+see what we're dealing with:
+</p>
+<p>
+In fact, I'll make a little checklist:
+</p>
+<p>
+Lines?			Check.
+<br>
+Quadratic Curves? 		Check.
+<br>
+Text?		 	Check.
+<br>
+Drop Shadows?		Check.
+<br>
+Fonts?			Check.
+</p>
+<p>
+And that's basically it. 
+</p>
+<p>
+A couple important things to you should note here:
+</p>
+<ol>
+
+<li> I changed the canvas width (remember me on the top of the screen?) to 410 because our standard width of 550
+made the composition of my masterpiece a bit lopsided. I like to base my compositions and subject matter on the 
+paintings of Poussin as you can see.</li>
+
+<li> I've added the text BEFORE assigning the drop shadow in the code. Adding it afterwards would cause the text to
+be drop-shadowed as well and we don't want that! </li>
+
+<li>I've given the canvas background a nice green color.</li> 
+
+</ol>
+<p>
+Now why don't you try to improve upon this little drawing I made? Why don't you change the text or make the tooth bigger?
+Change the background color or the canvas color! Add a second tooth, or HECK, a whole mouth full of teeth! Sky's the limit!
+It all really depends on your artistic prowess and, most of all....PATIENCE! 
+By the way, has anyone ever heard of a website which offers a bunch of pre-plotted points? To be honest, I've never looked,
+but it's a cool idea, right??
+</p>
+<p>
+Here, let me check now... 
+</p>
+<p>
+Nope couldn't find anything. Anyone know if these things exist?
+</p>
+<p>
+Anyway, a great exercise that I've always found useful is to take the complete source code of someone's game/work/whatever
+and go in and mess around with it. Go ahead and tweak some stuff! I mean, you're not going to be selling them, I hope!
+</p>
+<p>
+So again, dig into my multi-billion dollar, top secret source code listed above and get tweakin'! When you're ready we'll try another example...
+this time with a bit of animation.
+</p>
+<p>
+
+And here's code example #2!
+</p>
+<div id = "code">
+<br />
+&lt;!doctype html&gt;<br />
+&lt;title&gt;DAY SEVEN EXPERIMENT &lt;/title&gt;<br />
+&lt;style&gt;<br />
+<br />
+canvas<br />
+{<br />
+background-color: #000000;<br />
+}<br />
+<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width=&quot;550&quot; height=&quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var increment = 10;<br />
+setInterval(drawMe,50);<br />
+<br />
+function drawMe()<br />
+{<br />
+<br />
+var myImage = new Image();<br />
+myImage.src = &quot;BenShoe.jpg&quot;;<br />
+context.drawImage(myImage,0,0);<br />
+<br />
+context.fillStyle = &quot;ffffff&quot;;<br />
+context.fillRect(50,0,10,increment);<br />
+context.fillRect(100,0,10,increment);<br />
+context.fillRect(170,0,10,increment);<br />
+context.fillRect(320,0,10,increment);<br />
+<br />
+context.fillRect(0,10,increment,10);<br />
+context.fillRect(0,100,increment,10);<br />
+context.fillRect(0,200,increment,10);<br />
+context.fillRect(0,240,increment,10);<br />
+context.fillRect(0,330,increment,10);<br />
+context.fillRect(0,390,increment,10);<br />
+<br />
+context.fillStyle = &quot;0000ff&quot;;<br />
+context.fillRect(0,350,550,50);<br />
+<br />
+context.fillStyle = &quot;000000&quot;;<br />
+context.font = &quot;18px Arial&quot;;<br />
+context.fillText (&quot;PRISON: It's where you go if you don't study Ben's tutorials!!&quot;,20,390);<br />
+<br />
+increment += 10;<br />
+}<br />
+&lt;/script&gt;
+
+</div>
+<p>
+This one is a fun gag to play on your pals! Ok, so maybe not, but it's SORTA funny.....right?
+Notice that when you run this it won't work UNLESS you happen to have a .jpg called
+BenShoe in the SAME directory as your html file (which frankly would be a little creepy!).
+</p>
+<p>
+Anyway, to add your buddy's picture, all you need to do is get an image, scale it down to
+550 width and 400 height (the dimensions of your canvas), save it in the
+same directory as your html file, and when your buddy comes over ask him/her to refresh the page. A MILLION LAUGHS!
+HAHAHAHAHAHHAHA!
+</p>
+<p>
+YOUR FRIEND GOT SENT TO PRISON FOR NOT STUDYING MY TUTORIALS! Boy, did you show your friend!
+</p>
+<p>
+So catch your breath after laughing so hard and let's examine the code:
+</p>
+<p>
+We have a bunch of rectangles zooming across the stage. In some we're increasing the width and in some
+we're increasing the height. All stop at the margins of the canvas and work their way inward. 
+We've set up a setInterval timer to run the drawMe function every 50 milliseconds and we've created a
+global variable (outside the function, that is) which establishes our increment. We've also added a +=
+to our value of increment so every time you run the drawMe function, increment is increased by 10.
+We then plug the increment into the width values of some rectangles and the height values of other rectangles.
+This makes them appear to stretch across the screen.
+</p>
+<p>
+Pretty straightforward, no?
+</p>
+<p>
+We then established a new fillStyle and added a blue rectangle with a width of 550 (all across the canvas) and 
+a height of 50. We put this blue rectangle at the bottom of the screen to serve as a backdrop for our text.
+We didn't NEED to do this, but we'd be risking the text becoming illegible if the image being used is too dark for
+our dark text! Of course, you can customize this stuff yourselves. 
+</p>
+<p>
+Then the text was added. We decided a color, size and a font-family. We then plugged in the silly text 
+in quotation marks in our fillText method. We then proceeded to assign an X value of 20 and a Y value of 390.
+</p>
+<p>
+And that's IT!
+</p>
+<p>
+I mean, it's a silly little example, but it uses some fundamental tricks we've learned in the past six lessons.
+</p>
+<p>
+Now let's move on to our last example:
+</p>
+
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt; DEATH STAR&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #ffffff;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var startValue = 0;<br />
+<br />
+<br />
+setInterval(repeatMe,100);<br />
+<br />
+<br />
+<br />
+function repeatMe()<br />
+{<br />
+context.lineWidth = 3;<br />
+context.arc(250,200,180,startValue,4.28, false);<br />
+context.stroke();<br />
+startValue+= 5;<br />
+}<br />
+<br />
+<br />
+&lt;/script&gt;
+
+</div>
+
+
+<p> 
+I'm not a big Star Wars fan, but I was messin' around with the canvas the other day and out popped this cool animation that looked
+like the Death Star! "Hey", I said to myself, "that looks like the Death Star!"
+</p>
+<p>
+Here again we have our standard animation technique: we're creating an increment, applying it to the value of something, then
+repeating the living hell out of it until we get the desired effect.
+</p>
+<p>
+In this mini-tutorial we repeat the living hell out of the startRadius value of our arc.
+As you recall, the 4th and 5th values of our arc() method were the start and end points (in radians).
+What's happening here is we're adding 5 to our start value, making the value, on each iteration:
+</p>
+<p>
+0
+<br>
+5
+<br>
+10
+<br>
+15
+<br>
+20
+<br>
+25
+<br>
+</p>
+<p>
+Now we ain't talkin' degrees here, but RADIANS! Remember that 3.14 is half a trip around a circle and 6.28 is a complete 
+circle. So what's happening here? Well, you tell me! Try giving the startValue a += 2 instead of a +=5 in the last line of our
+function.
+</p>
+<p>
+Oooh, that's sort of creepy!
+</p>
+<p>
+Now try giving it a value of += 10;
+</p>
+<p>
+Ugh, it's like a giant eyeball!!
+</p>
+<p>
+Try giving it a value of += .2 and you'll begin to see how this process works.
+</p>
+<p>
+Then try .02 just for fun! Oooh, that would make a cool loading graphic for a game!
+ </p>
+<p>
+Now keep it at .02 and change the lineWidth to .2. Nice!
+ </p>
+<p>
+So today was sorta fun, huh? We've reinforced a lot of stuff just by trying three mini-tutorials. 
+I haven't decided yet what tomorrow's topic is going to be: it's a toss up between event listeners and transformations.
+Any suggestions? I'm all ears! Tweet me @benwhi with any ideas you may have!
+</p>
+<p>
+So stay tuned! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson8.html">Onward to Lesson Eight!</a>
+<br>
+
+<a href="Lesson6.html">Back to Lesson Six</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+

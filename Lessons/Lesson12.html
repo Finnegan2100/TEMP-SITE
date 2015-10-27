@@ -1,0 +1,488 @@
+<!doctype html>
+<title>LESSON #12</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 12 - April 15, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 12</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+Take a look back and try tell me we haven't covered a lot so far! Go ahead and thumb through any sort of manual for the canvas and you'll see that 
+we've run through about 95% of all the basic features. Not bad for 11 lessons, huh?
+</p>
+<p>
+Today we're switching gears and discussing more Javascript-related issues. We'll begin with event listeners, then move on to discuss a couple of 
+other Javascript-specific components which will help us clear away the boundaries to our game design. Then we'll talk a bit about the DOM and what sort
+of role it plays in our games.
+</p>
+<p>
+So to begin, I'd like to discuss the different types of event listeners.
+</p>
+<p>
+Now we've already given event listeners a brief introduction a while back, we've showed you how to set them up, etc. but now is the time for us
+to try examples of the many different types of event listeners you can incorporate into your games. This is essential stuff as you'll be using an 
+event listener of some kind nearly every time you make a game. 
+</p>
+<p>
+So what are the different types?
+</p>
+<p>
+Today we'll start with the a couple mouse-based listeners, then add other types as our experience progresses.
+</p>
+<p>
+Let's start off with our first event listener: onClick.
+</p>
+<p>
+This one's fun. It listens for a particular mouse click and performs an action that you want. You'll see as we get into these that they're at
+the heart of a lot of game-related activites.
+</p>
+<p>
+Let's start off by setting up our file like so:
+</p>
+<div id="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;EVENT LISTENERS&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+
+&lt;/script&gt;
+</div>
+<p>
+This you've seen a million times already. Now, let's add a filled circle to our canvas through the arc method.
+</p>
+<p>
+Go ahead and add these three lines:
+</p>
+<div id = "code">
+
+context.fillStyle = "#0055cc";
+context.arc(100,100,30,0,6.285,false);
+context.fill();
+</div>
+<p>
+...and this gives us a nice, blue circle at 100,100. Note that I've given the 6.285 radians which is equal to 360 degrees.
+</p>
+<p>
+Now what we're going to do is make this circle become bigger every time we click the canvas. How do we do that??
+Well, we can't do that with a timer, of course, because a timer has no way of determining whether a mouse has clicked the canvas or not.
+We need to apply an event listener to something...namely our canvas in this case!
+</p>
+<p>
+We also need to create a variable that will determine our scaling increment, then another one that will establish the initial radius value 
+value for our arc.
+</p>
+<p>
+We'll place them right below our getContext line and it will look like this:
+</p>
+<div id = "code">
+
+var increment = 1.2;
+<br>
+var arcRadius = 30;
+</div>
+<p>
+This sets our increment to 1.2. We'll see what that does in a moment.
+</p>
+<p>
+Now we need to create our event listener:
+</p>
+<dv id = "code">
+
+canvas.addEventListener("onclick",movingCircle,false);
+</div>
+<p>
+As you can see, we've applied the listener to the canvas, specified the type of listener we want to use (these are always all lower-case
+and never camel case and placed within quotes), then we've given a name to our function "movingCircle" and given that last argument a value of "false". 
+</p>
+<p>
+Last time I ignored addressing that last "false" and I'll ignore addressing it today too! It's an advanced feature that deals with event capturing,
+bubbling, etc. We'll get into these advanced features in later lessons, but in the meantime, if you're DYING to know how it works, type in
+Javascript event capturing and you'll find more than enough info on the subject. Don't open Pandora's box, just leave it at false. 
+</p>
+<p>
+So now we need to wrap those three lines of code below in the movingCircle function we created. Simple enough:
+</p>
+<div id = "code">
+<br />
+function movingCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.285,false);<br />
+context.fill();<br />
+}
+</div>
+<p>
+At this point the contents of your script tags should look like this...
+</p>
+<div id = "code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var increment = 5;<br />
+var arcX = 100;<br />
+canvas.addEventListener(onclick,movingCircle,false);<br />
+<br />
+function movingCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.285,false);<br />
+context.fill();<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+But we're not quite finished yet. We need to replace the X value in the context.arc() method with arcRadius.
+Now our arc will look like this:
+</p>
+<div id ="code">
+
+context.arc(100,100,arcRadius,0,6.285,false);
+</div>
+<p>
+Now all that's left is to multiply our radius by 1.2 (increasing by 120%) every click.
+Here's what it looks like.
+</p>
+<div id = "code">
+
+increment *= 1.2;
+</div>
+<p>
+Add this at the bottom of your script tag.
+</p>
+<p>
+Note that this is ACTUALLY set up in a way that there's initially nothing on the screen, then the circle appears, then its
+radius increases with each click. 
+</p>
+<p>
+Let's run it once just to see how it works. Ready?
+</p>
+<div id = "code">
+
+<script>
+
+var theCanvas = document.getElementById("canvas");
+var context = theCanvas.getContext("2d");
+
+var increment = 1.2;
+var arcRadius = 30;
+
+canvas.addEventListener("click",movingCircle,false);
+
+function movingCircle(event)
+{
+context.fillStyle = "#0055cc";
+context.arc(100,100,arcRadius,0,6.285,false);
+context.fill();
+arcRadius *= increment;
+}
+
+</script>
+</div>
+
+<p>
+Now that's sort of fun! It also gives us an idea of how powerful these tools are and what possibilities for game development
+they can provide us with. Think of how many times you've used your mouse to interact with things on the screen! Tons, right?
+</p>
+<p>
+Let's get through a couple more mouse-related event listeners today:
+</p>
+<p>
+Next let's deal with "mouseover".
+</p>
+<p>
+Kindly change your code around so it looks like this:
+</p>
+<div id = "code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+<br />
+canvas.addEventListener(&quot;mouseover&quot;,mouseOverCircle,false);<br />
+<br />
+function mouseOverCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#008888&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+See what's happening here? The circle is blue until you move your mouse onto the canvas, at which point it becomes a sort of turquoise-colored
+circle. Neat! Didn't catch it in time? Just reload your page and watch how the circle changes when you hover the mouse over the canvas.
+</p>
+<p>
+Now let's add a "mouseout" listener to our canvas, so that whenever we move our mouse OFF the canvas, the circle changes back to its original
+blue color. Change your script to the following:
+</p>
+<div id = "code">
+
+
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+<br />
+canvas.addEventListener(&quot;mouseout&quot;,mouseOutCircle,false);<br />
+canvas.addEventListener(&quot;mouseover&quot;,mouseOverCircle,false);<br />
+<br />
+function mouseOverCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#008888&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+}<br />
+<br />
+function mouseOutCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+}<br />
+<br />
+&lt;/script&gt;
+
+</div>
+<p>
+Even neater! Let's try the listeners called "mousedown" and "mouseup" to create the same effect. We'll attach these listeners to the canvas
+as we did with mouseout and mouseover. This will be our result:
+</p>
+<div id ="code">
+
+&lt;script&gt;
+
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+<br />
+canvas.addEventListener(&quot;mousedown&quot;,mouseDownCircle,false);<br />
+canvas.addEventListener(&quot;mouseup&quot;,mouseUpCircle,false);<br />
+<br />
+function mouseDownCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#008888&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+}<br />
+<br />
+function mouseUpCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+All you really needed to do for this one was substitute "mousedown" for "mouseout" in the event listener, and later in the function, then do 
+the same thing with "mouseup". Go ahead and hold down the mouse anywhere you like on the canvas to make the circle change colors.
+Then release it to make it turn back to blue.
+</p>
+<p>
+This too is pretty neat, right?
+</p>
+<p>
+Aw heck, I was going to finish the lesson here, but we can still throw in another two, right?
+</p>
+<p>
+Why don't we try to add this guy to our code right below the other two listeners?
+</p>
+<div id = "code">
+
+canvas.addEventListener("dblclick",mouseDblclickCircle,false);
+</div>
+<p>
+Now all that remains is to add this function at the very bottom of our script tags:
+</p>
+<div id = "code">
+
+function mouseDblclickCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#ffbb00&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+}<br />
+
+</div>
+<p>
+By double clicking we get a nifty orange color. 
+</p>
+<p>
+Ok, last one, I promise!
+</p>
+<p>
+Change all your script tag contents to the following:
+</p>
+<div id = "code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+<br />
+var increment = 1.8;<br />
+var arcRadius = 10;<br />
+<br />
+canvas.addEventListener(&quot;mousemove&quot;,mouseMoveCircle,false);<br />
+<br />
+function mouseMoveCircle(event)<br />
+{<br />
+context.fillStyle = &quot;#5500ee&quot;;<br />
+context.arc(100,100,arcRadius,0,6.294,false);<br />
+context.fill();<br />
+arcRadius += increment;<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+This one's fun! Every time you move the mouse, the radius of the circle gets bigger and bigger! Stop moving and it temporarily stops growing. 
+</p>
+<p>
+Now I know all this business is nothing but a series of simple reactions, here we're creating the groundwork for everything
+you'll need to know about game development with today's lessons. The canvas stuff is great, and you'll find it's very useful,
+but let's regard the first 11 lessons as a sort of introduction. It's somewhat akin to learning to
+drive: you've got to take a driving class and a written test before you can get behind the wheel and drive off into the sunset!
+</p>
+<p>
+So like I said, over the course of the next few weeks I'm going to help you explore more hands-on, practical game techniques. 
+You'll most likely find these VEEERY fun to work with. I know I was when I first learned these!
+</p>
+<p>
+So CONGRATS for having roughed it through the first part and remember....
+</p>
+<p>
+..the best is yet to come, folks!
+</p>
+<p>
+Tomorrow we start with keyboard events!
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson13.html">Onward to Lesson Thirteen!</a>
+<br>
+
+<a href="Lesson11.html">Back to Lesson Eleven!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>

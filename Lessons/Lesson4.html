@@ -1,0 +1,555 @@
+<!doctype html>
+<title>LESSON #4</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 4 - April 7, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 4</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+
+<p>
+And now the fun stuff! Thanks for being patient, but I wanted to get through some basic canvas functions before we started 
+moving things around. You might never use lines or curves in your games, but it's ALWAYS a good idea to have that extra
+baggage in case you happen to need it someday. Why just learn the necessary commands and leave the rest vague? 
+That's not the way to do things! Hey, we want to aim high and try to MASTER HTML5, not just mess around enough to scrape by!
+</p>
+<p>
+Anyway, we'll be coming back to more advanced canvas features tomorrow, so let's just spend today messing around
+with the few commands we know and making objects move around the screen in funny ways. 
+</p>
+<p>
+Are we ready?
+</p>
+<p>
+Ok, so there are three very important timer events we need to discuss that will lead us into animation. They are:
+</p>
+
+<ul>
+<li>setTimeout()</li>
+<li>setInterval()</li>
+<li>requestAnimationFrame()</li>
+</ul>
+<p>
+I'll let you in on a little secret and tell you that requestAnimationFrame is the most preferable of 'em all. Why? Because it makes for more fluid,
+less expensive animations, that's why! The other two are cool, though, and very useful, but not optimal if you have 50,000 things flying across
+the canvas at the same time. You may not notice it now at this stage of the game, but it's a good idea to at least learn 
+how it works so you can implement it in future experiences. If you mess up royally, don't fret - we'll be doing another animation tutorial in
+the near future.
+</p>
+<p>
+So like the Three Little Pigs, let's introduce one at a time. So fluff up your pillow, sit back and let me tell you a story.
+</p>
+
+				<h3>THE THREE LITTLE TIMERS</h3>
+<p>
+Once upon a time there was a method called setTimeout(). He built his house out of straw and ran once and only once 
+after the number of seconds we specified that he needed to wait.
+</p>
+<p>
+Then along came setInterval(). He built his house out of sticks and ran an infinite number of times. We told him how much time passed
+between repetitions.
+</p>
+<p>
+Finally there was requestAnimationFrame(). He built his house out of bricks, was more efficient and everyone lived happily ever after.
+</p>
+<p>
+Oh there was a wolf in that story somewhere.
+</p>
+<p>
+THE END
+</p>
+<p>
+Let's use each in an example!
+</p>
+<p>
+setTimeout(), as we saw, runs only once (unless we tweak it and have it call itself! Tee hee hee!) at an interval that we get to choose.
+</p>
+<p>
+Ergo: setTimeout(ourFunction,timeInterval);
+</p>
+<p>
+Our function is any block of code we decide to show after the timer runs out. 
+The time interval is shown in milliseconds. If you don't know how milliseconds work, just remember that 1 second = 1000 milliseconds.
+</p>
+<p>
+So riddle me this:   2000 milliseconds = ? 
+		 500 milliseconds = ?
+		4000 millseconds = ?
+	           20000 milliseconds = ?
+</p>
+<p>
+Answers at the bottom of the page.
+</p>
+<p>
+So seeing as we need to put our curves into a function, let's go ahead and make that function right now.
+We'll name it playMe();
+</p>
+
+<div id = "code">
+function playMe()<br />
+{<br />
+context.strokeStyle = &quot;#44ee00&quot;;<br />
+context.moveTo(200,200);<br />
+context.bezierCurveTo(100,300,200,30,50,50);<br />
+context.stroke();<br />
+}
+</div>
+
+<p>
+So instead of writing a bunch of new code, we're using what we already have and wrapping it between two curly brackets as you can see above.
+Great! Now all we need is to call the setTimeout function and specify our new function and time interval.
+</p>
+<p>
+So directly above the code we just wrote, add this line:
+<div id = "code">
+
+setTimeout(playMe,3000);
+</div>
+
+<p>
+Just to double-check, here's our full code.
+</p>
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Timers n' Stuff &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;); <br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+window.setTimeout(playMe,3000);<br />
+<br />
+function playMe()<br />
+{<br />
+context.strokeStyle = &quot;#44ee00&quot;;<br />
+context.moveTo(200,200);<br />
+context.bezierCurveTo(100,300,200,30,50,50);<br />
+context.stroke();<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+So save it, run it in Chrome and tell me what you see.
+</p>
+<p>
+At first....nothing! Did I trick you again?
+</p>
+<p>
+Hey Ben, you rotten.... oh WAIT! There it is!
+</p>
+<p>
+Yup! No tricks this time! We just need to wait the 3000 milliseconds (3 seconds) for the timer to go off. 
+</p>
+<p>
+But wait, that's sort of.... well, anticlimactic! It's like waiting for a fireworks display and only seeing one explosion. That's no fun!
+You'll find some places you'll want to use this, though.
+</p>
+<p>
+But for now, let's skip on ahead to our pal, setInterval();
+</p>
+<p>
+Let's erase our boring setTimeout and get this party started, ok?
+</p>
+<p>
+setInterval has two values and they are basically the same as those from setTimeout except the milliseconds represent the 
+interval of time that lapses between repetitions. So, in other words, it'll go on endlessly (unless you use clearInterval which we'll
+probably be taking a look at in the next animation lesson).
+ </p>
+<p>
+Say, this stuff is GRAND! Sounds like animation material to me!
+</p>
+<p>
+So go ahead and add the following to your code where setTimeout used to be:
+<div id="code">
+
+setInterval(playMe,500);   
+</div>
+<p>
+Note that I've changed the interval to 500 milliseconds to speed up the animation a bit.
+</p>
+<p>
+So what happens? Nothing at first, since it needs to wait the initial half second we assigned to it, then the real fun begins!
+What you'll see is a curve being placed onto itself over and over again. By itself that's not too much fun, so instead of watching
+this repetitive mess, let's make it MOVE. 
+</p>
+<p>
+Now how the heck can we do that? Easy! We just add a few simple pieces of code.
+</p>
+<p>
+The first thing to do is call a global variable. We'll put this underneath the var context line like so...
+</p>
+<div id="code">
+var theCanvas = document.getElementById("canvas"); 
+<br>
+var context = theCanvas.getContext("2d");
+<br>
+var increment = 5;
+</div>
+<p>
+Following that, in our playMe function we need to make a couple small changes.
+</p>
+<p>
+First we need to change the first value of our bezier curve from 100 to increment as you can see here:
+</p>
+<div id="code">
+
+context.bezierCurveTo(increment,300,200,30,50,50);
+</div>
+<p>
+Why do we need to do that? Because that's the part we're going to be changing on each repetition of the setInterval function.
+Every 500 milliseconds, in other words. 
+Now all we need to do is specify how much to change it at every interval. We do this by adding the following to the end of our
+playMe function code:
+</p>
+<div id="code">
+
+increment += 10;
+</div>
+<p>
+This very important little line tells the computer we want to increase the value of increment by 10 each time we repeat the function.
+This could be written as increment = increment + 10, but the shortcut method may trim hours off your life in the end. 
+I mean, would you rather spend hours of your life swimming in the ocean on a summer's day or typing stuff the long way? YOU choose!
+</p>
+<p>
+Coincidentally, we can also do the same thing with subtraction, division and multiplication. Watch this:
+</p>
+<p>
+increment = increment * 10;		(multiplication)   is the same as  increment *= 10;
+<br>
+increment = increment / 10;  	(division)          is the same as  increment /= 10;
+<br>
+increment = increment - 10;		(subtraction)     is the same as  increment -= 10;
+</p>
+<p>
+Oh how we love easy!
+</p>
+<p>
+So, after we add that line of code, let's save + run it. 
+</p>
+<p>
+Noooooow we're talkin'! Here's the full code in case you're not seeing anything particularly exciting:
+</p>
+<div id="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Timers n' Stuff &lt;/title&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #333333;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+<br />
+&lt;script&gt;<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;); <br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var increment = 5;<br />
+<br />
+window.setInterval(playMe,500);<br />
+<br />
+function playMe()<br />
+{<br />
+context.strokeStyle = &quot;#44ee00&quot;;<br />
+context.moveTo(200,200);<br />
+context.bezierCurveTo(increment,300,200,30,50,50);<br />
+context.stroke();<br />
+increment += 10;<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+
+<p>
+Now here's the cool part: you can add an increment anywhere you want to!
+</p>
+<p>
+Go ahead and erase everything inside the playMe function and write this instead:
+</p>
+<div id ="code">
+
+context.strokeStyle = "#44ee00";
+context.moveTo(200,200);
+context.lineTo(300,increment);
+context.stroke();
+increment += 10;
+</div>
+<p>
+Or try erasing everything in the playMe function once again and adding this:
+</p>
+<div id ="code">
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,50);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,200);<br />
+context.lineTo(increment,300);<br />
+context.lineTo(increment,225);<br />
+context.lineTo(increment,300);<br />
+context.lineTo(increment,200);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,50);<br />
+context.stroke();<br />
+<br />
+increment += 10;
+<br>
+}
+<br>
+&lt;/script&gt;
+</div>
+
+<p>
+I mean, WHATEVER you want! Isn't this cool? I've spent many an evening just messing around with
+values and moving shapes across the screen. So satisfying!
+</p>
+<p>
+So try 'em out yourself and let me see what you come up with. Go ahead and tweet me @benwhi and
+let me know. 
+</p>
+<p>
+The key here, if you want to become a better coder is to EXPERIMENT. A LOT! Half of your study is to
+read nifty tutorials like mine, but the rest is up to you and ONLY you! You've got to be the one to 
+commit to your craft and learn it the best you can. There are quite a few good books out there, but
+don't let reading be your ONLY learning activity (though DO A LOT OF IT)! 
+</p>
+<p>
+Now lastly, I just want to look at the king of all timers: reqestAnimationFrame();
+</p>
+<p>
+Why is requestAnimationFrame so cool? Well, see for yourself:
+</p>
+
+<a href="http://ie.microsoft.com/testdrive/Graphics/RequestAnimationFrame/"> requestAnimationFrame() </a>
+
+<p>
+As you can see from the comparisons, requestAnimationFrame is a much better choice when making animations.
+In fact, requestAnimationFrame is the cousin not of setInterval, but of setTimeout. What gives?? I don't
+want to run my timer once and only once!
+</p>
+<p>
+Well, folks, there's a trick you might want to know:
+</p>
+<p>
+You can sit it up so that setTimeout AND requestAimationFrame to call THEMSELVES! Deep, huh?
+</p>
+<p>
+Let's take a look at an example:
+</p>
+
+<div id="code">
+var theCanvas = document.getElementById(&quot;canvas&quot;); <br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var increment = 5;<br />
+<br />
+requestAnimationFrame(playMe);   <br />
+<br />
+function playMe()<br />
+{<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,50);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,200);<br />
+context.lineTo(increment,300);<br />
+context.lineTo(increment,225);<br />
+context.lineTo(increment,300);<br />
+context.lineTo(increment,200);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,50);<br />
+context.stroke();<br />
+requestAnimationFrame(playMe);    &lt;----- looky here!<br />
+<br />
+increment += 20;
+<br>
+}
+<br>
+&lt;/script&gt;
+</div>
+
+<p>
+Now what's happening here?
+</p>
+<p>
+As you can see, at the bottom under context.stroke(), we added a second requestAnimationFrame()
+which calls itself! I don't want to get into the specifics, but keep in mind that we can do the same exact thing
+with setTimeout, as you can see here:
+</p>
+
+<div id ="code">
+var theCanvas = document.getElementById(&quot;canvas&quot;); <br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var increment = 5;<br />
+<br />
+setTimeout(playMe);<br />
+<br />
+function playMe()<br />
+{<br />
+context.strokeStyle = &quot;#00ff00&quot;;<br />
+context.moveTo(200,50);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,200);<br />
+context.lineTo(increment,300);<br />
+context.lineTo(increment,225);<br />
+context.lineTo(increment,300);<br />
+context.lineTo(increment,200);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,150);<br />
+context.lineTo(increment,50);<br />
+context.stroke();<br />
+setTimeout(playMe);                  &lt;------ remember me?<br />
+<br />
+increment += 20;
+<br>
+}
+</br>
+&lt;/script&gt;
+</div>
+<p>
+You might be interested in knowing how we can change the interval between repetitions 
+in the requestAnimationFrame() method, but we'll look at that along with clearInterval() in the near future.
+I don't want to get things too complicated today. After three lessons dealing with the basics,
+we owe ourselves some fun time as well.
+</p>
+<p>
+So in the meantime, just enjoy yourself with what we have for the time being. 
+</p>
+<p>
+That's it, lesson's over!
+</p>
+<p>
+As always, play around and experiment with the new tools that you learn.
+</p>
+<p>
+Tomorrow we'll deal with some new tools in the canvas which we haven't touched upon yet.
+</p>
+<p>
+Thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben 
+<br> 
+@benwhi
+</p>
+<p>
+
+P.S. I wanted to thank all of you for the kind words of support - I've received some super nice compliments and words of 
+encouragement on Twitter, Newgrounds and the Html5gamedevs.com forum. Just wanted to let you know
+that it's greatly appreciated and more than makes up for the hours spent writing these things! So... THANKS A BUNCH!
+</p>
+<p>
+
+Here's the answer key to the simple little milliseconds exercise:
+</p>
+<p>
+
+Answers to milliseconds exercise:
+<br>
+2 seconds
+<br>
+.5 seconds
+<br>
+4 seconds
+<br>
+20 seconds
+</p>
+<br>
+<a href="Lesson5.html">Onward to Lesson Five!</a>
+<br>
+<a href="Lesson3.html">Back to Lesson Three</a>
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+
+ 
+ 

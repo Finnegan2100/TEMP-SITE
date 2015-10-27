@@ -1,0 +1,591 @@
+<!doctype html>
+<title>LESSON #11</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 11 - April 14, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 11</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+Aaaaaaaaand today we'll be wrapping up our study of the many features of the canvas before stepping into the exciting territory of 
+game development techniques not specific to the canvas itself. Let's get our feet wet right away, because there are a couple things to cover. Some of you might feel
+the need to skip some parts if you're already familiar with stuff like directories or HTML color values.
+</p>
+<p>
+First off, I never really got into the multiple methods a game dev. has of using color in the canvas. Naturally I talked briefly about hex values
+and directed you elsewhere for further elucidation on the subject, but there are also other methods of inputting colors. Let's take a survey
+of them.
+</p>
+<p>
+When we specify lineStyle or fillStyle, these are some of the different options we have in canvas:
+</p>
+<p>
+fillStyle = "#5500cc";  Hexadecimal value. Can also be abbreviated to:
+<br>
+fillStyle = "#50c";  Each number is a doubling of the value. In other words: #50c = #5500cc.
+<br>
+</p>
+<p>
+fillStyle = "green" There are certain color values that can be plugged in as a string.
+<br>
+filStyle = "rgb(30,240,10)" RGB (Red Green Blue) values. Each of the three values ranges from 0 to 256.
+<br>
+fillStyle = "rgba(46,13,244,.3)" RGB (Red Green Blue Alpha) values. Same as above, except this includes the alpha value which ranges from 0 to 1.
+<br>
+fillStyle = "rgba(20%,11%,90%,.5)"RGBA (Red Green Blue Alpha) except this time the RGB is done through percentages.
+<br>
+fillStyle = "hsl(200,55%,70%)" HSL (Hue Saturation Lightness) values. This assigns a HUE value from 0 to 360, as well as a saturation and lightness precentage.
+<br>
+filStyle = "hsla(350,20%,90%,.4)" HSLA (Hue Saturation Lightness Alpha) values. Same as above, except includes an alpha ranging from 0 to 1.
+<br>
+ </p>
+<p>
+Here's a list of a bunch of color names you can plug in as strings:
+</p>
+<p>
+http://www.w3schools.com/html/html_colornames.asp
+</p>
+<p>
+And that really does it for the colors, folks. How much do you REALLY want to know about colors anyway??
+</p>
+<p>
+The next topic in our final canvas survey is patterns.
+</p>
+<p>
+Now I never told you this, but you can also assign a pattern to a fillStyle. It's done pretty much in the same way we assigned an
+image to our drawImage() method. Remember that? No need to go back and check it out: here's how you implement patterns:
+</p>
+<p>
+First you assign a name (yup, anyone you choose!) to your image and create it. After that you pull it from the directory it was saved in. 
+We'll go over how to pull your images from other directories right after patterns, so sit tight if you're curious.
+</p>
+<div id="code">
+
+var myPattern = new Image();<br />
+myPattern.src = &quot;well.png&quot;;
+</div>
+<p>
+Then after we've told the computer what to name it and where we want to grab it from, we need to set either our fillStyle or our 
+strokeStyle to a method called createPattern(). This method contains requires two arguments. The first is the name of the image
+we just made up and the second is the repeat value which we'll see in a second.
+</p>
+<p>
+So you assign your fillStyle (or strokeStyle) to createPattern in this way:
+</p>
+<div id="code">
+
+context.fillStyle = context.createPattern(myPattern,"repeat");
+</div>
+<p>
+And then you add whatever you want to fill to the canvas. Lo and behold it will be filled with the pattern you specified. Here's the full code:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;PATTERNS&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var myPattern = new Image();<br />
+myPattern.src = &quot;well.png&quot;;<br />
+<br />
+context.fillStyle = context.createPattern(myPattern,&quot;repeat&quot;);<br />
+context.fillRect(200,200,100,100);<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Now it worked pretty well for me because my picture was super tiny (20x20) pixels. This caused my image to be repeated a bunch of times
+inside the space of my rectangle. But maybe you don't want that! Maybe you prefer a texture of a leather waller or something. In that case, you can use a larger
+image and the pattern will take a chunk of that and put it in your rectangle. 
+</p>
+<p>
+Now that last argument, "repeat" can be replaced by a couple others, namely:
+</p>
+<p>
+"repeat-x" 
+"repeat-y"
+"no-repeat"
+</p>
+<p>
+repeat-x copies your image across the X axis and repeat-y copies them across the Y axis. Self-explanatory.
+no-repeat, very simply, shuts off repeat and only allows one instance of your image to appear inside the area of the recangle.
+</p>
+<p>
+Got it? If you're into this technique (which I'm definitely not) go ahead and try a couple of example images and see what you come up with.
+</p>
+<p>
+Next topic is directories:
+</p>
+<p>
+Now I've asked you a couple times now to pull stuff from directories, and only explained how to get them from the same directory in which
+our html file is contained. Well, if you've ever worked with HTML before, you'll probably know that you have to write a slash or two and maybe a 
+couple dots if you want to navigate backwards towards the root of your directory.
+</p>
+<p>
+I know some of you are groaning, because you learned this years ago, but this is important stuff for the folks who don't know it!
+</p>
+<p>
+Sooo, if I have a folder in my current directory called wellFolder and it houses my well.png, I'll need to write the following to retrieve it:
+</p>
+<div id = "code">
+
+myPattern.src = "wellFolder/well.png";
+</div>
+<p>
+
+If it was inside a folder called wellFolderInside which was located in our wellFolder (still in our directory), we would write:
+</p>
+<div id = "code">
+
+myPattern.src = "wellFolder/wellFolderInside/well.png";
+</div>
+<p>
+To go back a directory: 
+</p>
+<p>
+Let's say that you saved your file in the previous directory, say downloads or documents or something like that.
+Then you would need to use this handy little guy to go back.
+</p>
+<div id = "code">
+
+myPattern.src ="../well.png"
+</div>
+<p>
+If you need to go back two steps, just add write this.
+</p>
+<div id = "code">
+
+myPattern.src ="../../well.png"
+</div>
+<p>
+And that's about all you need to know!
+</p>
+<p>
+Our next topic is pixel manipulation. Now I'm not going to get into the complex stuff of pixel manipulation, but want to show you briefly
+how it works and how to grab pixels from somewhere and put them somwhere else. I'll also briefly be discussing how to manipulate the
+pixels themselves.
+</p>
+<p>
+First off, plug in this example which we'll be working with:
+</p>
+<div id="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt;PIXEL MANIPULATION&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;ff4444&quot;;<br />
+context.fillRect(50,50,300,300);<br />
+<br />
+context.fillStyle = &quot;550000&quot;;<br />
+context.fillRect(200,200,100,100);<br />
+<br />
+context.fillStyle = &quot;33ff66&quot;;<br />
+context.fillRect(300,100,150,150);<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Nothing special, just three rectangles sittin' around on the canvas. Now with pixel manipulation we can 
+take a sample of the stuff we have on our canvas, alter the information and/or put it somewhere else.
+</p>
+<p>
+This sampling and moving part is done through two methods:
+</p>
+<p>
+getImageData(X,Y,WIDTH,HEIGHT);
+</p>
+<p>
+and
+</p>
+<p>
+putImageData(imageName, X,Y);
+</p>
+<p>
+First off we need to create a variable which will hold our imageData. We then assign the variable to the getImageData method.
+After this has been done, we are free to place it on our canvas wherever we please.
+</p>
+<p>
+So go ahead and add these two lines AFTER the last fillRect method.
+</p>
+<div id = "code">
+
+var imageDataStuff = context.getImageData(280,200,40,40);
+context.putImageData(imageDataStuff,100,100);
+</div>
+
+<p>
+As you can see, we sent our getImageData out to grab a 40 X 40 chunk of pixels at 280 and 200. Note that our grabber
+doesn't make any distinction between rectangles, it just grabs whatever it sees in the area you specfied. 
+Our putImageData method neatly places what it grabbed at the X and Y values we specified. In this case it's 100,100.
+</p>
+<p>
+Pretty easy, huh?
+</p>
+<p>
+Now anytime we need to access the data itself of our imageDataStuff variable, we just access its property "data". Each pixel in
+our selected chunk of image data has 4 bytes, each of which correspond to an RGBA (red,green,blue,alpha) value. So, in other words
+if our chunk here is 40 X 40, we have 1600 X 4 bytes = 6400 freaking bytes of RGBA information!
+</p>
+<p>
+In order to alter the content of these bytes, we'll probably want to loop through its values and assign a new one.
+We do this by means of a for loop. Now some of you will have no idea how this for loop thingy operates, and that's ok because
+for today's lesson I'm just throwing it into the batch for demonstrative purposes. We'll take a look at this stuff later.
+</p>
+<p>
+Here's the code:
+</p>
+<div id = "code">
+
+for (var i =0; i < imageDataStuff.data.length; i+= 4)
+{
+imageDataStuff.data[i] = 256;
+}
+</div>
+<p>
+HEY, it sorta looks like the Spanish flag! This effect came about because we increased the red value of our pixels to their maximum
+value. All we did was say, "take every red value in every byte and assign it a value of 256." 
+</p>
+<p>
+Note that this won't work unless you put it BEFORE the putImageData. It's a very simple process, actually: we're assgning a variable to our
+pixels, changing them around a bit, then placing them on the canvas in a different position!
+</p>
+<p>
+If you don't get it, just copy it for now; we'll be coming back to loops and arrays in due time. 
+If you DO want to tweak the values a bit, try changing: 
+</p>
+<p>
+var i =0
+<br>
+to any value from 0-3. 
+<br>
+0 corresponds to red
+1 to green
+2 to blue 
+3 to alpha
+</p>
+<p>
+If you want to change the values of the RGBA info, just take the line:
+</p>
+<p>
+imageDataStuff.data[i] = 256;
+</p>
+<p>
+...and give it any number from 0 to 256. This will affect the quantity of the RGBA value (the number 0-4 you chose above) that you want to be displayed.
+</p>
+<p>
+And that's WAY more about pixel maniuplation than I wanted to discuss today. Let's get to the last topic before this lesson becomes
+enormous.
+</p>
+<p>
+The last topic deals with two very important functions which will allow you to store important data that you may have assigned to 
+your shapes or whatever and have the canvas retrieve them again for you!
+</p>
+<p>
+Here they are, the very cool:
+</p>
+<p>
+save() 
+<br>
+and 
+<br>
+restore() 
+<br>
+</p>
+<p>
+Let's jump in to see how they work:
+</p>
+<p>
+Run this code a sec., then we'll give it a study:
+</p>
+<div id = "code">
+
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;SAVE AND RESTORE&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;rgba(256,0,0,.4)&quot;;<br />
+context.fillRect(50,100,50,50);<br />
+context.save();<br />
+<br />
+context.fillStyle = &quot;rgba(0,256,0,.8)&quot;;<br />
+context.fillRect(150,100,50,50);<br />
+context.save();<br />
+<br />
+context.restore();<br />
+context.fillRect(250,100,50,50);<br />
+<br />
+context.restore()<br />
+context.fillRect(350,100,50,50);<br />
+<br />
+&lt;/script&gt;
+
+</div>
+<p>
+So here, as you can see, I've drawn four rectangles, but have only called context.fillStyle twice.
+As you can see at the end of our first block of code, we added context.save() at the end. Same with
+our second block of code. 
+</p>
+<p>
+When we arrive at our third block of code, it was only necessary to call a fillRect() method, since the 
+context.restore() line returned our value from block two for us.
+</p>
+<p>
+When we arrive at the fourth block of code, we call context.restore() once again and the rectangle we draw
+is given the value of the first rectangle.
+</p>
+<p>
+See how this works? Everything that is saved is thrown onto a stack, then removed on a last come, first served 
+basis. Whatever you throw onto the save() stack, becomes immediately available for the first restore(), while the
+first thing you save becomes the last thing restored.
+</p>
+<p>
+Making sense? save() and restore() can be applied to all kinds of parameters, but NOT to drawings themselves.
+They can, however, even be applied to the transformation of your axes when you do rotations or scaling.
+</p>
+<p>
+Let's return to our example of rotation from a couple chapters ago:
+</p>
+<div id = "code">
+<br />
+&lt;!doctype html&gt;<br />
+&lt;title&gt; ROTATING  AND SCALING HERBERT 2&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;1000&quot; height = &quot;700&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.translate(225,250);<br />
+context.scale(1.3,1.3);<br />
+context.rotate(.7);<br />
+<br />
+context.fillStyle = &quot;#44ee00&quot;;<br />
+context.strokeStyle = &quot;#5500dd&quot;;<br />
+context.moveTo(-25,-50);<br />
+context.lineTo(75,-50);<br />
+context.lineTo(-75,50);<br />
+context.lineTo(-25,-50);<br />
+context.stroke();<br />
+context.fill();<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Ahhh Herbert! Remember when we scaled Herbert the triangle?
+</p>
+<p>
+Let's apply our new knowledge of save() and restore() to return back to a rotated state.
+</p>
+<p>
+Change all the code in the &lt;script&gt; tag with the following:
+</p>
+<div id ="code">
+
+var theCanvas = document.getElementById("canvas");
+<br>
+var context = theCanvas.getContext("2d");
+<br>
+
+context.save()
+<br>
+context.translate(225,250);
+<br>
+context.scale(1.3,1.3);
+<br>
+context.rotate(.7);
+<br>
+context.fillStyle = "#44ee00";
+<br>
+context.s&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+<br />
+context.save()<br />
+<br />
+context.translate(225,250);<br />
+context.scale(1.3,1.3);<br />
+context.rotate(.7);<br />
+<br />
+context.fillStyle = &quot;#44ee00&quot;;<br />
+context.strokeStyle = &quot;#5500dd&quot;;<br />
+context.moveTo(-25,-50);<br />
+context.lineTo(75,-50);<br />
+context.lineTo(-75,50);<br />
+context.lineTo(-25,-50);<br />
+context.stroke();<br />
+context.fill();<br />
+<br />
+context.restore();<br />
+context.fillRect(100,100,50,50);<br />
+context.fill();<br />
+<br />
+&lt;/script&gt;trokeStyle = "#5500dd";<br>
+context.moveTo(-25,-50);<br>
+context.lineTo(75,-50);<br>
+context.lineTo(-75,50);<br>
+context.lineTo(-25,-50);<br>
+context.stroke();<br>
+context.fill();<br>
+
+context.restore();<br>
+context.fillRect(100,100,50,50);<br>
+context.fill();<br>
+
+
+
+</div>
+<p>
+Notice how the save() has to be called AFTER the particular settings you want to save.
+In our case here, we're taking the standard, non-rotated default canvas values and
+are saving them. After we do all our rotation stuff, we call restore(), which returns everything
+back to normal again, then we draw a rectangle at the coordinates 100,100.
+</p>
+<p>
+Seems simple enough, right?
+</p>
+<p>
+Yeah, and it's a REALLY powerful tool that you can use in clever ways to make some pretty 
+complex animations on your canvas!
+</p>
+<p>
+So those are the last things I wanted to discuss regarding the canvas tools... EXCEPT... the last, 9-argument version of the drawImage()
+which we haven't looked at yet. Remember him? This will be extremely useful when we start making sprite sheets and animating 
+our characters! But it's not quite tme yet - tomorrow we move into the world of event listeners! 
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson12.html">Onward to Lesson Twelve!</a>
+<br>
+
+<a href="Lesson10.html">Back to Lesson Ten!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>

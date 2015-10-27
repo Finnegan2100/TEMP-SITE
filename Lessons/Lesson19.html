@@ -1,0 +1,458 @@
+<!doctype html>
+<title>LESSON #19</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 19 - May 15, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation"> (Game Dev. Tools) LESSON # 19</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+
+
+<p>
+As we saw two lessons ago, we were able to increase the velocity of our rectangle by constantly adding a small value to our VX and VY values.
+If you're just starting here, and you have no clue what a VX or VY value is, I suggest you go back and check out lessons 15-18 first. Since we're 
+getting into more complex stuff and not just individual features of the canvas, you're going to need to have a solid understanding of the
+basics in these lessons. So take the time to do some brushing up before pouncing on this stuff. It'll save you a lot of time!
+</p>
+<p>
+So AX and AY work just fine for accelerating something, and we can also use these values to slow down our objects by applying negative values to them
+(which will eventually bring the VX and VY to their opposite value if we continue them), but how about something external applied to the movement
+of the objects that brings their speed to a grinding halt? 
+</p>
+<p>
+Such a thing is called friction (and it's great for ice worlds!).
+</p>
+<p>
+To see friction in action, check out my silly Flash game Penguin Hockey. 
+</p>
+<p>
+<a href="http://warmseaorchard.com/PenguinHockey.html"> Penguin Hockey </a>
+</p>
+<p>
+Once you get the hang of it, you'll see that the fish slides across the ice until it's eventually stopped by friction. Note that had I applied a negative acceleration
+it would have eventually started moving backwards and going in the opposite direction.
+</p>
+<p>
+Here's an example of friction in HTML5, on the other hand.
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;FRICTION&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 3;<br />
+var VY = 3;<br />
+//var AX = .02;<br />
+//var AY = .02;<br />
+var friction = .95;<br />
+<br />
+<br />
+window.setInterval(drawRectangle,30);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+//VX += AX;<br />
+//VY += AY;<br />
+<br />
+VX *= friction;<br />
+VY *= friction;<br />
+console.log(rectX,rectY);<br />
+<br />
+if (rectX &gt; canvas.width)<br />
+{<br />
+rectX = 0;<br />
+}<br />
+else if (rectX &lt; 0 - rectWidth)<br />
+{<br />
+rectX = canvas.width - rectWidth;<br />
+}<br />
+<br />
+if (rectY &lt; 0)<br />
+{<br />
+rectY = canvas.height;<br />
+}<br />
+else if (rectY - rectHeight &gt; canvas.height)<br />
+{<br />
+rectY = 0;<br />
+}<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+Here you can see that the VX and VY values are being mutilplied constanly by something a little less than 1. This drags the value lower and 
+lower until it's motionless.You can fool around with this value to get the effect you like. Just don't overdo it, because you might kill/not see the effect
+if the values are too high or low.
+</p>
+<p>
+If you're making an ice world, what you can do is this:
+</p>
+<p>
+Let's say you're moving your character with the arrow keys, and he's running across the canvas merrily. As we've seen in our lessons on
+velocity, once you release the arrow key, the character stops abruptly because we've established that VX (or VY) = 0 in our keyup handler and that
+brings our rectangle to a crashing halt. All we need to do, instead, is implement it in such a way that friction is applied at that moment. 
+Either way, the rectangle will come to a stop, but with friction applied, it looks a whole lot "icier". 
+</p>
+<p>
+You can also apply friction to other stuff like alpha if you want to get all fancy.
+</p>
+<p>
+Just set your code up in such a way that something triggers the alpha value. This can also be adjusted to your tastes.
+</p>
+<p>
+Here's a little example of this in action:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;FRICTION APPLIED TO ALPHA VALUES&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 3;<br />
+var VY = 3;<br />
+<br />
+var applyFriction = false;<br />
+<br />
+var friction = .95;<br />
+<br />
+<br />
+window.setInterval(drawRectangle,30);<br />
+window.addEventListener(&quot;click&quot;,onMouseDown,false);<br />
+<br />
+function onMouseDown()<br />
+{<br />
+applyFriction = true;<br />
+}<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+<br />
+if (applyFriction == true)<br />
+{<br />
+context.globalAlpha *= friction;<br />
+}<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+As you can see here I've eliminated the whole screen-wrapping thing for brevity's sake and have added a few things to the mix.
+</p>
+<p>
+First off, I've made a variable called applyFriction and set it to false. 
+After that I added an event listener to our window which detects clicks and I've called it onMouseDown.
+Then, in our onMouseDown handler, I've set applyFriction to true.
+Lastly, in our drawRectangle function, I created an if statement that says: 
+</p>
+<div id = "code">
+
+
+if (applyFriction == true)<br />
+{<br />
+context.globalAlpha *= friction;<br />
+}
+</div>
+<p>
+and that fades our rectangle away to nothing. 
+Go on and try it out with other stuff. Remember that this is simply the slow peeling away of something's
+original value. Any ideas on what else you could peel away?
+</p>
+<p>
+Well, I'll tell ya: the width and height of something, the rotation of something, the x and y values of something, you name it! All you need to have in place is
+a gradual resting point which can equal 0 (or something else if you want to get creative, but I'll leave that up to you!).
+</p>
+<p>
+
+Now it looks like we've got some extra space here, so I guess I'll introduce sine and cosine a minute and tell you how to set your VX and VY values to a specific 
+angle instead of using the less precise VX and VY values on their own. This is just an introduction, though. I'll be covering this stuff in greater depth next time.
+</p>
+<p>
+This is really very simple because Javascript has values automatically plugged into it which do all the math-y stuff for you. As you might have discovered already 
+through your adventures with Javascript, along with Math.random and Math.floor which we've already seen, there are also things like Math.cos, Math.sin and Math.tan 
+(among many other mathematics-based tools).
+</p>
+<p>
+What we need is to determine an ANGLE and a SPEED to get these things working. The rest will be determined with Math.cos and Math.sin for this example.
+</p>
+<p>
+So, as you'll see, VX and VY become a little more roundabout than just plugging in values directly to it. They are now the result of a simple formula, namely:
+</p>
+<p>
+VX = Math.cos(angle) * speed;
+<br>
+VY = Math.sin(angle) * speed;
+</p>
+<p>
+
+Now the key thing to remember for this particular formula is that the COS value is connected to the X axis and the SIN value is connected to the Y axis.
+This will be clearer next time, but for now, they're just elements of a formula we need for setting our velocity to a specific angle.
+</p>
+<p>
+Now as you can see, we need to find the cos and sin of our angle. Now this ain't no angle in DEGREES, but one in RADIANS which is the preferred unit of
+angles in Javascript and such. If you recall from one of our earlier lessons, it's really only important to know that one full circle (360 degrees) is equal to 
+6.28 radians, which is 3.14 (PI, of course), which consqeuently equals 1/2 a circle. A quarter circle would be 1/2 PI and three quarters of the way around the
+circle is 1 and a half PI. If you're really interested in finding a precise angle, you can use this formula:
+</p>
+<p>
+radians = degrees * Math.PI / 180.
+</p>
+<p>
+But if you're making games and want to make your objects move at approximate angles, it's prefectly normal to do so with radians. We do the same thing in our heads
+with angles! How many people can really have a clear idea of 213 degrees without referring to something like 180 or 360 as a reference point in their head first?
+</p>
+<p>
+One important thing to note is that our degree/raidan references START at 3 o'clock, then move clockwise. So, in other words, 6.14 radians = 3 o'clock (360 degrees), 3.14 
+radians = 9 o'clock (180 degrees), etc.
+</p>
+<p>
+Now let's start off simple and say we want to move our objects at a 0 radians (straight forward to the right).
+</p>
+<p>
+We take our value in radians and plug it into the formula like so:
+</p>
+<p>
+VX = Math.cos(0) * speed;
+<br>
+VY = Math.sin(0) * speed;
+</p>
+<p>
+We then assign a speed value, which was the same thing our VX and VY used to stand for. In this case we'll use 4.
+</p>
+<p>
+So:
+</p>
+<p>
+VX = Math.cos(0) * 4;
+<br>
+VY = Math.sin(0) * 4;
+</p>
+<p>
+And by plugging these figures into our code, we come up with a movement that goes straight forward to the right.
+</p>
+<p>
+Therefore the content of our script tags becomes:
+</p>
+<div id = "code">
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var angle = 0;<br />
+var speed = 4;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = Math.cos(angle) * speed;<br />
+var VY = Math.sin(angle) * speed;<br />
+<br />
+window.setInterval(drawRectangle,30);<br />
+window.addEventListener(&quot;click&quot;,onMouseDown,false);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+}<br />
+<br />
+&lt;/script&gt;
+</div>
+<p>
+And that's our rectangle moving at 4 pixels per iteration straight to the right. 
+</p>
+<p>
+Note that I've set values to our angle and speed instead of hard-coding them in like before.
+</p>
+<p>
+But that was easy, let's try a different one. Sayyyyy, 5.11 radians. Where do you suppose THAT will aim us?
+</p>
+<p>
+Punch 5.11 into your angle variable, run it, and let me know what comes out!
+</p>
+<p>
+Aha! It goes up and slightly to the right! 
+</p>
+<p>
+Now try 1.87. 
+</p>
+<p>
+And it goes down and to the left! Cool!
+</p>
+<p>
+Next time we'll discover a whole host of things you can do with sine and cosine. But in the meantime, sit tight with that, doodle around with some friction
+and send your objects off in different angles. We'll get into the nitty gritty next time.
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+See ya next week!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson20.html">Onward to Lesson Twenty!</a>
+<br>
+
+<a href="Lesson18.html">Back to Lesson Eighteen!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

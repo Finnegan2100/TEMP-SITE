@@ -1,0 +1,370 @@
+<!doctype html>
+<title>LESSON #16</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 16 - April 19, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 16</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+
+Now let's look at some ways to optimize what we started yesterday. Here's the code we began with:
+</p>
+<div id = "code">
+
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BLASTOFF!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var altitude = 395;<br />
+<br />
+window.setInterval(drawRectangle,24);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(canvas.width/2 - 25,altitude,50,50);<br />
+}<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  altitude -= 10;<br />
+  }<br />
+}<br />
+if (altitude &lt; 0)<br />
+{<br />
+altitude = 400;<br />
+}<br />
+&lt;/script&gt; 
+</div>
+
+<p>
+Now let's go back to the drawing board and figure out a more efficient way to get this square to move all around the canvas.
+</p>
+<p>
+First off, as I explained yesterday, we need an engine. For engine I mean a constantly-running something-or-other that will
+update my code continuously. This will be important for the actual movement part. For this we'll use a setInterval timer. That will
+redraw our rectangle at a constant interval and serve our purpose perfectly. 
+</p>
+<p>
+So what else? What sort of variables will we need? 
+</p>
+<p>
+Well, first of all, we'll need to store the velocity of the rectangle in a variable for both directions. For this we'll use VX and VY. That's
+much better than those silly altitude/longitude values we attributed before. Then we'll need the rectX and rectY values that we'll plug into 
+our rectangle.
+</p>
+<p>
+After that we'll need to attach some keyboard event listeners to these guys and inside the functions we'll specify how much we're going to
+increase or decrease VX and VY every time we hit a particular key. We'll add both a keyup and a keydown listener and our keyup
+listener will serve as a sort of brake which will put the VX or VY value to 0, stopping our rectangle in its tracks.
+</p>
+<p>
+So let's skip ahead and look at what our finished file will be:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BLASTOFF!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var VX = 0;<br />
+var VY = 0;<br />
+<br />
+window.setInterval(drawRectangle,10);<br />
+<br />
+<br />
+<br />
+function drawRectangle()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,50,50);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+}<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+window.addEventListener(&quot;keyup&quot;,onKeyUp,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+   if (event.keyCode == &quot;37&quot;)<br />
+  {<br />
+  VX = -3;<br />
+  }<br />
+   else if (event.keyCode == &quot;39&quot;)<br />
+  {<br />
+  VX = 3;<br />
+  }<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  VY = -3;<br />
+  }<br />
+   else if (event.keyCode == &quot;40&quot;)<br />
+  {<br />
+  VY = 3;<br />
+  }<br />
+}<br />
+<br />
+function onKeyUp(event)<br />
+{<br />
+   if (event.keyCode == &quot;37&quot;)<br />
+  {<br />
+  VX = 0;<br />
+  }<br />
+   else if (event.keyCode == &quot;39&quot;)<br />
+  {<br />
+  VX = 0;<br />
+  }<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  VY = 0;<br />
+  }<br />
+   else if (event.keyCode == &quot;40&quot;)<br />
+  {<br />
+  VY = 0;<br />
+  }<br />
+}<br />
+<br />
+&lt;/script&gt; 
+</div>
+<p>
+Say, that's pretty smooth! Silky smooth, I might add! Make sure you set your setInterval to 10 milliseconds.
+If you're curious, go ahead and try different values. A little higher though, and you'll make your ships' movement 
+super choppy. A little less and your ship will be flying all over the screen recklessly!
+</p>
+<p>
+Fun, huh? We've finally made it! Our code is actually much simpler too!
+</p>
+<p>
+Now let's throw in some boundaries. First off, let's make our ship come to a halt when it hits the walls. With this new
+code, it shouldn't be much of a problem at all!
+</p>
+<p>
+One thing we should have done last tutorial was save the width and height for our retangle. This will make for much 
+smoother blocking and screen wrapping in our games if we punch this into our code. 
+Sure, we could hard-code them in, but today we're aiming for best practices. Let's learn it the right way!
+</p>
+<p>
+Go ahead and make those variables right now:
+</p>
+<div id = "code">
+
+var rectWidth = 50;
+<br>
+var rectHeight = 50;
+
+</div>
+
+<p>
+So now we need to specify what happens when our green rectangle touches the margins of our canvas. Hopefully the margins will hold us in, but 
+it will look a million times neater if we judge our collision with the margins according to the width and height values we just created.
+Let's add the following to our drawRectangle function. Why there? Because if you remember my long-winded speech from yesterday,
+we need a place for our code to be run constantly and seeing as we need to check not once, but CONSTANTLY where our ship is and whether or not 
+it's hitting the walls, our if statements will need to reside in the drawRectangle function. Got it?
+</p>
+<p>
+This is what it will look like:
+</p>
+<div id ="code">
+
+if (rectX + rectWidth &gt; canvas.width)<br />
+{<br />
+rectX = canvas.width - rectWidth;<br />
+}<br />
+else if (rectX &lt; 0)<br />
+{<br />
+rectX = 0;<br />
+}<br />
+<br />
+if (rectY  &lt; 0)<br />
+{<br />
+rectY = 0;<br />
+}<br />
+else if (rectY + rectHeight &gt; canvas.height)<br />
+{<br />
+rectY = canvas.height - rectHeight;<br />
+}
+</div>
+<p>
+If ya plug this right into your drawRectangle function, you'll see the rectangle stop perfectly at the edge of the canvas on all four sides.
+ALWAYS keep in mind that canvas moves stuff in relation to their TOP-LEFT corner! Don't forget that, especially you Flash heads! 
+This is an IMPORTANT difference!
+</p>
+<p>
+So what's happening in the code? Well, a lot of it should be pretty self-explanatory. When we make the collision on the right, we need
+to ensure that the contact with the wall is preceded by the entire width of the rectangle, otherwise it won't stop until it reaches the top-left
+corner. And at that point it'll already be off the screen! Same with the bottom of the screen. Whereas in Flash we're used to doing this by
+half-widths and half-heights, here it works perfectly without for our left and top margins, BUT we need to add an entire width and height to 
+our right and bottom sides. Make sense?
+</p>
+<p>
+Onwards to screen wrapping!
+</p>
+<p>
+This shouldn't be too difficult at all! In fact, I'm not going to say much about it at all! See for yourself! Just remember that this
+code ALSO goes into the drawRectangle function:
+</p>
+<div id = "code">
+<br />
+if (rectX  &gt; canvas.width)<br />
+{<br />
+rectX = 0;<br />
+}<br />
+else if (rectX &lt; 0 - rectWidth)<br />
+{<br />
+rectX = canvas.width - rectWidth;<br />
+}<br />
+<br />
+if (rectY  &lt; 0)<br />
+{<br />
+rectY = canvas.height;<br />
+}<br />
+else if (rectY - rectHeight &gt; canvas.height)<br />
+{<br />
+rectY = 0;<br />
+}
+</div>
+<p>
+Make sense? 
+</p>
+<p>
+For extra credit, try to make a list of the different kinds of games you know that use these blocking + screen wrapping techniques.
+Can you name a few off the top of your head now? I gave the name of one away yesterday if you were paying attention!
+</p>
+<p>
+So that's a wrap for boundaries for the time being. Thought things were getting interesting in these past few lessons? Wait 'til you 
+see what's in store for us in the next few lessons! 
+</p>
+<p>
+Save this file somewhere, by the way. We'll be using it over and over in our lessons on physics. But don't let the name "physics" fool you: 
+this stuff really won't be that hard. 
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson17.html">Onward to Lesson Seventeen!</a>
+<br>
+
+<a href="Lesson15.html">Back to Lesson Fifteen!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+

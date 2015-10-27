@@ -1,0 +1,374 @@
+<!doctype html>
+<title>Variables</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+li
+{
+font-size: 19px;
+font-family: Times New Roman;
+}
+a
+{
+font-size: 19px;
+font-family: Times New Roman;
+}
+
+</style>
+
+<h1>
+VARIABLES
+</h1>
+<p>
+If we were to take Javascript and look at it under a miscroscope, we'd see that the fundamental
+building block for the language, its atom, is the variable. A variable does nothing else but store information. It's a way for us to keep data that we'll be using 
+thoughout our game. Before we get technical, let's jump right in and take a moment to reflect on what basic information we could store for, say, a game like The Legend Of Zelda.
+</p>
+<p>
+First let's ask ourselves questions about Link. Can he swing his sword? Can he jump? Does he have the ability to shoot arrows? How many bombs does he have? Is he temporarily invincible?
+</p>
+<p>
+These are all attributes of our gameplay which could be expressed in variables. As you can imagine, there are usually a number of variables in code, especially if we're working on
+a large undertaking like a complete RPG! If we're making, say, a simple game like Breakout, there aren't a lot of things we need to label, so the number of variables 
+is a great deal inferior....maybe we'll set a variable for the velocity of the ball, which bricks have been broken and our score in addition to a couple more, but
+certainly not as many as you'd find in a more complex game. In other words, the more complex the game, the more likely you'll have a greater number of 
+variables in it.
+</p>
+<p>
+We USE variables to keep track of all the stuff in our game. Luckily, once they've been created (unless we eliminate them) , our variables linger around around forever, 
+so we don't need to worry about creating another one from scratch every time Link dies, depletes his supply of bombs, or whatever. We call the act of creating a variable
+"declaring a variable" by the way.
+</p>
+<p>
+The three types of variables we'll be learning today are: variables that deal with numbers, variables that tell us whether or not something is true or false and
+text-based variables. If we return to our analogy with Link, what sort of variables can we conjure up based on the gameplay?
+</p>
+<p>
+Let's start with the most common type: the numeric type:
+</p>
+<ul>
+<li>Naturally we might need to keep track of how many bombs Link is currently holding, so there's our first example.</li>
+<li>We might also need to know the number of dungeons Link has currently completed.</li>
+<li>We might also need a variable to tell us how many times Link needs to hit the enemy before deafeating it.</li>
+</ul>
+<p>
+But there are some less obvious uses of variables as well:
+</p>
+<ul>
+<li>We might need a variable to tell us how high Link jumps.</li>
+<li>We might need another one to tell us how large the screen of our game will be.</li>
+<li>And we might need yet another one to telll us the current speed at which Link is moving.</li>
+</ul>
+<p>
+As you coninue your training as a game developer, you'll develop a keen sense of what you'll need to assign variables to in your game, so thinking like this even before
+writing a single line of code at this phase is really quite useful. There's no hard and fast rule about how many variables your games should have or even WHAT your variables
+should make reference to. There are common conventions, however, which will make your programming life a whole lot easier if you follow them.
+</p>
+<p>
+Now let's break down the variables into different types. We said there are three major types:
+</p>
+<p>
+- Numeric values<br>
+-True/False<br>
+-Words<br>
+</p>
+<p>
+
+The technical terms for these three types in Javascript are:
+</p>
+<p>
+-Integers/Floating Numbers<br>
+-Booleans<br>
+-Strings<br>
+</p>
+<p>
+Not important to memorize these now, but just be familiar with them, because these are the technical terms and you won't find a lot of programmers who will
+tell you they added a "word variable", but rather a "string".
+</p>
+<p>
+Now in a minute we're going to break down each type of variable, but first let's learn how to write one!
+</p>
+<p>
+It's very simple, actually: we write the keyword "var", then we give it a name, then we add an equal sign, then we assign it a value. After that, we just write a semicolon to 
+tell the computer we're done.
+</p>
+<p>
+Five steps, very simple stuff. Here's an example:
+</p>
+<p>
+
+var bombsLeft = 3;
+</p>
+<p>
+and here's another example:
+
+</p>
+<p>
+var linkHeight = 4.5;
+</p>
+<p>
+
+and yet another:
+
+</p>
+<p>
+var hasArrows = false;
+</p>
+<p>
+
+here's an example that deals with text:
+
+</p>
+<p>
+var secretPassword = "swordfish";
+</p>
+<p>
+
+Note that this last one had quotation marks around it. This tells us our variable is a string (text, in other words).
+</p>
+<p>
+Now once we write a variable, we can always, at any time change its value. Huh? In other words, if we have a variable that is
+set to 3, like our bombsLeft variable, we can always assign it a different value. Say we bought 10 bombs at the store - all we'd need to
+do is do the following:
+</p>
+<p>
+bombsLeft = 13;
+</p>
+<p>
+and now we have 13 bombs! Simple as pie, folks! Note that there is no need to declare the word var again. We've already created our variable and given
+it a name, so no need to do that again. 
+</p>
+<h3>
+NAMING CONVENTIONS
+</h3>
+<p>
+Since we'll be using a lot of terms in our programming, we'll need to consider that some of them are off limits when naming our variables, since they are currently used by Javascript for
+other stuff or have been reserved for future versions of the language.
+</p>
+<p>
+These are things like: 
+</p>
+<p>
+function <br>
+throw <br>
+break <br>
+for <br>
+each <br>
+</p>
+<p>
+...and a bunch of other words. Don't be too concerned about these right now. Just stick to names that are inherent to your game and you'll probably be all right.
+</p>
+<p>
+Another thing you'll want to consider is this:
+</p>
+<p>
+You can't start the names of your variables with a number or any other weird character for that matter. These MUST start with either a letter or an underscore (_). 
+I couldn't write THIS, for example:
+</p>
+<p>
+var 5Zelda = 50;
+</p>
+<p>
+or this:
+</p>
+<p>
+var ^(*@@ = 10;
+</p>
+<p>
+or this:
+</p>
+<p>
+var 999999 = false;
+</p>
+<p>
+but I COULD write variables with these names:
+</p>
+<p>
+var _underscore = 40;
+</p>
+<p>
+or this:
+</p>
+<p>
+var treeHugger = true;
+</p>
+<p>
+or this:
+</p>
+<p>
+var randomVariable = 3000;
+</p>
+<p>
+You also CAN'T have any spaces in your variables names, so be careful!
+</p>
+<p>
+Catch my drift? Don't freak out over these conventions, you'll rarely write any weird variables if you stick to the conventions in books, online tutorials or these
+charming little lessons.
+</p>
+<p>
+Another useful little convention is to use something called "camel case", which means that when you're using more than one word in your variable names, it's a good idea to start 
+the first letter off with a lower-case letter, then capitalizing each additional one in your varaible names. Here are some simple examples:
+</p>
+<p>
+var camelCase; <br>
+var numberOfBottlesOfBeerOnTheWall; <br>
+var currentWeight;
+</p>
+<p>
+This technique makes your variable names easier to read and is used quite frequently by programmers.
+</p>
+<p>
+
+So now that we've got the basics under control let's look at the three options we have for making variables in Javascript:
+</p>
+<h3>
+NUMBERS
+</h3>
+<p>
+This is by far the most common type of variable you'll be using. As we mentioned before it can hold whole numbers (integers), decimals (float), positive or negative 
+numbers. They can't hold values less than - 9007199254740992 or greater than +9007199254740992.
+</p>
+<p>
+We can perform the 4 major arithmetical operations to them and more. We can set them to zero, get their square root, assign a variable a random number or ask for the cosine equivalent of variable's cosine value, for example. 
+</p>
+<p>
+Basically most basic mathematical operations can be done with these suckers in one way or another. We'll be using numbers EVERYWHERE, by the way, much more than the other two. The math won't be that tough to get you started making games, though.
+</p>
+<p>
+Here are some examples of numeric variables in action:
+</p>
+<p>
+var piValue = 3.14; <br>
+var numberOfSlicesLeft = 4; <br>
+var currentGold = 800;
+</p>
+<p>
+All these are legit...
+</p>
+<p>
+...and these are as well.
+</p>
+<p>
+var numberOfDaysOff = -20; <br>
+var degreesOutside = -5.6;
+ </p>
+<h3>
+BOOLEANS
+</h3>
+<p>
+Boolean values are extremely simple both to grasp and to implement. There are only two possibilities: true or false. If a variable is not true, we know it's false and if a variable
+is true we know that it can't be false. No maybes, ifs ands or buts!
+Booleans are a nice way to illustrate the state of something. If we look around our rooms, we could find a number of examples that give us information about the states of our
+objects. Here are some examples:
+</p>
+<p>
+
+var isMidnight = false; <br>
+var lightsOn = true; <br>
+var computerPluggedIn = true;<br>
+var blindsClosed = true;
+</p>
+<p>
+Take a minute to look around your room and find a couple of these just for fun.
+</p> 
+<h3>
+STRINGS
+</h3>
+<p>
+A string is a value which refers not to numberic values, but to words, letters and symbols. We need to be careful to put quotation marks around our strings to clarify that we're indeed
+talking about a string and not a number. Not to confuse you, but NUMBERS can ALSO be strings, but only insofar as they are text. A number in quotation marks LOSES its numeric/mathematical value
+and is used only for its text value.
+</p>
+<p>
+To illustrate this point: 
+</p>
+<p>
+var slicesOfPizzaLeft = 5; <br>
+var slicesOfPizzaLeft = "5";
+</p>
+<p>
+are NOT the same thing. The first variable (number) can be multiplied, divided, etc. while the second variable cannot.
+</p>
+<p>
+Strings are often used in games when we have a message we want to display for the player. RPGs and text adventures are FULL of strings! Game Over! is a string.
+Any text, in other words, that we see in our games, especially if that text can change over the course of the game like a score value, is most likely a string.
+</p>
+<p>
+var gameOver = "Game Over! You Lose!";<br>
+var sinistar = "Beware, coward!";<br>
+var welcome = "Welcome to our wonderful shop! Would you like to buy some bombs?";
+</p>
+<p>
+Keep in mind that the quotation marks can be either single(') or double("), but must be consistent and end the string with the same type of quote you started off with! 
+You can't have this without generating an error:
+</p>
+<p>
+var wrongUse = 'This is the wrong way to write a string";<br>
+var rightUse = 'This is the right way to write a string';
+</p>
+<p>
+Got it?
+</p>
+<p>
+A few last things about variables. Don't let these confuse you - we'll be seeing our fair share of this stuff soon:
+</p>
+<p>
+A variable has a sort of territorial value. We can have global variables and local variables. Local variables can only be used in the functions they are created in, while global variables
+can be used anywhere. We'll talk about these later since, well, we don't even know what a function IS yet!
+</p>
+<p>
+A variable can also equal another variable. For example, the following is completely doable in Javascipt:
+</p>
+<p>
+var apples = 10;<br>
+var oranges = 6;<br>
+var apples = oranges;
+</p>
+<p>
+This will give both variables the value of 6. 
+</p>
+<p>
+Variables CANNOT, however, share the same name, regardless of what type of variable they are. The following will generate an error.
+</p>
+<p>
+var apples = 5;<br>
+var apples = 7;<br>
+</p>
+<p>
+And that's all there really is to know about variables for now. Next time we'll take a look at basic mathematical operations and get a chance to put our variables to work! They're a whole lot easier to grasp when you actually write them! So let's go!
+</p>
+
+<a href="lesson0Math.html"> Mathematical Operations </a><br>
+<a href="Lessons.html"> Back to index </a>
+
+

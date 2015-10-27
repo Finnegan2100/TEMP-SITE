@@ -1,0 +1,691 @@
+<!doctype html>
+<title>LESSON #21</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 21 - June 11, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation"> (Game Dev. Tools) LESSON # 21</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+<p>
+So, as tradition dictates, every 7th lesson will be a review lesson in which we'll be reinforcing the stuff we've learned throughout the previous seven lessons by making a mini-game or two. 
+This week has been a lot of fun: we've learned how to make elements interact with the boundaries of the canvas and have applied physics operations to them like
+velocity and acceleration while they move across the screen. Sounds to me like it won't be very much trouble at all making game-like programs with what we've got under our belts!
+</p>
+<p>
+So today we'll be creating a simple score-based game with simple anemy AI and simple rules. I call it Bonk! and though it's far from becoming a smash hit, it does a pretty good job of covering 
+a number of techniques we've learned so far. Here's the code:
+</p>
+<div id="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Bonk!  &lt;/title&gt;<br />
+&lt;canvas id=&quot;canvas&quot; width=&quot;550&quot; height=&quot;400&quot;&gt;Your browser stinks &lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+#canvas<br />
+{<br />
+background-color: #eeeeee;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var playerX = 200;<br />
+var playerY = 200;<br />
+var playerVX = 4;<br />
+var playerVY = 4;<br />
+<br />
+var enemyX = 0;<br />
+var enemyY = 0;<br />
+var enemyVX = 4;<br />
+var enemyVY = 4;<br />
+<br />
+var playerScore = 0;<br />
+var enemyScore = 0;<br />
+<br />
+var sideMessage;<br />
+var messageVisible;<br />
+<br />
+var bounce = -1;<br />
+<br />
+var leftSideValue = 1;<br />
+var rightSideValue = 1;<br />
+var bottomSideValue = 1;<br />
+<br />
+var randomSide = 0;<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+if (event.keyCode === 37)<br />
+{<br />
+playerVX *= -1;<br />
+}<br />
+if (event.keyCode === 39)<br />
+{<br />
+playerVX *= -1;<br />
+}<br />
+}<br />
+<br />
+setInterval(drawMe,10);<br />
+setInterval(mainTimer,2000);<br />
+<br />
+function mainTimer()<br />
+{<br />
+randomSide = Math.floor(Math.random() * 3000);<br />
+setInterval(drawSideValueMessage,10);<br />
+}<br />
+<br />
+function drawSideValueMessage()<br />
+{<br />
+if (playerScore &lt; 200 &amp;&amp; enemyScore &lt; 200)<br />
+{<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.fillStyle = &quot;#330000&quot;;<br />
+context.fillText(&quot;BONUS POINTS ON:&quot; + sideMessage, 135,300);<br />
+}<br />
+if (randomSide &lt; 1000)<br />
+{<br />
+leftSideValue = 4;<br />
+rightSideValue = 1;<br />
+bottomSideValue = 1;<br />
+sideMessage = &quot;LEFT!&quot;;<br />
+}<br />
+else if (randomSide &gt;= 1000 &amp;&amp; randomSide &lt; 2000)<br />
+{<br />
+leftSideValue = 1;<br />
+rightSideValue = 4;<br />
+bottomSideValue = 1;<br />
+sideMessage = &quot;RIGHT!&quot;;<br />
+}<br />
+else if (randomSide &gt;=2000 &amp;&amp; randomSide &lt; 3000)<br />
+{<br />
+leftSideValue = 1;<br />
+rightSideValue = 1;<br />
+bottomSideValue = 4;<br />
+sideMessage = &quot;BOTTOM!&quot;;<br />
+}<br />
+}<br />
+<br />
+function drawMe()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+<br />
+context.shadowColor = &quot;#000000&quot;;<br />
+context.shadowOffsetX = 6;<br />
+context.shadowOffsetY = 6;<br />
+context.shadowBlur = 14;<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(playerX,playerY,40,40);<br />
+<br />
+context.fillStyle = &quot;#55aaff&quot;;<br />
+context.fillRect(enemyX,enemyY,40,40);<br />
+<br />
+context.shadowColor  = &quot;eeeeee&quot;;<br />
+context.shadowOffsetX = 0;<br />
+context.shadowOffsetY = 0;<br />
+<br />
+if (playerScore &lt; 200 &amp;&amp; enemyScore &lt; 200)<br />
+{<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillText(&quot;Player Score:&quot; + playerScore, 70,20);<br />
+<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.fillStyle = &quot;#55aaff&quot;;<br />
+context.fillText(&quot;Enemy Score:&quot; + enemyScore, 300,20);<br />
+<br />
+context.font = &quot;15px Verdana&quot;;<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillText(&quot;Press the left and right keys to switch directions.&quot;, 90,40);<br />
+<br />
+context.font = &quot;15px Verdana&quot;;<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillText(&quot;The first to reach 200 points is the winner.&quot;, 110,60);<br />
+<br />
+<br />
+playerX += playerVX;<br />
+playerY += playerVY;<br />
+<br />
+enemyX += enemyVX;<br />
+enemyY += enemyVY;<br />
+}<br />
+<br />
+if (playerX + 40 &gt; 550)<br />
+{<br />
+playerVX *= bounce;<br />
+playerScore += rightSideValue;<br />
+<br />
+}<br />
+else if (playerX &lt; 0)<br />
+{<br />
+playerVX *= bounce;<br />
+playerScore += leftSideValue;<br />
+<br />
+}<br />
+if (playerY + 40 &gt; 400 )<br />
+{<br />
+playerVY *= bounce;<br />
+playerScore += bottomSideValue;<br />
+<br />
+}<br />
+else if (playerY &lt; 0)<br />
+{<br />
+playerVY *= bounce;<br />
+playerScore++;<br />
+}<br />
+<br />
+if (enemyX + 40 &gt; 550)<br />
+{<br />
+enemyVX *= -1;<br />
+enemyScore += rightSideValue;<br />
+}<br />
+else if (enemyX &lt; 0)<br />
+{<br />
+enemyVX *= -1;<br />
+enemyScore += leftSideValue;<br />
+}<br />
+if (enemyY + 40 &gt; 400 )<br />
+{<br />
+enemyVY *= -1;<br />
+enemyScore += bottomSideValue;<br />
+}<br />
+else if (enemyY &lt; 0)<br />
+{<br />
+enemyVY *= -1;<br />
+enemyScore += 3;<br />
+}<br />
+<br />
+if (playerScore &gt;= 200)<br />
+{<br />
+context.font = &quot;40px Verdana&quot;;<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillText(&quot;PLAYER WINS!&quot;, 150,130);<br />
+<br />
+context.font = &quot;15px Verdana&quot;;<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillText(&quot;Refresh your browser to play again.&quot;, 130,40);<br />
+}<br />
+if (enemyScore &gt;= 200)<br />
+{<br />
+context.font = &quot;40px Verdana&quot;;<br />
+context.fillStyle = &quot;#55aaff&quot;;<br />
+context.fillText(&quot;ENEMY WINS!&quot;, 150,130);<br />
+<br />
+context.font = &quot;15px Verdana&quot;;<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillText(&quot;Refresh your browser to play again.&quot;, 130,40);<br />
+}<br />
+}<br />
+&lt;/script&gt;
+</div>
+<p>
+Don't be intimidated. All of the stuff in here consists of tecnniques we've covered in previous chapters. I can imagine by now you're tired of the rectangle and grey background, but after this lesson
+we'll have the ability to break past these simplistic graphics and create something a bit more interesting to the eye with sprite sheets. Or if you're ambitious and can't stand these rectangles, BY ALL MEANS draw your own shapes - you know how to do that stuff by now! Once again, not one line of code should be stange to you if you've followed 
+along from the beginning.
+</p>
+<p>
+Go ahead and copy this code in your text editor. Understand how it works? Here are the rules: you must battle against your opponent and reach 200 before it does. You gain points by simply bouncing off the walls, but acquire bonus points by hitting a wall that is randomly chosen at intervals throughout the game. That's all there is to it!  
+Let's analyze this code piece by piece.
+</p>
+<p>
+Ready?
+</p>
+<div id = "code">
+<br />
+&lt;!doctype html&gt;<br />
+&lt;title&gt; Bonk!  &lt;/title&gt;<br />
+&lt;canvas id=&quot;canvas&quot; width=&quot;550&quot; height=&quot;400&quot;&gt;Your browser stinks &lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+#canvas<br />
+{<br />
+background-color: #eeeeee;<br />
+}<br />
+&lt;/style&gt;
+</div>
+<p>
+Up until the script tag there's nothing out of the ordinary, just our standard setup. I've added the name Bonk! to the title tag as you can see. I've also provided a nice message for our
+users with old, stinky browsers.
+</p>
+<p>
+Following this we've added some variables. 
+</p>
+<div id = "code">
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var playerX = 200;<br />
+var playerY = 200;<br />
+var playerVX = 4;<br />
+var playerVY = 4;<br />
+<br />
+var enemyX = 0;<br />
+var enemyY = 0;<br />
+var enemyVX = 4;<br />
+var enemyVY = 4;<br />
+<br />
+var playerScore = 0;<br />
+var enemyScore = 0;<br />
+<br />
+var sideMessage = &quot;&quot;;<br />
+<br />
+var bounce = -1;<br />
+<br />
+var leftSideValue = 1;<br />
+var rightSideValue = 1;<br />
+var bottomSideValue = 1;<br />
+<br />
+var randomSide = 0;
+</div>
+<p>
+Of course we have the two setup (theCanvas and context) variables. No need to cover these again as we've seen them a number of times 
+Following these we have both the X and Y positions for the player and enemy rectangles as well as their VX and VY values, which we know are used to 
+determine their velocities.
+</p>
+<p>
+Following this we have the score value for the player and the score value for the enemy. Plain and simple.
+</p>
+<p>
+Next is a variable called sideMessage which is a string that we'll be applying to our text and will contain the values "LEFT!","RIGHT!" and "BOTTOM!". 
+</p>
+<p>
+Under that we have the variable that determines the degree of bounciness the player/enemy will have when they hit the walls and underneath this variable is 
+the point value for hitting the left, right and bottom of the screen.
+</p>
+<p>
+Lastly we have randomSide which will determine the randomly chosen side (which holds the bonus points) that the player will chase after.
+</p>
+<p>
+After our variables, we have another chunk of code:
+</p>
+<div id = "code">
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+if (event.keyCode === 37)<br />
+{<br />
+playerVX *= -1;<br />
+}<br />
+if (event.keyCode === 39)<br />
+{<br />
+playerVX *= -1;<br />
+}<br />
+}
+</div>
+<p>
+This block of code adds a keyboard listener called onKeyDown. The handler below simply processes the two possible key codes (37,39) and reverses the player's 
+direction. Again, pretty self-explanatory.
+</p>
+<p>
+Following the handler we have this:
+</p>
+<div id = "code">
+<br />
+setInterval(drawMe,10);<br />
+setInterval(mainTimer,2000);<br />
+<br />
+function mainTimer()<br />
+{<br />
+randomSide = Math.floor(Math.random() * 3000);<br />
+setInterval(drawSideValueMessage,10);<br />
+}
+</div>
+<p>
+Three timers with a timer inside a timer! Whoa! What do they do? 
+</p>
+<p>
+The first timer (drawMe), is our main loop. This is what will allow our rectangles to move as well as other stuff which we'll soon see.
+The second of these little guys is called mainTimer and will do two things:
+</p>
+<p>
+First it will generate a random number between 0 and 3000. This information will be used to generate the random sides which hold bonus points.
+Second, it will call a third timer named drawSideValueMessage which will actually write the message on every iteration of mainTimer.
+</p>
+<p>
+This leads us to drawSideValueMessage itself:
+</p>
+<div id="code">
+<br />
+function drawSideValueMessage()<br />
+{<br />
+if (playerScore &lt; 200 &amp;&amp; enemyScore &lt; 200)<br />
+{<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.fillStyle = &quot;#330000&quot;;<br />
+context.fillText(&quot;BONUS POINTS ON:&quot; + sideMessage, 135,300);<br />
+}<br />
+if (randomSide &lt; 1000)<br />
+{<br />
+leftSideValue = 4;<br />
+rightSideValue = 1;<br />
+bottomSideValue = 1;<br />
+sideMessage = &quot;LEFT!&quot;;<br />
+}<br />
+else if (randomSide &gt;= 1000 &amp;&amp; randomSide &lt; 2000)<br />
+{<br />
+leftSideValue = 1;<br />
+rightSideValue = 4;<br />
+bottomSideValue = 1;<br />
+sideMessage = &quot;RIGHT!&quot;;<br />
+}<br />
+else if (randomSide &gt;=2000 &amp;&amp; randomSide &lt; 3000)<br />
+{<br />
+leftSideValue = 1;<br />
+rightSideValue = 1;<br />
+bottomSideValue = 4;<br />
+sideMessage = &quot;BOTTOM!&quot;;<br />
+}<br />
+}
+</div>
+<p>
+It looks complicated, but it's really not. Allow me to explain. First we have an if statement which checks to see whether or not the player or the enemy
+has reached a score of 200. If not, the basic message is setup which tells us where to move in order to get the bonus points. Now we have the text "BONUS POINTS ON"
+and we will proceed to add the value of sideMessage to this every time the timer is called. 
+</p>
+<p>
+Following this if statement , we have three more which associate the randomly determined variable with a side and assigns four points to that side. If the value of our
+random number is less than 1000, we go to our first if statement which assigns a value of 4 to the left side and applies the string "LEFT!" to our varaible sideMessage.
+If the random number is greater than or equal to 1000  and is less than 2000, 4 points are added to the right side and the sideMessage becomes "RIGHT!". 
+Lastly, if our variable is between 2000 and is less than 3000, the bottom of the screen receives the 4 points and sideMessage becomes "BOTTOM!".
+</p>
+<p>
+It's not all that complicated so far is it?
+</p>
+<p>
+Let's go on.
+</p>
+<div id="code">
+
+<br />
+function drawMe()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+<br />
+context.shadowColor = &quot;#000000&quot;;<br />
+context.shadowOffsetX = 6;<br />
+context.shadowOffsetY = 6;<br />
+context.shadowBlur = 14;<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(playerX,playerY,40,40);<br />
+<br />
+context.fillStyle = &quot;#55aaff&quot;;<br />
+context.fillRect(enemyX,enemyY,40,40);<br />
+<br />
+context.shadowColor  = &quot;eeeeee&quot;;<br />
+context.shadowOffsetX = 0;<br />
+context.shadowOffsetY = 0;<br />
+&lt;/div&gt;<br />
+&lt;p&gt;<br />
+</div>
+<p>
+We then move on to our main loop which we named drawMe(). Here we're clearing the canvas with a clearRect at every iteration. This helps us create the illusion of animation<br />
+by erasing the previous "frame". Try commenting out this section a moment with two forward slashes like so:<br />
+&lt;/p&gt;
+</p>
+<div id ="code">
+
+//context.clearRect(0,0,canvas.width,canvas.height);
+</div>
+<p>
+See what I mean about needing to erase the previous frames? What a mess!
+</p>
+<p>
+Following our clearRect we establish a drop shadow for each of our rectangles. We then proceed to create a red and blue rectangle and assign our X and Y variables to them.
+Nothing too mind-blowing here. We end this seciton with a bit of a trick by assigning our drop shadow a value of "#eeeeee" which is the same color value as our canvas rendering it 
+much less visible and annoying. Kinda hacky, but there's no need to do everything by the book just now.
+</p>
+<p>
+Which leads us to this:
+</p>
+<div id = "code">
+<br />
+if (playerScore &lt; 200 &amp;&amp; enemyScore &lt; 200)<br />
+{<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillText(&quot;Player Score:&quot; + playerScore, 70,20);<br />
+<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.fillStyle = &quot;#55aaff&quot;;<br />
+context.fillText(&quot;Enemy Score:&quot; + enemyScore, 300,20);<br />
+<br />
+context.font = &quot;15px Verdana&quot;;<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillText(&quot;Press the left and right keys to switch directions.&quot;, 90,40);<br />
+<br />
+context.font = &quot;15px Verdana&quot;;<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillText(&quot;The first to reach 200 points is the winner.&quot;, 110,60);<br />
+<br />
+<br />
+playerX += playerVX;<br />
+playerY += playerVY;<br />
+<br />
+enemyX += enemyVX;<br />
+enemyY += enemyVY;<br />
+}
+</div>
+<p>
+As you can see, this next chunk of code is wrapped in an if statement which basically says, "if no one has reached 200 points yet, do this stuff."
+All that the code inside this if statement does is create all the gameplay text and add the VX and VY values to both the enemy and the player, creating 
+the movement each timer tick. We've seen this a couple times already. Go check out  the lesson on velocity if you've missed it.
+</p>
+<p>
+Note that the playerScore and enemyScore values are attached to the "Player Score:" and "Enemy Score:" strings in the first two fillText satements.
+</p>
+<p>
+We follow this with something which might look terrifying at first, but is actually quite simple:
+</p>
+<div id ="code">
+<br />
+if (playerX + 40 &gt; 550)<br />
+{<br />
+playerVX *= bounce;<br />
+playerScore += rightSideValue;<br />
+<br />
+}<br />
+else if (playerX &lt; 0)<br />
+{<br />
+playerVX *= bounce;<br />
+playerScore += leftSideValue;<br />
+<br />
+}<br />
+if (playerY + 40 &gt; 400 )<br />
+{<br />
+playerVY *= bounce;<br />
+playerScore += bottomSideValue;<br />
+<br />
+}<br />
+else if (playerY &lt; 0)<br />
+{<br />
+playerVY *= bounce;<br />
+playerScore++;<br />
+}<br />
+<br />
+if (enemyX + 40 &gt; 550)<br />
+{<br />
+enemyVX *= bounce;<br />
+enemyScore += rightSideValue;<br />
+}<br />
+else if (enemyX &lt; 0)<br />
+{<br />
+enemyVX *= bounce;<br />
+enemyScore += leftSideValue;<br />
+}<br />
+if (enemyY + 40 &gt; 400 )<br />
+{<br />
+enemyVY *= bounce;<br />
+enemyScore += bottomSideValue;<br />
+}<br />
+else if (enemyY &lt; 0)<br />
+{<br />
+enemyVY *= bounce;<br />
+enemyScore += 3;<br />
+}
+</div>
+<p>
+Egads, what a bunch of code! Another option would have been to use switch statements, but I prefer a bunch of ifs/if elses. De gustibus! Switch to switch if you like!
+</p>
+<p>
+Basically all that's happening here is the following:
+</p>
+<p>
+The first four ifs control the player and the second four ifs control the enemy. Each of the player's 4 if statements refers to what happens when the player touches the top,bottom,left and right
+walls of the canvas. The VX and VY are multiplied by a variable called bounce which we saw equals -1 and causes the player to bounce back in the opposite direction. We also add the value for hitting a particular side to the player's score. All of this is repeated on the enemy's side as well. Note that if the enemy touches the top of the screen, the enemy's score is increased by 3. I've found this balances out the gameplay and gives the player more of a challenge.
+</p>
+<p>
+And this leads us to the very last part of our code:
+</p>
+<div id ="code">
+<br />
+if (playerScore &gt;= 200)<br />
+{<br />
+context.font = &quot;40px Verdana&quot;;<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillText(&quot;PLAYER WINS!&quot;, 150,130);<br />
+<br />
+context.font = &quot;15px Verdana&quot;;<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillText(&quot;Refresh your browser to play again.&quot;, 130,40);<br />
+}<br />
+if (enemyScore &gt;= 200)<br />
+{<br />
+context.font = &quot;40px Verdana&quot;;<br />
+context.fillStyle = &quot;#55aaff&quot;;<br />
+context.fillText(&quot;ENEMY WINS!&quot;, 150,130);<br />
+<br />
+context.font = &quot;15px Verdana&quot;;<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillText(&quot;Refresh your browser to play again.&quot;, 130,40);<br />
+}<br />
+}<br />
+&lt;/script&gt;
+</div>
+<p>
+All we have here is the text which pops up when one of the two characters wins. The first if deals with the character and the second if deals with the enemy. Below each 
+....WINS! text we have the instructions for how to play again. It's a lazy way to reset the game, but it's fine for now. Later we'll deal with UI, intro screens and the like. 
+</p>
+<p>
+So that's it! We've made a simple game! Wasn't that hard, was it? And our games are becoming more and more complex! That means we're well on our way to doing some interesting stuff. Now our games at this point are much less interesting than they
+COULD BE because we haven't yet talked about collision detection (aka, what happens when a something collides with something else) and collision detection is a HUGE part of game development! We'll be seeing that in the next set of 7 lessons, so very 
+soon in other words! Tune in next time for further exploration into the world of HTML5! 
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime to me on Twitter: @benwhi.
+</p>
+<p>
+Until next time!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson22.html">Onward to Lesson Twenty Two!</a>
+<br>
+<a href="Lesson20.html">Back to Lesson Twenty!</a>
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+

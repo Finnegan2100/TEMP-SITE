@@ -1,0 +1,618 @@
+<!doctype html>
+<title>LESSON #14</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 14 - April 17, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 14</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+
+<p>
+Wow! 2 full weeks of tutorials! Hope you've enjoyed them so far! Today we'll be continuing a habit we're going to be 
+keeping every week, namely one or a series of review exercises aimed at integrating the techniques we've learned into real game
+dev. techniques. Last week we didn't have as many tools at our disposal, so we made some silly animations, but this
+week, though this is by no means a complete game or even a FUN game at that, it's much more of a step in the direction we want
+to take. Look back at what we've gone through so far or take a look at the contents of today's code and you'll see that what
+we're dealing with this week is much more complex and interesting. 
+</p>
+<p>
+So let's get started!
+</p>
+<p>
+I'm gonna lay the code on ya right off, then we'll pick through it piece by piece. Ready?
+</p>
+<p>
+It's a beaut:
+</p>
+<div id ="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;WHACK-A-MOLE!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: brown;<br />
+}<br />
+&lt;/style&gt;<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var randomness = Math.random() * 3000;<br />
+var randomness2 = Math.random() * 2500;<br />
+<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.arc(150,200,50,0,6.285,false);<br />
+context.arc(350,200,50,0,6.285,false);<br />
+context.fill();<br />
+<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillRect(125,175,50,50);<br />
+context.fillRect(325,175,50,50);<br />
+<br />
+context.shadowColor = &quot;#000000&quot;;<br />
+context.shadowOffsetX = 3;<br />
+context.shadowOffsetY = 3;<br />
+context.shadowBlur =.5;<br />
+<br />
+context.fillStyle = &quot;#ffffff&quot;;<br />
+context.font = &quot;25px Arial&quot;;<br />
+context.fillText(&quot;Whack-a-mole, er... rectangle!&quot;,20,30);<br />
+<br />
+context.font = &quot;16px Arial&quot;;<br />
+context.fillText(&quot;Press a corresponding key (1-2) when a mole appears.&quot;,80,380);<br />
+<br />
+context.fillText(&quot;1&quot;,150,300);<br />
+context.fillText(&quot;2&quot;,350,300);<br />
+<br />
+setInterval(mole1On,randomness);<br />
+setInterval(mole1Off, 1000 + randomness);<br />
+<br />
+setInterval(mole2On,randomness2);<br />
+setInterval(mole2Off,1000 + randomness2);<br />
+<br />
+<br />
+function onKey1Down(event)<br />
+{<br />
+	if (event.keyCode == 49)<br />
+	{<br />
+	context.font = &quot;40px Arial&quot;;<br />
+	context.strokeStyle = &quot;#ffffff&quot;;<br />
+	context.strokeText(&quot;OUCH!&quot;,85,100);<br />
+	window.setTimeout(eraseOuch,300);<br />
+	}		<br />
+}<br />
+<br />
+function onKey2Down(event)<br />
+{<br />
+	if (event.keyCode == 50)<br />
+	{<br />
+	context.font = &quot;40px Arial&quot;;<br />
+	context.strokeStyle = &quot;#ffffff&quot;;<br />
+	context.strokeText(&quot;OUCH!&quot;,285,100);<br />
+	window.setTimeout(eraseOuch2,300);<br />
+	}		<br />
+}<br />
+<br />
+function eraseOuch()<br />
+{<br />
+context.clearRect(70,70,150,50);<br />
+}<br />
+function eraseOuch2()<br />
+{<br />
+context.clearRect(270,70,150,50);<br />
+}<br />
+<br />
+<br />
+function mole1On()<br />
+{<br />
+<br />
+window.removeEventListener(&quot;keydown&quot;,onKey1Down,false);<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillRect(125,175,50,50);<br />
+randomness = Math.random() * 3000;<br />
+}<br />
+function mole1Off()<br />
+{<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKey1Down,false);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(125,175,50,50);<br />
+randomness = Math.random() * 3000;<br />
+}<br />
+function mole2On()<br />
+{<br />
+window.removeEventListener(&quot;keydown&quot;,onKey2Down,false);<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillRect(325,175,50,50);<br />
+randomness2 = Math.random() * 3000;<br />
+}<br />
+function mole2Off()<br />
+{<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKey2Down,false);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(325,175,50,50);<br />
+randomness2 = Math.random() * 3000;<br />
+}<br />
+<br />
+<br />
+&lt;/script&gt; 
+
+</div>
+
+<p>
+Well HELLOOOO there! What's a code like you doin' in a place like this?
+</p>
+<p>
+Run your eyes over this code a minute. Try to see what you recognize, then try to figure out how it works.
+Take a few minutes and do that. It's a good habit.
+See anything familiar? Any light bulbs flashing on? Anything perplex you? Anything irk you?
+See anything and think you could do it too?
+</p>
+<p>
+Ask yourself: what makes this code run? Certainly there must be an engine of some sorts driving the actions. 
+Is everything timer-based? If so, which timers? What is the role of each timer?
+</p>
+<p>
+How about the listeners? What are we listening for? Keyboard events? Mouse events? Is the window being reloaded in
+some way?
+</p>
+<p>
+Look at the variables now. What are these used for? What type of data are these? Where do these belong? Are they used only
+once or continuously?
+</p>
+<p>
+And the shapes? The text? How big are they? Where are they being placed? 
+Have we included a clearRect() anywhere to wipe out something? Is anything being rotated? Scaled?
+</p>
+<p>
+Ask yourself a million questions and take the time to answer as many as possible.
+</p>
+<p>
+Now I've only given our whack-a-mole game two holes because adding more would require some arrays and we're not quite ready to 
+get into those just yet. But sit tight, we'll see everything in due time.
+</p>
+<p>
+Also, I want to introduce the debugging console in Chrome. In Chrome, as I mentioned in the intro or lesson one, you need to go to the three
+horizontal lines on the top right of your browser window, then click on tools, finally on Javascript Console. 
+</p>
+<p>
+Now some words of wisdom: IF and I'm saying IF but I really mean WHEN you have problems with your code: when it doesn't run, when you
+see a blank screen, when everything's all messed up, you'll most likely find what the heck happened in the Javascript console tab. Let's open it 
+now and I'll show you a sec. how it works:
+</p>
+<p>
+But first we need to generate an error.
+</p>
+<p>
+After you've copied or typed the code into your text editor, go ahead and make the following change to your code to set off an error:
+</p>
+<p>
+Change this:
+</p>
+<div id ="code">
+
+var randomness = Math.random() * 3000;
+</div>
+<p>
+ to
+</p>
+<p>
+THIS:
+</p>
+<div id ="code">
+van randomness = Math.random() * 3000:
+</div>
+
+<p>
+See the miniscule little difference?? Now save it and try to run it. No go? That's because your browser is giving you a hard time over a STUPID
+LETTER!! Unbelievable, right? Coding is a frustrating activity, people. Run while there's still time. Run far... bef.....
+</p>
+<p>
+....
+</p>
+<p>
+
+So, I just wanted you to throw that little error so we can have a chance to use our Javascript console. It's like the time you ride your bike wthout
+handlebars for the first time.. So exciting, yet dangerous! Will you crash? Yes! Will you crash and burn sometimes? Absolutely! Will you get so lost in your
+code that you'll need to give up? Certainly! Will you look for an error a zillion times, then find the answer was right in front of your eyes?
+Yup! 
+</p>
+<p>
+Get used to faiiling and failing miserably, but NEVER let yourself get discouraged! Coding is a damned hard art to learn. It takes years and 
+a lot of time in front of a little box. You need to experiment, learn, then go back to experimentation again repeatedly. You need to set 
+aside time to challenge yourself to learn the stuff you don't know yet or find boring. But, like I said, NEVER give up. You'll make it sooner or later and
+be VERY glad you did!
+</p>
+<p>
+Now about that Javascript console thingy....
+</p>
+<p>
+Go ahead and save the code (the erroneous code, that is) and try to run it. You'll only see the canvas and nothing else. Why? Because our Javascript
+has failed to run correctly. When you open the Javascript console, you'll see the red mark down in the bottom-right corner. In Chrome, at least, 
+I'm not sure about the other browsers, you'll see it. 
+</p>
+<p>
+Google, man. 
+</p>
+<p>
+When you click on said red circle, you'll see the following message pop up in your console:
+</p>
+<p>
+Uncaught SyntaxError: Unexpected identifier 
+</p>
+<p>
+Ouch. That sounds really important! Who knows what we've gotten ourselves into. Who knows what laws we've broken!
+</p>
+<p>
+Fortunately, it's just a simple error. Translation: you've misspelled "var". 
+</p>
+<p>
+When your code doesn't collaborate, check your console and learn to understand these cryptic messages. They're your helpers even if they
+bring your game to a cashing halt. The REAL meanies are the runtime errors. 
+These guys come out WHILE your code is running and without warning. You may think you have the most pristine code the world has yet seen, 
+but have overlooked something or other causing your game to go haywire for no apparent reason. So try to keep your code clean, folks!
+</p>
+<p>
+Now, back to that big old code!
+</p>
+<p>
+At the top we assign our variables:
+</p>
+<p>
+And there aren't that many of them:
+</p>
+<div id ="code">
+
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var randomness = Math.random() * 3000;<br />
+var randomness2 = Math.random() * 2500;
+</div>
+<p>
+The first two, of course, we know and love.
+</p>
+<p>
+The second two assign a degree of randomness to a random number between 0 and 3000 and 0 and 2500.
+This was done by multiplying Math.random() (as we've already seen) by a number in order to obtain 
+a random number between 0 and that number.
+</p>
+<p>
+So, in other words, we want two random values: one between 0 and 3000 and the other between 0 and 2500.
+</p>
+<p>
+Moving on we have:
+</p>
+<div id ="code">
+
+context.fillStyle = &quot;#000000&quot;;<br />
+context.arc(150,200,50,0,6.285,false);<br />
+context.arc(350,200,50,0,6.285,false);<br />
+context.fill();<br />
+<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillRect(125,175,50,50);<br />
+context.fillRect(325,175,50,50);
+</div>
+<p>
+These are our two holes and rectangles. Both are given a fill value of black because we're going to be starting out the game with empty holes.
+</p>
+<p>
+Then we have our text features:
+</p>
+<div id = "code">
+
+context.shadowColor = &quot;#000000&quot;;<br />
+context.shadowOffsetX = 3;<br />
+context.shadowOffsetY = 3;<br />
+context.shadowBlur =.5;<br />
+<br />
+context.fillStyle = &quot;#ffffff&quot;;<br />
+context.font = &quot;25px Arial&quot;;<br />
+context.fillText(&quot;Whack-a-mole, er... rectangle!&quot;,20,30);<br />
+<br />
+context.font = &quot;16px Arial&quot;;<br />
+context.fillText(&quot;Press a corresponding key (1-2) when a mole appears.&quot;,80,380);<br />
+<br />
+context.fillText(&quot;1&quot;,150,300);<br />
+context.fillText(&quot;2&quot;,350,300);
+</div>
+<p>
+Here pretty self-explanatory as well. We assign a drop shadow to our text and give it a 50% blur. <br />
+Then we draw a white line of text at 25px. This will serve as our title. It is placed at near the top of the screen at (20,30).<br />
+On the bottom of the screen we write some smaller text which will serve as our instructions. <br />
+And lastly we write the (albeit obvious) numbers for each hole.<br />
+</p>
+<p>
+Following this we have 4 setInterval timers.
+</p>
+
+<div id="code">
+<br />
+setInterval(mole1On,randomness);<br />
+setInterval(mole1Off, 1000 + randomness);<br />
+<br />
+setInterval(mole2On,randomness2);<br />
+setInterval(mole2Off,1000 + randomness2);
+</div>
+<p>
+And, as you can see, this is where we plug in our randomness variable from the top as the time between timer sequences.
+We assigned a function to turn off the mole and one to turn it on for each mole. 
+</p>
+<p>
+Next we have our two event methods, but we'll look at them in a minute...
+</p>
+<div id = "code">
+function onKey1Down(event)<br />
+{<br />
+	if (event.keyCode == 49)<br />
+	{<br />
+	context.font = &quot;40px Arial&quot;;<br />
+	context.strokeStyle = &quot;#ffffff&quot;;<br />
+	context.strokeText(&quot;OUCH!&quot;,85,100);<br />
+	window.setTimeout(eraseOuch,300);<br />
+	}		<br />
+}<br />
+<br />
+function onKey2Down(event)<br />
+{<br />
+	if (event.keyCode == 50)<br />
+	{<br />
+	context.font = &quot;40px Arial&quot;;<br />
+	context.strokeStyle = &quot;#ffffff&quot;;<br />
+	context.strokeText(&quot;OUCH!&quot;,285,100);<br />
+	window.setTimeout(eraseOuch2,300);<br />
+	}		<br />
+}
+</div>
+<p>
+
+Let's skip the eraseOuch functions a minute as well...
+</p>
+<div id = "code">
+<br />
+function eraseOuch()<br />
+{<br />
+context.clearRect(70,70,150,50);<br />
+}<br />
+function eraseOuch2()<br />
+{<br />
+context.clearRect(270,70,150,50);<br />
+}
+</div>
+<p>
+...and go straight to the heart of our code.
+</p>
+<div id = "code">
+
+<br />
+function mole1On()<br />
+{<br />
+<br />
+window.removeEventListener(&quot;keydown&quot;,onKey1Down,false);<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillRect(125,175,50,50);<br />
+randomness = Math.random() * 3000;<br />
+}<br />
+function mole1Off()<br />
+{<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKey1Down,false);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(125,175,50,50);<br />
+randomness = Math.random() * 3000;<br />
+}<br />
+function mole2On()<br />
+{<br />
+window.removeEventListener(&quot;keydown&quot;,onKey2Down,false);<br />
+context.fillStyle = &quot;#000000&quot;;<br />
+context.fillRect(325,175,50,50);<br />
+randomness2 = Math.random() * 3000;<br />
+}<br />
+function mole2Off()<br />
+{<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKey2Down,false);<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillRect(325,175,50,50);<br />
+randomness2 = Math.random() * 3000;<br />
+}
+</div>
+<p>
+It may look complicated, but it's the same thing repeated once again for the second two functions. 
+So really, if we can understand mole1On and mole1Off, we can understand the other two as well since they're
+set up the exact same way.
+</p>
+<p>
+Let's take a closer look:
+</p>
+<p>
+Here we remove the event listener that we ADD to the mole1Off function. These were our keyboard listeners
+and basically we're saying:
+</p>
+<p>
+Hey! When the mole is OFF, we don't want these clicks to be registering, so go ahead and shut 'em off!
+</p>
+<p>
+Then, when the red rectangle appears, we say the opposite:
+</p>
+<p>
+Hey! When the mole is ON I want to be able to click on it, so attach my keyboard event, please!
+</p>
+<p>
+In the mole1On function we have a red rectangle (our faux mole), while in the mole1Off function we "turn off" our red
+rectangle by turning it black. Sorta hacky, but it sure works! At least we didn't move it off the screen or something!
+Then, lastly, both the mole1On and the mole1Off are reassgined a random number between 0 and 3000. This keeps
+things truly random, because otherwise we'd only have the same intervals repeating over and over! Not too random!
+</p>
+<p>
+So after we've written the two functions for the first hole, we just need to do the same for the second. 
+And that's exactly what the last two functions are!
+</p>
+<p>
+So now let's return up to our two event handlers:
+</p>
+<div id="code">
+
+function onKey1Down(event)<br />
+{<br />
+	if (event.keyCode == 49)<br />
+	{<br />
+	context.font = &quot;40px Arial&quot;;<br />
+	context.strokeStyle = &quot;#ffffff&quot;;<br />
+	context.strokeText(&quot;OUCH!&quot;,85,100);<br />
+	window.setTimeout(eraseOuch,300);<br />
+	}		<br />
+}<br />
+<br />
+function onKey2Down(event)<br />
+{<br />
+	if (event.keyCode == 50)<br />
+	{<br />
+	context.font = &quot;40px Arial&quot;;<br />
+	context.strokeStyle = &quot;#ffffff&quot;;<br />
+	context.strokeText(&quot;OUCH!&quot;,285,100);<br />
+	window.setTimeout(eraseOuch2,300);<br />
+	}		<br />
+}
+</div>
+<p>
+What do THESE guys do? Well, they are the functions which react to our key presses. You remember these, right?
+</p>
+<p>
+First we ask the computer is the number 1 is being pressed (keyCode 49) and if so, it displays the text "OUCH" above 
+the first hole. Same with the second function which listens for the number 2 (keyCode 50), then displays
+"OUCH" above the second hole. 
+</p>
+<p>
+The last two lines of each are the parts that erase the ouch. They each call a setTimeout timer which intervenes in 300
+milliseconds (quickly), then calll a the functions eraseOuch and eraseOuch2. 
+</p>
+<p>
+Where were they again? Oh, here they are:
+</p>
+<div id ="code">
+
+function eraseOuch()<br />
+{<br />
+context.clearRect(70,70,150,50);<br />
+}<br />
+function eraseOuch2()<br />
+{<br />
+context.clearRect(270,70,150,50);<br />
+}
+</div>
+<p>
+Here, very simply, we call a clearRect over each "OUCH" text and erase it. That's it!
+</p>
+<p>
+And the whole cycle begins again at the next interval/keypress.
+</p>
+<p>
+Fun, huh?
+</p>
+<p>
+Now, having analyzed this code, I'd like you to go in, get your hands dirty and MESS WITH IT! You've always got the full code
+here in case you mess up, so go crazy, be fearless and try to apply everything you can to these lines! The further you try to bend this code, 
+the more you'll learn, so don't be afraid.  Use your imagination and have fun! 
+</p>
+<p>
+And that will conclude today's revision lesson. Hope you enjoyed!
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson15.html">Onward to Lesson Fifteen!</a>
+<br>
+
+<a href="Lesson13.html">Back to Lesson Thirteen!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>

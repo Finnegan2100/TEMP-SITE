@@ -1,0 +1,448 @@
+<!doctype html>
+<title>LESSON #15</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 15 - April 18, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 15</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+Today and tomorrow we're going to introduce what happens when you move an object to the extremes of the canvas and how to
+handle its reaction with those extremes. In our stupid little blastoff example a couple lessons ago, we saw that once our courageous astronaut reached
+the top of the screen there was absolutely no hope of ever returning to earth (or the canvas at least), so we'll need to tweak 
+a few things in order to make return possible.
+</p>
+<p>
+BUT! Where should he return to? Or should he leave at all? We have several options, you see! So let's play around with the various options today and 
+tomorrow and I'll let it be up to you which ones you decide to employ in your games.
+</p>
+<p>
+Let's go back to our "spaceship" example:
+</p>
+<div id = "code">
+
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BLASTOFF!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var altitude = 395;<br />
+<br />
+window.setInterval(drawRectangle,24);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(canvas.width/2 - 25,altitude,50,50);<br />
+}<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  altitude -= 10;<br />
+  }<br />
+}<br />
+if (altitude &lt; 0)<br />
+{<br />
+altitude = 400;<br />
+}<br />
+&lt;/script&gt; 
+
+</div>
+<p>
+Go ahead and run it once more just to refresh your memory. This is simply a keyboard event-based engine which is
+run continuously thaks to a setInterval timer which clears the screen every frame. 
+</p>
+<p>
+Now let's add a Pac-Mac/Asteroids sort of loopy effect (or screen-wrapping to the conniosseurs) to the top of our screen in order to
+make it reappear on the bottom of the screen:
+</p>
+<p>
+This is done through a simple if statement. Just one for each side. ALL we need to do is say:
+</p>
+<p>
+If the ship goes through the top of the screen, make it appear at the bottom. 
+</p>
+<p>
+Ergo, remove this little piece of code from the bottom of your code and add it to the bottom of your drawRectangle function:
+</p>
+<div id = "code">
+<br />
+if (altitude &lt; 0)<br />
+{<br />
+altitude = 400;<br />
+}
+</div>
+<p>
+Now run it and let me know what happens when you reach the top of the screen. It starts at the bottom of the screen again!
+Brilliant! But one question, though... why did we put it in the drawRectangle function?
+</p>
+<p>
+Well, that's because we've established our drawRectangle function as a sort of engine which continuously refreshes our window.
+In fact, this is somewhat comparable to the ENTER_FRAME method those of us with Actionscript backgrounds know and love.
+</p>
+<p>
+So (and this is VEEEEERRRY IMPORTANT to grasp early on in the game):
+</p>
+<p>
+Always remember to distinguish between things you want to do ONCE and things you want REPEATED! 
+</p>
+<p>
+ALWAYS keep a clear distinction between the two in your head. It'll help you immensely.
+</p>
+<p>
+In this case, we want the browser to check whether our altitude value is less than zero.... not ONCE, not TWICE, but
+constantly! This is the reason why we stick it in the drawRectangle function: because it is powered by the setInterval timer which runs
+constantly and can check if altitude is less than zero constantly as well.
+</p>
+<p>
+Go ahead and throw this same if statement outside the drawRectangle function. Doesn't work? That's because the code OUTSIDE the 
+setInterval runs only once and can't check the value of altitude every so often. It just runs once, then stops. Make sense?
+Make sure you understand this concept. It's SO important!
+</p>
+<p>
+So anyway, here we are with a ship that moves up, then loops back to the bottom of the screen. 
+Let's try to add our looping effect to every side! 
+</p>
+<p>
+But first we'll need to make the ship move in all directions!
+</p>
+<p>
+Let's do something first: let's place our spaceship near the middle of the canvas. It's easier to see that way.
+</p>
+<p>
+Just go ahead and change the altitude value from this:
+</p>
+<div id = "code">
+
+var altitude = 395;
+</div>
+
+<p>
+to this:
+</p>
+<div id = "code">
+
+var altitude = 200;
+</div>
+<p>
+Actually, there's one more thing we can change, just to make our code more efficient:
+</p>
+<p>
+We're hard-coding a lot of our values and that's not ok because it could lead to confusion later on. Let's create some more
+variables that can hold the characteristics of our ship:
+</p>
+<div id = "code">
+
+var shipWidth = 50;
+var shipHeight = 50
+</div>
+<p>
+Go ahead and add these two variables at the top, under the altitude variable.
+</p>
+<p>
+Now let's go ahead and substitute these new variables with the arguments in the code.
+The new, more polished version of your code should look like this:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BLASTOFF!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var altitude = 200;<br />
+<br />
+var shipWidth = 50;<br />
+var shipHeight = 50;<br />
+<br />
+window.setInterval(drawRectangle,24);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(canvas.width/2,altitude,shipWidth,shipHeight);<br />
+<br />
+if (altitude &lt; 0)<br />
+{<br />
+altitude = 400;<br />
+}<br />
+<br />
+}<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  altitude -= 10;<br />
+  }<br />
+}<br />
+&lt;/script&gt;
+
+</div>
+<p>
+A little bit longer, but much nicer!
+</p>
+<p>
+But there's still something else we should change: we don't want our ship just to move left and right, do we?
+Let's add some real run and make it move left and right as well!
+</p>
+<p>
+This will require another variable and I'll call it latitude.
+</p>
+<p>
+I know I'm skewering physics AND cartography in one fell swoop with these names, but they're only to help us learn.
+We'll be looking at MUCH better ways of dealing with boundaries and other stuff
+tomorrow. Enjoy these while you create them, but realize that you're going to be doing them BETTER tomorrow.
+Today let's just have fun.
+</p>
+<p>
+So add latitude, give it a value of 275 (half the width of the canvas), then plug it into your fillRect X value.
+</p>
+<p>
+As not to confuse you, here are the new contents of our &lt;script&gt; tags:
+</p>
+<div id ="code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var altitude = 200;<br />
+var latitude = 275;<br />
+<br />
+var shipWidth = 50;<br />
+var shipHeight = 50<br />
+<br />
+window.setInterval(drawRectangle,24);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(latitude - shipWidth,altitude,shipWidth,shipHeight);<br />
+<br />
+if (altitude &lt; 0)<br />
+{<br />
+altitude = 400;<br />
+}<br />
+<br />
+}<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  altitude -= 10;<br />
+  }<br />
+}<br />
+&lt;/script&gt;
+
+</div>
+<p>
+Ok, with that done, let's go ahead and make our ship move in all four directions! Sound fun? It IS!
+</p>
+<p>
+Here's how ya do it:
+</p>
+<p>
+Just go to your keyDown function and add these 3 if statements:
+</p>
+<div id = "code">
+
+   if (event.keyCode == &quot;40&quot;)<br />
+  {<br />
+  altitude -= -10;<br />
+  }<br />
+  <br />
+   if (event.keyCode == &quot;37&quot;)<br />
+  {<br />
+  latitude += -10;<br />
+  }<br />
+   if (event.keyCode == &quot;39&quot;)<br />
+  {<br />
+  latitude += 10;<br />
+  }
+</div>
+<p>
+The first one checks for keyCode 40 (down arrow) and increases altitude by a NEGATIVE 10 each time. This makes the value
+decrease each time and cause the ship top go lower.
+</p>
+<p>
+The first one checks for keyCode 37 (left arrow) and increases latitude by a NEGATIVE 10 each time. This makes the value
+decrease each time and cause the ship to go further left.
+</p>
+<p>
+The last one checks for keyCode 39 (right arrow) and increases latitude by a POSITIVE 10 each time. This makes the value
+increase each time and cause the ship to go further right.
+</p>
+<p>
+Got it?
+</p>
+<p>
+Kinda choppy, I know, and you can't really make your rectangle move diagonally without mashing, which really stinks. 
+But in the next few lessons we'll look at better ways to implement this. But for now it's moving and that's 
+GREAT!
+</p>
+<p>
+But we still haven't set the looping for all four sides! Let's go do that now. 
+Add the following code at the bottom of your drawRectangle function:
+</p>
+<div id ="code">
+
+
+
+  else if (altitude &gt; 400)<br />
+{<br />
+altitude = 0;<br />
+}<br />
+if (latitude &gt; 550)<br />
+{<br />
+latitude = 0;<br />
+}<br />
+else if (latitude &lt; 0)<br />
+{<br />
+latitude = 550;<br />
+}
+
+</div>
+<p>
+Save it, run it and watch your rectangle fly all across the screen! It never stops! It just loops and loops and
+loops any way you launch it! Guess it's not so much of a blastoff anymore. You can go ahead and change
+the title any time.
+</p>
+<p>
+So far so good, but what else can we do with our stage boundaries? What if we wanted to keep our ship
+within the boundaries of the canvas as if it were trapped in an invisible glass box?
+</p>
+<p>
+It's amazingly easy to do, but I don't want to take this lesson TOO far since we're not learning these methods in
+the most optimized way. I just wanted to introduce the CONCEPT of screen wrapping and boundaries. Tomorrow
+we'll learn things the most optimized way and you'll be able to move objects all over the place effortlessly! 
+</p>
+<p>
+And that does it for today! Short, but sweet!
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson16.html">Onward to Lesson Sixteen!</a>
+<br>
+
+<a href="Lesson14.html">Back to Lesson Fourteen!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+

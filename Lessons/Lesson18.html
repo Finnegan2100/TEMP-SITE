@@ -1,0 +1,644 @@
+<!doctype html>
+<title>LESSON #18</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 18 - May 7, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation"> (Game Dev. Tools) LESSON # 18</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+Well hey there! It's been a couple weeks, how ya been doing? 
+Been putting these tools to good use? Make anything cool?
+</p>
+<p>
+During our little hiatus here, I've been busy with a couple Flash projects, Ludum Dare, etc.
+and I'm STILL pretty busy with other projects, so the pace of these tutorials is going to be slowed a bit down to once
+a week until that elusive, magical thing they call "free time" comes back! Maybe I'll throw in an extra tutorial here and there,
+but just to pay it safe, let's say once a week.
+</p>
+<p>
+So, where did we leave off?
+</p>
+<p>
+We've covered the canvas in great detail and we've started talking about more game-specific details like velocity, acceleration, 
+and making our objects interact with the boundaries of our canvas. These are physics elements that you'll be using OVER and OVER
+again in your games, so be sure to keep focused on these and check back every now and then to say hi. 
+</p>
+<p>
+But we've only begun. There's still a whole lot of stuff to cover.
+</p>
+<p>
+Before moving on to stuff like friction, gravity, trigonometry (don't faint - not as bad as it seems), sprite animation and the basic elements of a platformer game, 
+let's take a glimpse at another important option we have when setting our screen boundaries: namely, BOUNCING! Now bouncing may seem like it requires
+mysterious and complex formulas to implement, but it's SOOOOO simple! I mean REALLY simple! 
+</p>
+<p>
+Plug this code into your text editor and tell me it isn't the simplest thing you've ever seen:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BOUNCE-O-RAMA!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 2;<br />
+var VY = 2;<br />
+<br />
+window.setInterval(drawRectangle,10);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+<br />
+if (rectX &gt; canvas.width)<br />
+{<br />
+VX *= -1;<br />
+}<br />
+else if (rectX &lt; 0 - rectWidth)<br />
+{<br />
+VX *= -1;<br />
+}<br />
+<br />
+if (rectY &lt; 0)<br />
+{<br />
+VY *= -1;<br />
+}<br />
+else if (rectY  &gt; canvas.height)<br />
+{<br />
+VY *= -1;<br />
+}<br />
+<br />
+}<br />
+&lt;/script&gt;
+</div>
+<p>
+And it bounces all over the walls like crazy! 
+</p>
+<p>
+However, you may have noticed a problem: when the rectangle bounces off three of the walls, it sinks all the way through
+the wall before bouncing back, whereas when the rectangle hits the top wall, it seems to bounce off of it perfectly.
+Any ideas as to why this is? 
+</p>
+<p>
+Well, of course! It's because in the canvas, the objects are situated in relation to their top-left corner as we mentioned in previous
+lessons. This means we need to adjust these by including the width of our rectangle in the formula. 
+</p>
+<p>
+But first, let's see what's happening here when we bounce stuff off the walls:
+</p>
+<p>
+Like I said, it's so simple it doesn't seem possible. First off, as you've noticed, we've erased our keyboard listeners and handlers. No need for them
+anymore...we're on autopilot now. Secondly, we've assigned a VX and VY value of 2 to our rectangles at the top of our code where we declared
+all the other variables. Lastly, we've multiplied the value of our VX and VY times NEGATIVE 1 each time it hits the wall: 
+VX * -1 for the x values and VY *= -1 for the y values. But why negative 1?
+</p>
+<p>
+Think it over: 
+</p>
+<p>
+Pretend our rectangle is in the middle of the screen moving right. Our VX value is 2 and we're adding that to the x value of our rectangle each iteration.
+And then we hit the wall on the right side of the screen. At this point our VX is multiplied by -1, making it -2. NOW what happens? Instead of adding
+2 to the x value of our rectangle, we're adding NEGATIVE 2 to our rectangle, DECREASING its x value and moving it in the opposite direction across
+the canvas. So now we're moving to the left until we come across the left-hand side of the canvas. At this point, once again, we multiply our VX value 
+by NEGATIVE 1 once again. So if it was -2, we're mulitplying that by -1. A negative times a negative is a positive, so HEY, we're back to regular old 2 once again!
+</p>
+<p>
+And the same exact thing happens on the y-axis as well. 
+</p>
+<p>
+Simple as PIE, ladies and gentlemen!
+</p>
+<p>
+But it does still need some minor tweaking to give it that shine. Let's return to our if statements:
+</p>
+<div id = "code">
+<br />
+if (rectX &gt; canvas.width )<br />
+{<br />
+VX *= -1;<br />
+}<br />
+else if (rectX &lt; 0 - rectWidth)<br />
+{<br />
+VX *= -1;<br />
+}<br />
+<br />
+if (rectY &lt; 0)<br />
+{<br />
+VY *= -1;<br />
+}<br />
+else if (rectY - rectHeight &gt; canvas.height)<br />
+{<br />
+VY *= -1;<br />
+}
+</div>
+<p>
+We need to tell the browser now that we don't want the bouncing to occur when our top-left point hits the edge of the canvas,
+but rather when the closest side to the boundary touches the edge. This too, is very simple, but it requires a little thought.
+</p>
+<p>
+Let's start with the right-hand side of the screen. Run the code again and tell me what happens. Yup, the rectangle goes all the way 
+off the screen before bouncing back. What we need to do is ADD the width of our rectangle to our if statement to make it perfect.
+Luckily, we already have a rectWidth variable handy.
+</p>
+<p>
+So here's the first if statement:
+</p>
+<div id = "code">
+
+if (rectX+ rectWidth &gt; canvas.width)<br />
+{<br />
+VX *= -1;<br />
+}
+</div>
+<p>
+Now for the next one. So what's happening on the left side? Same deal: it's going all the way off the screen before bouncing back. No good!
+Let's correct that as well by SUBTRACTING the width of the rectangle.
+</p>
+<p>
+This time around we have:
+</p>
+<div id = "code">
+
+else if (rectX - rectWidth &lt; 0 - rectWidth)<br />
+{<br />
+VX *= -1;<br />
+}
+</div>
+<p>
+So, as you can see, the rectangle bouncing off the top wall is fine. Let's get down to fixing the last one, then watch some perfect bouncing!
+</p>
+<p>
+Here, as you may have guessed, we need to do something with the rectangle height. Again, we have a rectHeight variable for the occasion.
+</p>
+<p>
+Now take a look at what's happening and tell me what we need to do. Thinking over problems like these help you get into the mindset of 
+working in HTML5, since the MAJORITY of things you work with will be moved around by their top-left corner. It's a pain, I know, but it becomes second-nature
+after you get used to it.
+</p>
+<p>
+So do we need to subtract the height of the rectangle or add it?
+</p>
+<p>
+That's right! We need to ADD it!
+</p>
+<p>
+Hence this code:
+</p>
+<div id = "code">
+
+else if (rectY + rectHeight &gt; canvas.height)<br />
+{<br />
+VY *= -1;<br />
+}
+</div>
+<p>
+And we're done! Run the code and take a look at the beauty that is bouncing off the walls of the canvas!
+</p>
+<p>
+Here's the complete deal:
+</p>
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BLASTOFF!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 2;<br />
+var VY = 2;<br />
+<br />
+window.setInterval(drawRectangle,10);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+<br />
+if (rectX+ rectWidth &gt; canvas.width)<br />
+{<br />
+VX *= -1;<br />
+}<br />
+else if (rectX - rectWidth &lt; 0 - rectWidth)<br />
+{<br />
+VX *= -1;<br />
+}<br />
+<br />
+if (rectY &lt; 0)<br />
+{<br />
+VY *= -1;<br />
+}<br />
+else if (rectY + rectHeight &gt; canvas.height)<br />
+{<br />
+VY *= -1;<br />
+}<br />
+<br />
+}<br />
+&lt;/script&gt;
+
+</div>
+<p>
+And that does it for bouncing! Let's introduce another VERY important feature today, before dedicating our entire next lesson to it:
+SCROLLING!
+</p>
+<p>
+Dah dah dahhhhhhh!
+</p>
+<p>
+Scrolling is another one of those simple things you'll get the hang of pretty darn quickly. 
+</p>
+<p>
+Yesterday I played Golden Axe which I hadn't played in years. It's a neat AI-based game where you run around slicing up
+enemies in a fantasy/pseudo Medieval setting. But Golden Axe, like Double Dragon/Final Fight or most of those old-school
+puch-'em-a-million-times games has the following setup:
+</p>
+<p>
+You start on the left of the scene and make your way slowly to the right. Usually your progress is blocked by a bunch of bad guys you
+need to demolish before the screen allows you to move onwards.
+</p>
+<p>
+This whole screen movement thing is called scrolling (duh). But what you might NOT know is this:
+</p>
+<p>
+In these sorts of games, the character is not moving, but walking in place while the SCREEN is moving, at least while the scrolling is going on.
+Look at the nes games Super Mario Bros., Contra, Metroid, Castlevania.... the characters aren't actualy running to the left and right, but often there
+is a mechanism that is moving the screen along with them, creating the illusion that Mario or whoever is running all over the place.
+</p>
+<p>
+But I'm simplifying a bit. Often games are a combination of the two: when the screen stops in Golden Axe, Final Fight, etc. and you battle with
+enemies, the character actually IS moving independently, and there are often certain boundaries within boundaries that allow you to get the
+scrolling moving again when you hit them with your character. But more about those later when we talk about scrolling in greater detail.
+</p>
+<p>
+Today, seeing as we're just introducing the topic, let's look at some simple scrolling in a final exercise:
+</p>
+<p>
+First we'll need a background. A solid color won't do because we need to see some sort of progression as we scroll. An image would be nice, but just
+so we're all on the same page, let's make our own asset with canvas tools, namely a gradient.
+</p>
+<p>
+First off we'll need our keyboard events back, so go ahead and add those in again. Secondly, we'll need to create a background, then add it to the canvas
+behind our rectangle.
+</p>
+<p>
+This is done by adding the following lines of code. Remember that whatever you make FIRST appears behind whatever you make second (unless you're
+using a compositing technique we discussed in lesson 10). So add this line under all your variables at the top:
+</p>
+<div id = "code">
+
+var gradient = context.createRadialGradient(100,50,500,50,50,200);
+</div>
+<p>
+and change these four lines UNDER your clearRect() in the drawRectangle function:
+</p>
+<div id = "code">
+
+gradient.addColorStop(.1,&quot;#ff0000&quot;);<br />
+gradient.addColorStop(.9,&quot;#0000ff&quot;);<br />
+context.fillStyle = gradient;<br />
+context.fillRect(0,0,550,400);
+</div>
+<p>
+Weird! Yeah, I know, but it will serve our purpose just fine. Now to make it scroll!
+</p>
+<p>
+We want the animation to be triggered when the rectangle is moved, so here we need to go to our keyboard event and 
+tell it to stop moving the rectangle, but to move the background instead!
+</p>
+<p>
+This is also very simple. 
+</p>
+<p>
+First we need to create a variable called backgroundX which we will plug into our background image's x value. This will go at the top
+with our other variables. Here's the code for it:
+</p>
+<div id ="code">
+
+var backgroundX = 0;
+</div>
+
+<p>
+As you can see, we initially give it a value of 0.
+</p>
+<p>
+Then we plug our backgroundX value into the fillRect like so:
+</p>
+<div id = "code">
+
+context.fillRect(backgroundX,0,550,400);
+</div>
+<p>
+This we've done a couple times already, so it shouldn't be new to you at all.
+</p>
+<p>
+Now let's comment out these two lines by putting two forward slashes in front of them. This keeps the square from moving.
+Commenting out, by the way, if you're not familiar with it, is a neat way to keep your code from running without erasing it. 
+To comment out single lines of code, we use two forward slashes like so:
+</p>
+<p>
+//
+</p>
+<p>
+and to comment out multiple lines of code, we need to put our code between these two things:
+</p>
+<p>
+/*   and    */
+</p>
+<p>
+To illustrate this, here's our code commented out. Note that I've used the single line comment technique twice.
+</p>
+<div id = "code">
+
+//rectX += VX;<br />
+//rectY += VY;
+</div>
+<p>
+But I could have just as easily done this:
+</p>
+<div id = "code">
+
+/*<br />
+rectX += VX;<br />
+rectY += VY;<br />
+*/
+</div>
+<p>
+Get it? We'll be seeing more of these in the future if it's iffy.
+</p>
+<p>
+Moving onwards:
+</p>
+<p>
+Now,since we're only interested in our background scrolling sideways, let's add the following line right below the ones we just
+commented out:
+ </p>
+<div id = "code">
+
+backgroundX += -VX;
+</div>
+<p>
+Note that I've added a value of NEGATIVE VX to our background because, unlike our green rectangle, we want our image to move from
+right to left when we hit our right arrow key. Not bad! Primitive, but it's a first step in the right direction. When we've got sprites to work with, 
+things'll be a lot tidier.
+</p>
+<p>
+Here's the full code just in case you missed something:
+</p>
+<div id = "code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BASIC SCROLLING&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 0;<br />
+var VY = 0;<br />
+<br />
+var backgroundX = 0;<br />
+<br />
+var gradient = context.createRadialGradient(100,50,500,50,50,200);<br />
+<br />
+window.setInterval(drawRectangle,10);<br />
+<br />
+<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+<br />
+gradient.addColorStop(.1,&quot;#ff0000&quot;);<br />
+gradient.addColorStop(.9,&quot;#0000ff&quot;);<br />
+context.fillStyle = gradient;<br />
+context.fillRect(backgroundX,0,550,400);<br />
+<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+backgroundX += -VX;<br />
+<br />
+//rectX += VX;<br />
+//rectY += VY;<br />
+<br />
+if (rectX  &gt; canvas.width)<br />
+{<br />
+rectX = 0;<br />
+}<br />
+else if (rectX &lt; 0 - rectWidth)<br />
+{<br />
+rectX = canvas.width - rectWidth;<br />
+}<br />
+<br />
+if (rectY  &lt; 0)<br />
+{<br />
+rectY = canvas.height;<br />
+}<br />
+else if (rectY - rectHeight &gt; canvas.height)<br />
+{<br />
+rectY = 0;<br />
+}<br />
+<br />
+}<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+window.addEventListener(&quot;keyup&quot;,onKeyUp,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+   if (event.keyCode == &quot;37&quot;)<br />
+  {<br />
+  VX = -3;<br />
+  }<br />
+   else if (event.keyCode == &quot;39&quot;)<br />
+  {<br />
+  VX = 3;<br />
+  }<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  VY = -3;<br />
+  }<br />
+   else if (event.keyCode == &quot;40&quot;)<br />
+  {<br />
+  VY = 3;<br />
+  }<br />
+}<br />
+<br />
+function onKeyUp(event)<br />
+{<br />
+   if (event.keyCode == &quot;37&quot;)<br />
+  {<br />
+  VX = 0;<br />
+  }<br />
+   else if (event.keyCode == &quot;39&quot;)<br />
+  {<br />
+  VX = 0;<br />
+  }<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  VY = 0;<br />
+  }<br />
+   else if (event.keyCode == &quot;40&quot;)<br />
+  {<br />
+  VY = 0;<br />
+  }<br />
+}<br />
+<br />
+&lt;/script&gt; 
+</div>
+<p>
+And that does it for scrolling for this week. Again, I just wanted to introduce the subject. If you mess around with it, you might even arrive at some
+advanced techniques by yourself. In the near future we'll explore some more types of scrolling techniques and even put together a little
+background with our canvas tools to make our animation all fancy. As always, feel free to throw me some questions
+on Twitter @benwhi.
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson19.html">Onward to Lesson Nineteen!</a>
+<br>
+
+<a href="Lesson16.html">Back to Lesson Seventeen!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+

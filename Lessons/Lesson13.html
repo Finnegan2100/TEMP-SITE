@@ -1,0 +1,436 @@
+<!doctype html>
+<title>LESSON #13</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 13 - April 16, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 13</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+
+<p>
+Good morning, world! I hope all you're ready for this next one, because it's going to be crucial for controlling the characters in your games.
+The topic for today is keyboard events and we'll be going over the two types that you have available to you in HTML5, namely:
+keydown and keyup.
+</p>
+<p>
+Let's start with keydown, shall we not? 
+</p>
+<p>
+Now the standard event listener formula applies here as well. This is the format:
+</p>
+<div id ="code">
+
+window.addEventListener("keydown",onKeyDown,false);
+</div>
+<p>
+By now you should have a good grasp of what all this code means. If not, take a look back at previous lessons where I
+discuss event listeners, then come meet me here again. 
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;EVENT LISTENERS&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+<br />
+var increment = 1.8;<br />
+var arcRadius = 10;<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+context.fillStyle = &quot;#5500ee&quot;;<br />
+context.arc(100,100,arcRadius,0,6.294,false);<br />
+context.fill();<br />
+arcRadius += increment;<br />
+}<br />
+<br />
+&lt;/script&gt; 
+</div>
+<p>
+Go ahead and punch this into your computer-machines or whatever kids call them today, and watch in awe as the circle spreads
+across the screen when you hold down any key. Note that the listener must be attached to the WINDOW, not the canvas for this one
+since the canvas itself doesn't receive the keyboard presses. 
+</p>
+<p>
+So let's do something even neater! Let's add a keyup listener to our window that changes our circle to green after they key has been depressed, 
+then lifted.
+</p>
+<p>
+So modify your code in the script tag until it looks like what I have here:
+</p>
+<div id = "code">
+
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+<br />
+var increment = 1.8;<br />
+var arcRadius = 10;<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+window.addEventListener(&quot;keyup&quot;,onKeyUp,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+context.fillStyle = &quot;#5500ee&quot;;<br />
+context.arc(100,100,arcRadius,0,6.294,false);<br />
+context.fill();<br />
+arcRadius += increment;<br />
+}<br />
+function onKeyUp(event)<br />
+{<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.arc(100,100,arcRadius,0,6.294,false);<br />
+context.fill();<br />
+arcRadius += increment;<br />
+}
+
+</script> 
+
+</div>
+<p>
+Contrary to popular belief amongst beginners, keyup does NOT work right when the window loads and the computer notices
+that none of the keys have been pressed. Imagine what hackers could do to your computer if THAT were an option!
+No, our friend keyup comes into action AFTER a keydown has been made. In other words, it's a reaction to our keydown.
+The same thing applied to our mousedown and mouseup listeners if you were paying attention! 
+</p>
+<p>
+Now this stuff of course can be applied to character movement, as you'll see. Very soon we'll be setting up a little game in which 
+you control your character with keyup and keydown. 
+</p>
+<p>
+But one thing we need to specify first: 
+</p>
+<p>
+Sure, pressing down ANY key is fine and dandy, but how do I specify the key I want to use??
+</p>
+<p>
+Well, let me sing you a song about keyCode...
+</p>
+<p>
+No...on second thought I won't sing you a song about that, but I'll sure tell you how it works!
+</p>
+<p>
+Did you know that every key that you can press has a corresponding keyCode? Yes, everything from the arrow keys to the CTRL keys, to f11 have 
+keyCodes assigned to them. Unless you have an AMAZING memory, or unless you use the same ones most of the time and only need to memorize a
+few (like me), you're going to need to hunt around on the internet to find these guys. But they're not hard to find at all. In fact,
+I'll be nice and give you a link right here:
+</p>
+<p>
+Nice link: http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+</p>
+<p>
+Now that we can find the code for any key we want to press, let's look for a moment at how to implement them!
+</p>
+<p>
+To get specific about which key we're dealing with, we use an if statement inside our onKeyDown and onKeyUp functions.
+</p>
+<p>
+Here's what it looks like:
+</p>
+<div id = "code">
+
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.fillStyle = &quot;#0055cc&quot;;<br />
+context.arc(100,100,30,0,6.294,false);<br />
+context.fill();<br />
+<br />
+var increment = 1.8;<br />
+var arcRadius = 10;<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+window.addEventListener(&quot;keyup&quot;,onKeyUp,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+context.fillStyle = &quot;#5500ee&quot;;<br />
+context.arc(100,100,arcRadius,0,6.294,false);<br />
+context.fill();<br />
+<br />
+    if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+arcRadius += increment;<br />
+  }<br />
+    else<br />
+  {<br />
+arcRadius += 0;<br />
+  }<br />
+}<br />
+<br />
+function onKeyUp(event)<br />
+{<br />
+  if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.arc(100,100,arcRadius,0,6.294,false);<br />
+context.fill();<br />
+arcRadius += increment;<br />
+  }<br />
+  else<br />
+  {<br />
+  arcRadius += 0;<br />
+  }<br />
+}<br />
+<br />
+&lt;/script&gt; 
+</div>
+<p>
+Now this may look complicated, but it's not that bad at all. Here we've added a conditional statement (if/else) to the keydown
+as well as to the keyup functions. Here's how they work:
+</p>
+<div id ="code">
+
+function onKeyDown(event)    <br />
+{<br />
+   context.fillStyle = &quot;#5500ee&quot;;  &lt;----- here's our initial rectangle state.<br />
+   context.arc(100,100,arcRadius,0,6.294,false);<br />
+   context.fill();<br />
+<br />
+    if (event.keyCode == &quot;38&quot;)  &lt;--- here's our if statement. It asks if the keyCode is indeed 38 (up arrow)<br />
+  {<br />
+<br />
+arcRadius += increment;         &lt;--- and this is what happens if the key being pressed IS 38 (up arrow).<br />
+  }<br />
+    else                                 &lt;--- here's our else statement which gives an alternative course of action.<br />
+ {<br />
+arcRadius += 0;                    &lt;--- This is our alternative. We set the incrementation to 0 making our circle<br />
+  }			         stay the same if any other key is pressed.<br />
+}<br />
+
+</div>
+<p>
+And you'll also notice that we've done the same thing with the keyup listener too! 
+</p>
+<p>
+Say we wanted to listen for two keys? Say, for example we wanted either of two keys to do the work. 
+How would we go about doing that?
+Well, all we'd need to do is change our if statement around in the following way:
+</p>
+<div id ="code">
+
+<br />
+if (event.keyCode == &quot;38&quot; || event.keyCode == &quot;39&quot;)<br />
+  {<br />
+arcRadius += increment;<br />
+  }
+</div>
+<p>
+See what I did there? with two pipes || I can specify "or" in my conditional statements. This will add the increment 
+if I press EITHER the "up" key (key code 38) OR the "down" key (key code 39).
+</p>
+<p>
+So that, in a nutshell, is how keyup and keydown work. Tomorrow for our review class I'll be making three mini projects like I did last
+week. One of these will certainly be dealing with keyboard events. 
+</p>
+<p>
+But experiment, dammit! The world is your oyster when you can start using these in your code!
+</p>
+<p>
+That's really all I have to say about keyboard and mouse listeners. We'll also be taking a look at touch-based listeners when we get into
+our tutorial (still pretty far away) on mobile games. But before we end this two-part event listener lesson with another exercise just 
+to reinforce what we've talked about in the past few days:
+</p>
+<p>
+Go ahead and run this code and tell me what you think:
+</p>
+<div id ="code">
+
+<br />
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BLASTOFF!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var altitude = 395;<br />
+<br />
+window.setInterval(drawRectangle,24);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(canvas.width/2 - 25,altitude,50,50);<br />
+}<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  altitude -= 10;<br />
+  }<br />
+}<br />
+<br />
+&lt;/script&gt; 
+
+</div>
+<p>
+It may look a bit daunting, but this is all code you've worked with before, we've just combined a few things in new ways.
+</p>
+<p>
+First off, look at the setInterval() timer we add to our canvas. As you can see, it calls a function drawRectangle repeatedly 
+at a frame rate of 100 milliseconds (one-tenth of a second), hence the 100 as the second argument.
+</p>
+<p>
+In our drawRectangle function we first call a clearRect() which we saw erases everything on our canvas. This, in collaboration with
+our setInterval timer, is a SUPER powerful tool for animation and we'll be seeing it a lot more in future lessons.
+So our rectangle is being called every 100 milliseconds, it is light green and its starting point is at the bottom-center of the screen.
+How did we find this location? We plugged in canvas.width / 2 - 25. 
+</p>
+<p>
+Ok, the canvas.width / 2 is pretty self-explanatory: just half the  width of the canvas, but what about the -25 part? 
+Well, as you know by now, our rectangles are added to the canvas by their TOP-LEFT corners, so we need to subtract half of 
+our rectangle's width from our canvas.width / 2 in order to REALLY find the center point in the canvas. Get used to doing this a lot! 
+In more wordy cases, you might want to save this info in a variable, but here we'll just hard code it for simplicity's sake.
+</p>
+<p>
+So that keeps our rectangle dead center. But to have the animation become playable, we need to attach a listener that will check for
+keyboard events! Hence we employ a keydown listener and attach it to our window. We've chosen a keyCode of 38 (up arrow key)
+and have told the computer to increase our ship's altitude (well, technically DECREASE our altitude value) for as long as the up arrow
+key is being held down. The altitude value was, of course, plugged into the rectangle's Y value which, when lowered, causes the
+rectangle to move upwards along the Y axis.
+</p>
+<p>
+So basically all this code does is launch a rectangle (our make-believe spaceship) into the air and off the canvas, after 
+which it's gone FOREVER. Congratulations, some of those astronauts had families, you insensitive person! 
+If you feel horrible about standing a crew of astronauts in space, just reload the page and the "ship" will be back on 
+the launch platform once again. You saved the day!
+</p>
+<p>
+Even though this is a simplistic example, it's kinda GAMEY, huh? With a ice background and an image of a spacship, this could
+start to look interesting! We're starting to do things that could be used in real games now! Hurrah! Worth the wait?
+</p>
+<p>
+That does it for today, folks! Tomorrow we review, then the following day we'll look at screen boundaries. 
+</p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson14.html">Onward to Lesson Fourteen!</a>
+<br>
+
+<a href="Lesson12.html">Back to Lesson Twelve!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+

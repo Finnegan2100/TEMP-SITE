@@ -1,0 +1,552 @@
+<!doctype html>
+<title>LESSON #6</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 6 - April 9, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 6</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+<p>
+Howdy! Looks like it's that time again - HTML5 game time! Today we'll be taking a look at how the canvas allows you to add text 
+to your games. It's REALLY simple, so you shouldn't have any problems getting pretty words to flash all over your
+screen in no time!
+</p>
+<p>
+So let's erase everything inside the &lt;script&gt; tags and replace it with this:
+</p>
+<div id = "code">
+
+var theCanvas = document.getElementById(&quot;canvas&quot;); <br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.strokeStyle = &quot;#ff0000&quot;;<br />
+context.strokeText(&quot;I'm a goofy goofball!&quot;, 150,200);
+
+</div>
+<p>
+And the highly intellectual message will then appear on your screen in funny bubble (I mean, strokeText) letters.
+</p>
+<p>
+As you can observe, the message you want to display on the canvas is between quotation marks. Don't 
+forget this! The other two numbers are the X and Y values which tell the computer where you want
+your text to be placed. By now after 5 tutorials of me ramming this stuff into your brain you should be 
+expert thing-placers in HTML5, so this code should just roll off your fingers!
+</p>
+<p>
+There are two types of text you can draw on the canvas: strokeText and fillText.
+</p>
+<p>
+Of course you need a fillStyle if your'e going to fill stuff and a strokeStyle if you're going to make funny bubble letters.
+</p>
+<p>
+As you can see, there are two arguments you need to specify in yout context.font:
+</p>
+<ul>
+<li>The size of your fonts </li>
+</ul>
+<p>
+and 
+</p>
+<ul>
+<li> the Font-family you'll be writing your fonts with. </li>
+</ul>
+<p>
+Stick with the common ones for now like Arial, Tahoma, Verdana, Times New Roman, Monospace, etc. just
+to play it safe in this crazy cross-browser world. 
+</p>
+<p>
+So hey, try out this fillText, wont'cha?
+</p>
+<div id = "code">
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;); <br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+context.font = &quot;20px Verdana&quot;;<br />
+context.fillStyle = &quot;#ff0000&quot;;<br />
+context.fillText(&quot;I'm a FILLED goofy goofball!&quot;, 150,200);<br />
+</div>
+<p>
+Sacre bleu! It's amazing! 
+</p>
+<p>
+The only other things you'll really need to know about text for now are how to align it on the canvas and how to set 
+its baseline. 
+</p>
+<p>
+There are 3 main values for aligning text: left, center and right.
+</p>
+<p>
+Let's take a minute to add the following line of code to our text right above where we defined the font:
+</p>
+<div id="code">
+
+context.textAlign = &quot;center&quot;;
+</div>
+<p>
+All this does is make the exact center of your text line up with the x and y coordinates you attributed to it.
+</p>
+<p>
+Change the value to left, then right and you'll see it line up with the left and right, respectively.
+</p>
+<p>
+Now let's add some code to change the baseline of the text:
+</p>
+<div id="code">
+
+context.textBaseLine = &quot;top&quot;
+</div>
+<p>
+The other two main values are middle and bottom.
+</p>
+<p>
+Take a second to try each of the values, understand how the text is positioned
+in relation to an imaginary baseline, then I'd say you're all set to work with text!
+</p>
+<p>
+Easy, huh?
+</p>
+<p>
+Keep in mind as we continue down the road with these tutorials, that we're adding tools to our mental toolkit.
+As with any course, all the extra work that you do outside the classroom will pay off in the end.
+My advice to you is that you spend a half hour or so every day in addition to these lessons, just messing
+around with all the features you've learned so far. No drudgery, just having fun and experimenting! 
+</p>
+<p>
+Think about it a sec: 
+</p>
+<p>
+We've learned how to use timers to move things across the screen, but timers don't have to serve just that purpose!
+What can you do to something over time? What about a drop shadow that grows on an object over time?
+What about a gradient that creeps across a rectangle? Why not a text that has an ever-increasing font size?
+</p>
+<p>
+Just as an example, here was something silly I did the other day just for fun:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;HTML GOOFIN' 1 &lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width=&quot;1200&quot; height=&quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+drawScreen();<br />
+<br />
+function drawScreen() {<br />
+<br />
+context.fillStyle = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);<br />
+context.fillText(&quot;I'm learning HTML5 Game Development - world beware!&quot;,Math.random() * canvas.width,Math.random() * canvas.height);<br />
+requestAnimationFrame(drawScreen);<br />
+} <br />
+&lt;/script&gt;
+</div>
+
+<p>
+Go ahead: run it and check it out.
+</p>
+<p>
+Now some of it might look awful intimidating, but don't worry too much about the extra stuff. We're still learning, right?
+</p>
+<p>
+One VEEERYY cool piece of code (which was MUCH easier in as3, unfortunately), is the weird code I've assigned to 
+fillStyle. To make a long story short, this piece of code makes it so that the computer generates a new random color
+every iteration of the timer. Isn't that GREAT to look at??
+</p>
+<p>
+Don't try to dissect it just yet (unless you're a Javascript whiz), but go ahead and assign this line of code to any fillStyle you want.
+You could make a rectangle switch colors randomly at every repetition, or make a line or curve flash a random color
+as it grows across the stage. See how this can be addicting?
+</p>
+<p>
+Also, note in this code that I used a requestAnimationFrame which calls itself. We discussed that in the timer lesson.
+If that's still not clear, go ahead and refresh your memory. I'll wait here for ya. Promise.
+</p>
+<p>
+Oh, and the window. before requestAnimationFrame is optional most of the time, so don't panic if you see it in one code example and
+not the next.
+</p>
+<p>
+Keep this cool tip in mind as well: Javascript has some built-in Math functions that you can use to generate random
+numbers. We'll be going over the math stuff in later tutorials when we discuss physics, but remember this for the time being: 
+if you multiply any positive number by Math.random()
+you get a random number between zero and that value. Look at this line in my code:
+</p>
+<div id = "code">
+
+context.fillText(&quot;I'm learning HTML5 Game Development - world beware!&quot;,Math.random() * canvas.width,Math.random() * canvas.height);
+</div>
+
+<p>
+We know already that this is a fillText method, but look at the x and y values for our text:
+they're appearing at random x and y coordinates! Like I said, multiply a positive number by 
+Math.random() and you'll get a random number between 0 and that number. Here canvas.width is the number 
+representing the width of our canvas and canvas.height is the height of our canvas. These are NUMBER values, so
+they can be set to random! And when the requestAnimationFrame repeats itself, a new random number is
+generated every time. So combine that with our random color in the fillStyle method and we've got ourselves
+a whole bunch of random stuff flying across the screen. Random! 
+</p>
+<p>
+Again, there are also a few other strange things in here, but we'll get to most of them throughout the course of the month.
+It's going to be a long journey, folks. Set a pace and don't make the mistake that so many people make by
+wasting all your energy in the beginning.
+</p>
+<p>
+In fact, not to be a guru or anything, but dammit, having a personal pace is important for EVERYTHING you teach yourself in life. 
+Look at all the folks who make resolutions every New Year, start off all Gung Ho, but forget all about them a couple weeks into the year.
+DON'T let yourself down like that! Aim to be one of the exceptions who sticks with it!
+</p>
+<p>
+So now that I've got that soap box monologue out, let's move on to the second topic we said we'd discuss and that is
+adding images to our canvas. Now, the name of the method is drawImage() and if you go to the drawImage ice cream store
+there are three different flavors you can try:
+</p>
+<ul>
+
+<li>drawImage with three arguments.</li>
+<li>drawImage with five arguments.</li>
+<li>drawImage with freaking NINE arguments.</li>
+</ul>
+<p>
+Today we'll look at the first and second variety and tackle the last one when we talk about sprite sheets.
+</p>
+<p>
+Let's roll up our sleeves and get started!
+</p>
+<p>
+The important thing we need talk about here is attaching an event listener to image so that the canvas knows that the image has
+loaded.
+</p>
+<p>
+An event listener, for those of you who don't know, is a piece of code that allows your code to communicate with all the neat
+stuff that can happen when people interact with their computers (and more!). 
+Listeners are the CORE of interactivity. You can have listeners listen for the window loading, a key
+being pressed, a mouse click, a screen touch and a whole bunch of other stuff. Think about the whole scheme of things a minute:
+</p>
+<p>
+How is the computer supposed to know what to do when an event takes place if you don't specify it?
+</p>
+<p>
+Each listener is attached to its own function (event handler) which carries out the instructions you give it. You name the function, you attach the 
+listener and you decide what gets carried out every time you call it. Pretty powerful stuff, huh?
+</p>
+<p>
+With listeners I can: 
+</p>
+<p>
+...tell my character to move left when I hit the left key
+</p>
+<p>
+...or I can have the start screen pop up after the window loads.
+</p>
+<p>
+..or I can have the enemy ships explode when I put my greasy fingers on the touch screen of my mobile device.
+</p>
+<p>
+etc. etc.
+</p>
+<p>
+Now the structure of listeners is very simple. Let's walk through them step by step:
+</p>
+<ol>
+
+<li> You establish what it is that's doing the listening.</li>
+<li> you add the code: addEventListener preceded by a dot.</li>
+<li> You assign the type of event and stick it between quotes.</li>
+<li>You give a name to the function that will do the dirty work.</li>
+<li>You write false. Just trust me.</li>
+</ol>
+<p>
+So take for example:
+</p>
+<div id = "code">
+
+window.addEventListener("load",onLoad,false);
+</div>
+<p>
+Step by step, we have:
+</p>
+<ol>
+
+<li>window</li>
+<li>addEventListener</li>
+<li>"load"</li>
+<li>onLoad   <---- my made-up name</li>
+<li> false</li>
+</ol>
+<p>
+Don't forget to put the dot after #1 and put #3,#4 + #5 in parenthesis, followed by a semicolon
+(we'll see everything together in a minute).
+</p>
+<p>
+BUT we're not done yet! We still need to add the onLoad function we created. Otherwise, the computer listens for
+something and we never tell it what to listen to! It's like pretending to throw something, then watching your dog
+run off to catch it like an idiot.... it's just... WRONG!
+</p>
+<p>
+So, right underneath we add our function called onLoad. And it goes a little something like this:
+</p>
+<div id ="code">
+function onLoad()<br />
+{<br />
+<br />
+}
+</div>
+<p>
+That's it! And all the instructions that make the magic happen go inside the curly braces. 
+So let's take theory out of the picture and make a practical example with it.
+</p>
+<p>
+Now, as I mentioned before, if we slap an image onto the canvas, we should preload it.
+This is done by adding an event listener to it.
+</p>
+<p>
+But before we need to do that, the computer needs to know WHICH image we want to 
+load. Makes sense, right??
+</p>
+<p>
+So we need to start off with these two lines of code:
+</p>
+<div id ="code">
+var myImage = new Image();
+<br>
+myImage.src = "Like.png";  <-- for this exercise, save the image you want to import to canvas 
+in the same directory as this html file.
+</div>
+<p>
+Then we need to assign a listener to our image. We called it myImage, so let's go through the five event listener steps
+to get this image loaded, ok?
+</p>
+<ol>
+<li>myImage   <------- the name we assigned our image.</li>
+<li>addEventListener  <---- same old code as always</li>
+<li>"load"     <---- because we're loading the image</li>
+<li>onLoad  <----- a clever name we came up with for the function</li>
+<li> false  <------- because... just don't worry about for now.</li>
+</ol>
+<p>
+This 5-step process results in:
+</p>
+<div id ="code">
+myImage.addEventListener("load",onLoad,false);
+</div>
+
+<p>
+Got it? Now what do we need to add? That's right: our function!
+</p>
+<p>
+so add the following line to the code right underneath the event listener:
+</p>
+
+<div id ="code">
+function onLoad()
+<br>
+{
+<br>
+context.drawImage(myImage,0,0);
+<br>
+}
+</div>
+<p>
+Making our final code:
+</p>
+<div id ="code">
+&lt;!doctype html&gt;<br />
+&lt;title&gt;HTML GOOFIN' 1 &lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width=&quot;1200&quot; height=&quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var myImage = new Image();<br />
+myImage.src = &quot;dragon.png&quot;; <br />
+<br />
+myImage.addEventListener(&quot;load&quot;,onLoad,false);<br />
+<br />
+function onLoad()<br />
+{<br />
+context.drawImage(myImage,0,0);<br />
+}<br />
+&lt;/script&gt;
+</div>
+<p>
+Save it, make sure that there's a pnj, gif, jpeg or whatever in the same directory as this file, substitute dragon.png with 
+the name and extension of that file, then give it a run!
+</p>
+<p>
+You should see whatever picture you specified appear in the top, left corner at the coordinates (0,0);
+</p>
+<p>
+ Work out for you? Have any problems? These can be tricky! Tweet me @benwhi for questions.
+</p>
+<p>
+If everything was as smooth as butter, let's move on to the second species of drawImage(): the five argument variety.
+</p>
+<p>
+Now, let's apply some common sense here: 
+</p>
+<p>
+If the first (3 argument) variety had image,x,y as values, what do you SUPPOSE the 5-value species has for values?
+</p>
+<p>
+(Jeopardy theme) 
+ </p>
+<p>
+Of course! The width and height values! Our second variety of drawImage lets us specify the dimensions of the image 
+when we place it onto our canvas!
+</p>
+<p>
+Try switching the old drawImage line with this slick, new variety:
+</p>
+<div id ="code">
+context.drawImage(myImage,200,200,40,20);
+</div>
+<p>
+and run it.
+</p>
+<p>
+Whoa, it's a mini version of my image! How adorable!
+</p>
+<p>
+You can take the steering wheel from here!
+</p>
+<p>
+So now you know how to add images to your canvas. Neat, huh? Try some animations! Try some randomness! I want to see
+your experiments! Send over your code to Finnegan2100@gmail.com. I'd really LOVE to see what you guys come up with!
+</p>
+<p>
+
+So that concludes another day of HTML5 gaming techniques. Feeling satisfied? A little perplexed as to how it all fits together?
+Tell ya what: seeing as tomorow marks my 7th tutorial, let's use every 7th day as a sort of workshop in which we do some experiments
+with the tools we've learned so far. If you've followed along from the start, you might not know how many cool things you've learned 
+until you turn around and check out the view that was behind your back. Soak it up - you've worked hard!
+</p>
+<p>
+Think about all the stuff we've gone over so far:
+</p>
+<p>
+rectangles, lines, curves, drop shadows, gradients, timers, coordinates, arcs, event listeners, adding images, etc.
+</p>
+<p>
+That's a LOT for 6 days! Pat yourselves on the back for following along and for your stickwithitness! 
+If something's not clear, don't hesitate to go back and read up on it again. 
+</p>
+<p>
+So stay tuned! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben
+<br>  
+@benwhi
+<br>
+<a href="Lesson7.html">Onward to Lesson Seven!</a>
+<br>
+
+<a href="Lesson5.html">Back to Lesson Five</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+

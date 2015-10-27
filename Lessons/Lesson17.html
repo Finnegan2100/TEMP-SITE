@@ -1,0 +1,461 @@
+<!doctype html>
+<title>LESSON #17</title>
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36930625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<style>
+body
+{
+max-width: 75%;
+}
+
+
+h1
+{
+text-align: center;
+color: #00cc00;
+}
+
+#ben
+{
+text-align: center;
+}
+
+#operation
+{
+text-align: center;
+}
+
+#code
+{
+font-size: 17px;
+font-family: monospace;
+background-color: #dddddd;
+}
+a
+{
+font-size: 19px;
+text-decoration: none;
+}
+p 
+{
+font-size: 19px;
+font-family: Times New Roman;
+color: 
+}
+ol 
+{
+font-size: 19px;
+}
+ul 
+{
+font-size: 19px;
+}
+
+
+</style>
+</head>
+<body>
+
+
+
+<h3>LESSON 17 - April 20, 2013<h2>
+
+
+
+	      <h1>HTML5 GAME DEVELOPMENT  
+<h2 id= "operation">Operation C.A.N.T  (Canvas Ain't No Thang) LESSON # 17</h2>
+		 								
+		                             <h2 id ="ben">Ben W. Savage</h2>
+
+
+<p>
+Hey folks!
+</p>
+<p>
+Today we're going to talk about acceleration. It's quite a simple topic, and it shouldn't take you that long to understand fully.
+Acceleration is what happens when we send things across the screen and their velocity becomes greater and greater.
+The best example is that of a car. You simply step on the gas pedal and the car moves faster. Your car is not just moving,
+it's increasing the rate at which it moves.
+</p>
+<p>
+Acceleration, like a couple other physics operations we'll be learning over the course of these lessons, is simply the plugging
+in of secondary variables which are added or multiplied to our values. We've seen this already with velocity (our VX and VY
+variables from the previous lesson). 
+</p>
+<p>
+Now let's take a closer look at what happens with velocity in order to understand acceleration which is nothing more than compounded
+velocity in HTML5.
+</p>
+<p>
+To start with, we're going to return to our example from yesterday:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;BLASTOFF!&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 0;<br />
+var VY = 0;<br />
+<br />
+window.setInterval(drawRectangle,10);<br />
+<br />
+<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+<br />
+if (rectX  &gt; canvas.width)<br />
+{<br />
+rectX = 0;<br />
+}<br />
+else if (rectX &lt; 0 - rectWidth)<br />
+{<br />
+rectX = canvas.width - rectWidth;<br />
+}<br />
+<br />
+if (rectY  &lt; 0)<br />
+{<br />
+rectY = canvas.height;<br />
+}<br />
+else if (rectY - rectHeight &gt; canvas.height)<br />
+{<br />
+rectY = 0;<br />
+}<br />
+<br />
+}<br />
+<br />
+window.addEventListener(&quot;keydown&quot;,onKeyDown,false);<br />
+window.addEventListener(&quot;keyup&quot;,onKeyUp,false);<br />
+<br />
+function onKeyDown(event)<br />
+{<br />
+   if (event.keyCode == &quot;37&quot;)<br />
+  {<br />
+  VX = -3;<br />
+  }<br />
+   else if (event.keyCode == &quot;39&quot;)<br />
+  {<br />
+  VX = 3;<br />
+  }<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  VY = -3;<br />
+  }<br />
+   else if (event.keyCode == &quot;40&quot;)<br />
+  {<br />
+  VY = 3;<br />
+  }<br />
+}<br />
+<br />
+function onKeyUp(event)<br />
+{<br />
+   if (event.keyCode == &quot;37&quot;)<br />
+  {<br />
+  VX = 0;<br />
+  }<br />
+   else if (event.keyCode == &quot;39&quot;)<br />
+  {<br />
+  VX = 0;<br />
+  }<br />
+   if (event.keyCode == &quot;38&quot;)<br />
+  {<br />
+  VY = 0;<br />
+  }<br />
+   else if (event.keyCode == &quot;40&quot;)<br />
+  {<br />
+  VY = 0;<br />
+  }<br />
+}<br />
+<br />
+&lt;/script&gt; 
+</div>
+<p>
+Now we're going to automate it so that it travels across the screen on its own. How do we do this?
+First off, we get rid of our keyboard events. Then we plug some initial values into our VX and VY
+variables. I've gone with 3 and 3, but you can change them around if you want. Just make sure your 
+rectangle isn't flying so fast you can't see it accelerate when the time comes!
+</p>
+<p>
+These go on top with the other variables....
+</p>
+<div id ="code">
+var VX = 3;
+<br>
+var VY = 3;
+</div>
+<p>
+And that does it! Our ship is now flying on auto-pilot. Here's our full, modified code:
+</p>
+<div id = "code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;ACCELERATION&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 3;<br />
+var VY = 3;<br />
+<br />
+window.setInterval(drawRectangle,10);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+<br />
+if (rectX  &gt; canvas.width)<br />
+{<br />
+rectX = 0;<br />
+}<br />
+else if (rectX &lt; 0 - rectWidth)<br />
+{<br />
+rectX = canvas.width - rectWidth;<br />
+}<br />
+<br />
+if (rectY  &lt; 0)<br />
+{<br />
+rectY = canvas.height;<br />
+}<br />
+else if (rectY - rectHeight &gt; canvas.height)<br />
+{<br />
+rectY = 0;<br />
+}<br />
+}<br />
+<br />
+&lt;/script&gt; 
+</div>
+
+<p>
+Cool, huh? Now, just to illustrate what's happening here, go ahead and set your setInterval timer to 500:
+</p>
+<div id ="code">
+
+window.setInterval(drawRectangle,500);
+</div>
+<p>
+This slows the animation WAY down to 1/2 a second per change, but this will give us a chance to see what's happening
+from close-up.
+</p>
+<p>
+Every time our setInterval goes off, the rectX and rectY values of our rectangle are increased. If we start off at 100 x and 100 y,
+that means we add three to our rectY and rectY each time around. Therefore we have:
+</p>
+<p>
+100,100
+<br>
+103,103
+<br>
+106,106
+<br>
+109,109
+<br>
+etc.
+</p>
+<p>
+Slowing down our interval to 500 milliseconds helps us visualize that better. But how are going to implement acceleration, then?
+We need a new variable that we can add to VX and VY, right? If velocity is the constant adding of a value to our x and y values, acceleration is
+nothing more than the adding of an ACCELERATION value to our... VX and VY values! 
+</p>
+<p>
+So let's define some new values:
+</p>
+<p>
+Ladies and gentlemen, I bring you: AX and AY. Let's add them right away to our ever-growing list of variables:
+</p>
+<div id ="code">
+
+var AX =2;
+<br>
+var AY = 2;
+</div>
+<p>
+The formula is simple: all we need to do is go to our drawRectangle function (you know, the one that is constantly running) and add these two simple
+lines:
+</p>
+<div id = "code">
+
+
+VX += AX;
+<br>
+VY += AY;
+</div>
+<p>
+And what does this do? Before running it, let's understand it first.
+Here's our list of rectX and rectY values once again. This time with acceleration:
+</p>
+<p>
+
+103 103
+<br>
+108 108
+<br>
+115 115
+<br>
+124 124
+<br>
+135 135
+<br>
+etc.
+</p>
+<p>
+Now run it and watch as our rectangle slowly jumps further and further with each leap. It starts out slowly, then adds the value of AX and AY on each 
+tick. Neat, huh?
+</p>
+<p>
+Here's the full code again with all of our changes. Feel free to change the speed of the setInterval if that helps you visualize it better. I've found that a value
+of about 50 or so works just fine. By the way, isn't it neat what happens to the rectangle when it start accelerating REALLY fast... it gets skippy, then stands still.
+In fact the term for this illusion is motion standstill. Don't you F.L. science?
+</p>
+<div id ="code">
+
+&lt;!doctype html&gt;<br />
+&lt;title&gt;ACCELERATION&lt;/title&gt;<br />
+&lt;canvas id = &quot;canvas&quot; width = &quot;550&quot; height = &quot;400&quot;&gt;&lt;/canvas&gt;<br />
+&lt;style&gt;<br />
+canvas<br />
+{<br />
+background-color: #dddddd;<br />
+}<br />
+&lt;/style&gt;<br />
+<br />
+&lt;script&gt;<br />
+<br />
+var theCanvas = document.getElementById(&quot;canvas&quot;);<br />
+var context = theCanvas.getContext(&quot;2d&quot;);<br />
+<br />
+var rectX = 100;<br />
+var rectY = 100;<br />
+<br />
+var rectWidth = 50;<br />
+var rectHeight = 50;<br />
+<br />
+var VX = 3;<br />
+var VY = 3;<br />
+var AX = 2;<br />
+var AY = 2;<br />
+<br />
+window.setInterval(drawRectangle,500);<br />
+<br />
+function drawRectangle()<br />
+{<br />
+<br />
+context.clearRect(0,0,canvas.width,canvas.height);<br />
+context.fillStyle = &quot;#44ff11&quot;;<br />
+context.fillRect(rectX,rectY,rectWidth,rectHeight);<br />
+<br />
+rectX += VX;<br />
+rectY += VY;<br />
+VX += AX;<br />
+VY += AY;<br />
+console.log(rectX,rectY);<br />
+<br />
+if (rectX  &gt; canvas.width)<br />
+{<br />
+rectX = 0;<br />
+}<br />
+else if (rectX &lt; 0 - rectWidth)<br />
+{<br />
+rectX = canvas.width - rectWidth;<br />
+}<br />
+<br />
+if (rectY  &lt; 0)<br />
+{<br />
+rectY = canvas.height;<br />
+}<br />
+else if (rectY - rectHeight &gt; canvas.height)<br />
+{<br />
+rectY = 0;<br />
+}<br />
+}<br />
+<br />
+&lt;/script&gt; 
+</div>
+<p>
+Now this should give you ample space for experimentation. We are now familiar with the basics of screen boundaries and we can control the velocity and 
+acceleration of things we choose to move across the screen. I'd like you to try moving different things and work with these until you can do them
+flawlessly. But you may have noticed at this point that you can only move things in straight lines. Fun for a while, but let's get rid of some constraints so
+we can REALLY follow our imaginations and be able to do whatever our minds conjure up. THAT'S the real goal of these tutorials: freeing imagination of
+all the shackles that limit free expression in game development with HTML5. Once you've got all the tools and have mastered the technical aspects, you
+can very easily rely on your own noggin for making games. So get ready for tomorrow when we look at other ways to produce movement!
+ </p>
+<p>
+So stay tuned and I hope you enjoyed! As always, thanks for following along! Code didn't work for you? Hate me? Are you my illegitimate child? 
+Send input anytime!
+</p>
+<p>
+Until tomorrow!
+</p>
+<p>
+-Ben  
+<br>
+@benwhi
+<br>
+<a href="Lesson18.html">Onward to Lesson Eighteen!</a>
+<br>
+
+<a href="Lesson16.html">Back to Lesson Sixteen!</a>
+
+<br>
+<a href="Lessons.html">Back to Index </a>
+</p>
+
+
+
