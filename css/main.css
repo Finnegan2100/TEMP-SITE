@@ -7,6 +7,7 @@ font-size: 20px;
     text-align: center;
 }
 .well .inner {
+	text-align: center;
     opacity: 0.9; /* opacity [0-1] */
     -moz-opacity: 0.9; /* opacity [0-1] */
     -webkit-opacity: 0.9; /* opacity [0-1] */

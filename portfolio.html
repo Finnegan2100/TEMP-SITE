@@ -1,0 +1,147 @@
+<!doctype html>
+    <html lang="en">
+        <head>
+            <title>Warm Sea Orchard</title>
+            
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+                <!-- Latest compiled and minified CSS -->
+            <link rel="icon" type="image/jpg" href="warmseaorchlogo.jpg">
+            <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+            <link rel="stylesheet" href="css/main.css">
+            <link rel="stylesheet" 
+                href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+            <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-
+                         alpha/js/umd/dropdown.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+                </script>
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-36930625-1', 'auto');
+              ga('send', 'pageview');
+            </script>
+        
+            <script>
+                $(document).ready(function(){
+                    $('[data-toggle="popover"]').popover(); 
+                });
+                
+            </script>
+            <script>
+            
+            $(function() {
+              $('a[href*=#]:not([href=#])').click(function() {
+                if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') &&
+                    location.hostname == this.hostname) {
+                  var target = $(this.hash);
+                  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                  if (target.length) {
+                    $('html,body').animate({
+                      scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                  }
+                }
+              });
+            });
+            </script>
+        </head>
+        <body>
+        
+                <div class="well visible-lg" class="text-center"  >    
+                    <div class="well inner">
+                        
+                        <h3> PORTFOLIO </h3>
+                        <p>Select a game from the dropdown menu to play it in the player.</p>
+                    </div>  
+        
+            <!-- Large button group -->
+<div class="btn-group">
+  <button class="btn btn-default btn-lg" id="flappyButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    FLAPPY NERD
+  </button>
+  <button class="btn btn-default btn-lg" id="cedarvilleButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    CEDARVILLE
+  </button>
+      <button class="btn btn-default btn-lg" id="marioButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    HTML5 MARIO
+  </button>
+   <button class="btn btn-default btn-lg" id="virbleButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    HTML5 VIRBLE
+  </button>   
+  <button class="btn btn-default btn-lg" type="tomButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      TOM
+  </button>     
+  <button class="btn btn-default btn-lg" type="adcButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      ALIEN DISPOSAL CREW
+  </button>      
+ 
+</div>     
+                    
+                               
+    <p class="description">Flappy Nerd was created in 2014 during the <a id="noUnd" href="https://en.wikipedia.org/wiki/Flappy_Bird">Flappy Bird</a> craze as an example of a simple HTML5 game that could be made in a couple hours for one of my game development courses. Later I made some small additional tweaks and added artwork.</p>
+                    <br>
+  <p class="description"> Play "<b>Flappy Nerd</b>" Now (Desktop Only)</p>
+                    <br>
+                    <canvas id="theCanvas" width="550" height="500"> </canvas>
+                         <br>
+			 
+   <p class="description"> Play "<b>Cedarville</b>" Now (Desktop Only)</p>
+                    <br>
+                    <iframe id="cedarvilleFrame" style="border: 0px" width="1050" height="500" src="http://warmseaorchard.com/forIframe/cedarville/cedarville.html" ></iframe>
+  
+                         <br>
+   <p class="description"> Play "<b>Mario</b>" Now (Desktop Only)</p>
+                    <br>
+                    <iframe id="marioFrame" style="border: 0px" width="550" height="400" src="http://warmseaorchard.com/forIframe/mario/Platformer.html" ></iframe>
+                   
+					  <br>
+   <p class="description"> Play "<b>Tom</b>" Now (Desktop Only)</p>
+                    <br>
+                    <iframe id="tomFrame" style="border: 0px" width="1200" height="600" src="http://warmseaorchard.com/forIframe/tom/Tom.html" ></iframe>
+              
+				  <br>
+   <p class="description"> Play "<b>Alien Disposal Crew</b>" Now (Desktop Only)</p>
+                    <br>
+                    <iframe id="adcFrame" style="border: 0px" width="1000" height="420" src="http://warmseaorchard.com/forIframe/ADCDemoNight/alienDisposalCrewNew.html" ></iframe>
+                    
+					  <br>
+   <p class="description"> Play "<b>Virble HTML5 Remake</b>" Now (Desktop Only)</p>
+                    <br>
+                    <iframe id="virbleFrame" style="border: 0px" width="750" height="450" src="http://warmseaorchard.com/forIframe/virble/virbleRemake.html"></iframe>
+-->               	
+                         <br>						 
+                    <br>
+	
+
+                 </div> 
+          
+        <script src="js/game.js"></script>  
+        <script>
+  $(document).ready(function(){
+    
+    $('#flappy').click(function(){
+        $('#theCanvas').toggle(); 
+        $('iframe').hide(); 
+        $('description').toggle();    
+    });
+    $('#flappy').click(function(){
+        $('#theCanvas').toggle(); 
+        $('iframe').hide(); 
+        $('description').toggle();    
+    });  
+ 
+      
+    $('#theCanvas').hide(); 
+    $('iframe').hide(); 
+    $('description').hide();   
+  });
+</script>    
+     </body>
+</html>
