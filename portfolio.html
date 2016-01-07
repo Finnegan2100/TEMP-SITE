@@ -58,7 +58,7 @@
                     <div class="well inner">
                         
                         <h3> PORTFOLIO </h3>
-                        <p>Select a game from the dropdown menu to play it in the player.</p>
+                        <p>Double Click a Button To Play The Corresponding Game Below.</p>
                     </div>  
         
             <!-- Large button group -->
@@ -72,76 +72,104 @@
       <button class="btn btn-default btn-lg" id="marioButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     HTML5 MARIO
   </button>
+     <button class="btn btn-default btn-lg" id="tomButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      TOM
+  </button> 
+<button class="btn btn-default btn-lg" id="adcButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      ALIEN DISPOSAL CREW
+  </button>     
    <button class="btn btn-default btn-lg" id="virbleButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     HTML5 VIRBLE
   </button>   
-  <button class="btn btn-default btn-lg" type="tomButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      TOM
-  </button>     
-  <button class="btn btn-default btn-lg" type="adcButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      ALIEN DISPOSAL CREW
-  </button>      
- 
+    
 </div>     
                     
-                               
+  <!--                             
     <p class="description">Flappy Nerd was created in 2014 during the <a id="noUnd" href="https://en.wikipedia.org/wiki/Flappy_Bird">Flappy Bird</a> craze as an example of a simple HTML5 game that could be made in a couple hours for one of my game development courses. Later I made some small additional tweaks and added artwork.</p>
-                    <br>
-  <p class="description"> Play "<b>Flappy Nerd</b>" Now (Desktop Only)</p>
-                    <br>
+-->
                     <canvas id="theCanvas" width="550" height="500"> </canvas>
                          <br>
-			 
-   <p class="description"> Play "<b>Cedarville</b>" Now (Desktop Only)</p>
-                    <br>
+		 
                     <iframe id="cedarvilleFrame" style="border: 0px" width="1050" height="500" src="http://warmseaorchard.com/forIframe/cedarville/cedarville.html" ></iframe>
-  
-                         <br>
-   <p class="description"> Play "<b>Mario</b>" Now (Desktop Only)</p>
-                    <br>
+
                     <iframe id="marioFrame" style="border: 0px" width="550" height="400" src="http://warmseaorchard.com/forIframe/mario/Platformer.html" ></iframe>
                    
-					  <br>
-   <p class="description"> Play "<b>Tom</b>" Now (Desktop Only)</p>
-                    <br>
                     <iframe id="tomFrame" style="border: 0px" width="1200" height="600" src="http://warmseaorchard.com/forIframe/tom/Tom.html" ></iframe>
-              
-				  <br>
-   <p class="description"> Play "<b>Alien Disposal Crew</b>" Now (Desktop Only)</p>
-                    <br>
+
                     <iframe id="adcFrame" style="border: 0px" width="1000" height="420" src="http://warmseaorchard.com/forIframe/ADCDemoNight/alienDisposalCrewNew.html" ></iframe>
-                    
-					  <br>
-   <p class="description"> Play "<b>Virble HTML5 Remake</b>" Now (Desktop Only)</p>
-                    <br>
+
                     <iframe id="virbleFrame" style="border: 0px" width="750" height="450" src="http://warmseaorchard.com/forIframe/virble/virbleRemake.html"></iframe>
--->               	
+          	
                          <br>						 
                     <br>
-	
-
                  </div> 
           
         <script src="js/game.js"></script>  
         <script>
-  $(document).ready(function(){
-    
-    $('#flappy').click(function(){
-        $('#theCanvas').toggle(); 
-        $('iframe').hide(); 
-        $('description').toggle();    
-    });
-    $('#flappy').click(function(){
-        $('#theCanvas').toggle(); 
-        $('iframe').hide(); 
-        $('description').toggle();    
-    });  
- 
-      
-    $('#theCanvas').hide(); 
-    $('iframe').hide(); 
-    $('description').hide();   
-  });
-</script>    
+          $(document).ready(function(){
+
+            hideAll();  
+
+            $('#flappyButton').click(function(){
+                //hideAll();
+                if($('#theCanvas').is(':visible')) {
+                    $('#theCanvas').hide();
+                } else {
+                    hideAll();
+                    $('#theCanvas').show();
+                }
+            });  
+            $('#marioButton').click(function(){
+                //hideAll();
+                if($('#marioFrame').is(':visible')) {
+                    $('#marioFrame').hide();
+                } else {
+                     hideAll();
+                    $('#marioFrame').show();
+                }
+            });   
+             $('#tomButton').click(function(){
+                //hideAll();
+                if($('#tomFrame').is(':visible')) {
+                    $('#tomFrame').hide();
+                } else {
+                     hideAll();
+                    $('#tomFrame').show();
+                }
+            });   
+             $('#virbleButton').click(function(){
+                //hideAll();
+                if($('#virbleFrame').is(':visible')) {
+                    $('#virbleFrame').hide();
+                } else {
+                     hideAll();
+                    $('#virbleFrame').show();
+                }
+            }); 
+              $('#adcButton').click(function(){
+                //hideAll();
+                if($('#adcFrame').is(':visible')) {
+                    $('#adcFrame').hide();
+                } else {
+                     hideAll();
+                    $('#adcFrame').show();
+                }
+            }); 
+              $('#cedarvilleButton').click(function(){
+                //hideAll();
+                if($('#cedarvilleFrame').is(':visible')) {
+                    $('#cedarvilleFrame').hide();
+                } else {
+                     hideAll();
+                    $('#cedarvilleFrame').show();
+                }
+            });    
+
+            function hideAll() {
+                $('#theCanvas').hide(); 
+                $('iframe').hide();   
+            }
+          });
+        </script>    
      </body>
 </html>
