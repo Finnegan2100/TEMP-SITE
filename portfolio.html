@@ -81,6 +81,28 @@
    <button class="btn btn-default btn-lg" id="virbleButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     HTML5 VIRBLE
   </button>   
+<button class="btn btn-default btn-lg" id="battleshipButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    BATTLESHIP
+  </button>  
+       <button class="btn btn-default btn-lg" id="abcsButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    ABCS
+  </button>  
+       <button class="btn btn-default btn-lg" id="frogsButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    FROGS
+  </button>  
+       <button class="btn btn-default btn-lg" id="ffeButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    FUN FUN ELMO
+  </button> 
+       <button class="btn btn-default btn-lg" id="kimAndTimButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    KIM AND TIM
+  </button>  
+       <button class="btn btn-default btn-lg" id="martiansGameButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    MARTIANS GAME
+  </button>  
+       <button class="btn btn-default btn-lg" id="eggCountingElmoButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    EGG COUNTING ELMO
+  </button>  
+     
     
 </div>     
                     
@@ -89,7 +111,8 @@
 -->
                     <canvas id="theCanvas" width="550" height="500"> </canvas>
                          <br>
-		 
+                    
+<!--                    
                     <iframe id="cedarvilleFrame" style="border: 0px" width="1050" height="500" src="http://warmseaorchard.com/forIframe/cedarville/cedarville.html" ></iframe>
 
                     <iframe id="marioFrame" style="border: 0px" width="550" height="400" src="http://warmseaorchard.com/forIframe/mario/Platformer.html" ></iframe>
@@ -99,6 +122,20 @@
                     <iframe id="adcFrame" style="border: 0px" width="1000" height="420" src="http://warmseaorchard.com/forIframe/ADCDemoNight/alienDisposalCrewNew.html" ></iframe>
 
                     <iframe id="virbleFrame" style="border: 0px" width="750" height="450" src="http://warmseaorchard.com/forIframe/virble/virbleRemake.html"></iframe>
+                    
+                    <iframe id="battleshipFrame" style="border: 0px" width="500" height="500" src="http://warmseaorchard.com/forIframe/B_Battleship2/"></iframe>  
+                    
+                    <iframe id="abcsFrame" style="border: 0px" width="500" height="500" src="http://warmseaorchard.com/forIframe/B_ABCS2B/"></iframe>  
+                    
+                    <iframe id="frogsFrame" style="border: 0px" width="500" height="500" src="http://warmseaorchard.com/forIframe/B_Frogs3/"></iframe>  
+                    
+                    <iframe id="ffeFrame" style="border: 0px" width="500" height="500" src="http://warmseaorchard.com/forIframe/B_FFE_FINAL/"></iframe>  
+                    
+                      <iframe id="kimAndTimFrame" style="border: 0px" width="500" height="500" src="http://warmseaorchard.com/forIframe/B_KimAndTim/"></iframe>  
+                    
+                    <iframe id="martiansGameFrame" style="border: 0px" width="500" height="500" src="http://warmseaorchard.com/forIframe/B_MartianGame2/"></iframe>  
+-->
+                    <iframe id="eggCountingElmoFrame" style="border: 0px" width="500" height="500" src="http://warmseaorchard.com/forIframe/EGG%20COUNTING%20ELMO/eggCounting.html"></iframe>  
           	
                          <br>						 
                     <br>
@@ -164,6 +201,70 @@
                     $('#cedarvilleFrame').show();
                 }
             });    
+            $('#battleshipButton').click(function(){
+                //hideAll();
+                if($('#battleshipFrame').is(':visible')) {
+                    $('#battleshioFrame').hide();
+                } else {
+                     hideAll();
+                    $('#battleshipFrame').show();
+                }
+            });   
+            $('#abcsButton').click(function(){
+                //hideAll();
+                if($('#abcsFrame').is(':visible')) {
+                    $('#abcsFrame').hide();
+                } else {
+                     hideAll();
+                    $('#abcsFrame').show();
+                }
+            }); 
+               $('#frogsButton').click(function(){
+                //hideAll();
+                if($('#frogsFrame').is(':visible')) {
+                    $('#frogsFrame').hide();
+                } else {
+                     hideAll();
+                    $('#frogsFrame').show();
+                }
+            });   
+            $('#ffeButton').click(function(){
+                //hideAll();
+                if($('#ffeFrame').is(':visible')) {
+                    $('#ffeFrame').hide();
+                } else {
+                     hideAll();
+                    $('#ffeFrame').show();
+                }
+            });    
+            $('#kimAndTimButton').click(function(){
+                //hideAll();
+                if($('#kimAndTimFrame').is(':visible')) {
+                    $('#kimAndTimFrame').hide();
+                } else {
+                     hideAll();
+                    $('#kimAndTimFrame').show();
+                }
+            }); 
+               $('#martiansGameButton').click(function(){
+                //hideAll();
+                if($('#martiansGameFrame').is(':visible')) {
+                    $('#martiansGameFrame').hide();
+                } else {
+                     hideAll();
+                    $('#martiansGameFrame').show();
+                }
+            });   
+            $('#eggCountingElmoButton').click(function(){
+                //hideAll();
+                if($('#eggCountingElmoFrame').is(':visible')) {
+                    $('#eggCountingElmoFrame').hide();
+                } else {
+                     hideAll();
+                    $('#eggCountingElmoFrame').show();
+                }
+            });       
+              
 
             function hideAll() {
                 $('#theCanvas').hide(); 
