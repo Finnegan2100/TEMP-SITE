@@ -13,6 +13,27 @@ font-size: 20px;
     -webkit-opacity: 0.9; /* opacity [0-1] */
     background: #00B800 /*#77D865 /*#c4c4c4;*/ 
 }
+#portfolio {
+    text-align: center;
+    opacity: 0.9; /* opacity [0-1] */
+    -moz-opacity: 0.9; /* opacity [0-1] */
+    -webkit-opacity: 0.9; /* opacity [0-1] */
+    background:  /*#77D865 /*#c4c4c4;*/ 
+}
+#tab {
+    text-align: center;
+    opacity: 0.9; /* opacity [0-1] */
+    -moz-opacity: 0.9; /* opacity [0-1] */
+    -webkit-opacity: 0.9; /* opacity [0-1] */
+    background: #00B800 /*#77D865 /*#c4c4c4;*/ 
+}
+#bg {
+    text-align: center;
+    opacity: 0.9; /* opacity [0-1] */
+    -moz-opacity: 0.9; /* opacity [0-1] */
+    -webkit-opacity: 0.9; /* opacity [0-1] */
+    background: ; /*#77D865 /*#c4c4c4;*/  
+}
 
 #ben {
     background-color: #f00;
